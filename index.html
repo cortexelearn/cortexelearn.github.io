@@ -6,10 +6,10 @@
   <meta name="theme-color" content="#1a1208" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="AI Aerospace" />
-  <meta name="description" content="Interactive AI learning course for aerospace manufacturing professionals — 14 lessons and a 25-question final exam. Issued by Cortex Edge Learning." />
+  <meta name="apple-mobile-web-app-title" content="Aerospace Learning" />
+  <meta name="description" content="Interactive learning courses for aerospace professionals — AI for Engineering Certificate and MBA Professional Certificate tracks. 14 lessons each, 25-question final exam. Issued by Cortex Edge Learning." />
 
-  <title>AI Mastery for Aerospace</title>
+  <title>Aerospace Learning Courses</title>
 
   <link rel="manifest" href="./manifest.json" />
   <link rel="apple-touch-icon" href="./icons/icon-192.png" />
@@ -69,7 +69,7 @@
   <script type="text/babel" data-presets="react" data-type="module">
 const { useState, useEffect, Component } = React;
 
-const LESSONS = [
+const AI_LESSONS = [
 {
   phase: "Phase 1", phaseColor: "#c84b11",
   title: "Welcome & Orientation",
@@ -802,7 +802,7 @@ function QuizSet({ quizzes }) {
 // ─── FINAL EXAM ────────────────────────────────────────────────────────────────
 // 25 moderate-difficulty questions drawn from all four phases.
 // options[0] is always the correct answer — order is randomized at display time.
-const FINAL_EXAM = [
+const AI_FINAL_EXAM = [
   // Phase 1 — Foundation (7 questions)
   { phase: "P1", q: "What is the primary role of the 'context window' in an LLM?",
     options: ["The hard limit on how many tokens the model can process in one conversation",
@@ -1085,6 +1085,751 @@ const FINAL_EXAM = [
               "Keeping records in version control"] },
 ];
 
+// ────────────────────────────────────────────────────────────────────────────
+// MBA PROFESSIONAL CERTIFICATE FOR AEROSPACE — Content
+// 14 lessons across 4 phases, mirroring the AI course structure.
+// Audience: aerospace manufacturing professional pursuing business skills.
+// ────────────────────────────────────────────────────────────────────────────
+
+const MBA_LESSONS = [
+// ═══════════════════════════════════════════════════════════════════════════
+// PHASE 1 — FOUNDATION: CORE BUSINESS FUNDAMENTALS
+// ═══════════════════════════════════════════════════════════════════════════
+{
+  phase: "Phase 1", phaseColor: "#c84b11",
+  title: "Welcome & Orientation",
+  subtitle: "What this MBA track covers, how it maps to aerospace, and what you'll be able to do when you're done.",
+  time: "20 min", type: "Orientation",
+  video: { id: "kCQxLtTHAj4", title: "MBA 101: All You Need to Know About Business School (mbaMission)" },
+  content: [
+    { type: "p", text: "Welcome to the MBA Professional Certificate track. This course is designed for aerospace engineers and manufacturing professionals who want executive-level business fluency without leaving their technical identity behind. You already understand how the product gets made — this course teaches you how the business gets run." },
+    { type: "h3", text: "How This Course Works" },
+    { type: "p", text: "Each lesson combines a short video, written content with aerospace industry examples, and knowledge-check quizzes. Work at your own pace — lessons are designed for 4-6 hours per week across 6 months." },
+    { type: "grid", items: [
+      { title: "📹 Videos", text: "Curated content from leading business educators — watched before or alongside the reading." },
+      { title: "📖 Lessons", text: "Business concepts grounded in aerospace examples — Boeing, Lockheed, RTX, and your own shop floor." },
+      { title: "🧩 Quizzes", text: "Knowledge checks after each lesson with immediate feedback and explanations." },
+      { title: "✅ Progress", text: "Track your completion through all 4 phases and 14 lessons as you go." },
+    ]},
+    { type: "h3", text: "What You Will Be Able to Do" },
+    { type: "p", text: "By the end: read an aerospace annual report with comprehension, build a capital budgeting case for a new piece of equipment, run a program review using earned value, negotiate a supplier contract knowledgeably, and present a one-page business case to executive leadership. You'll speak the language of the C-suite fluently." },
+    { type: "callout", variant: "info", label: "Why This Matters for Engineers", text: "Promotions past senior engineer almost always require business acumen. The engineers who get to director and VP levels are the ones who can translate technical decisions into financial and strategic terms leadership understands." },
+    { type: "h3", text: "Your 6-Month Roadmap" },
+    { type: "grid", items: [
+      { title: "Phase 1 — Weeks 1-4", text: "Foundation: financial statements, cost accounting, capital budgeting, reading an aerospace annual report." },
+      { title: "Phase 2 — Weeks 5-12", text: "Operations & Strategy: competitive positioning, lean operations, supply chain risk." },
+      { title: "Phase 3 — Weeks 13-20", text: "People & Markets: leadership, defense/aerospace marketing, negotiation and contracts." },
+      { title: "Phase 4 — Weeks 21-26", text: "Execution: industry structure, program management with earned value, your executive business case." },
+    ]},
+  ],
+  quizzes: [
+    { question: "What is the primary benefit of business fluency for an aerospace engineer?", options: ["It replaces the need for technical expertise", "It translates technical decisions into the financial and strategic language leadership uses", "It guarantees a promotion within one year", "It eliminates the need for engineering judgment"], correct: 1, explanation: "Business acumen doesn't replace technical skill — it amplifies it. Engineers who can explain the financial and strategic implications of technical choices get more trust, more budget, and more influence." },
+    { question: "This course is specifically designed for someone who:", options: ["Has never worked in aerospace or engineering", "Is already a CFO looking for technical skills", "Is an aerospace engineer or manufacturing professional seeking executive-level business fluency", "Wants a full traditional MBA with no aerospace context"], correct: 2, explanation: "The course bridges the gap for technical professionals — grounded in aerospace examples so every concept connects directly to your daily work and industry." },
+    { question: "Which statement best captures why promotions past senior engineer require business skills?", options: ["Engineering knowledge stops mattering at senior levels", "Leadership roles require evaluating decisions on financial and strategic terms, not just technical correctness", "Companies don't want technical people in leadership", "Business training is legally required for management roles"], correct: 1, explanation: "At director and VP levels, decisions must be justified in ROI, strategic fit, and risk terms. The best leaders combine technical depth with business fluency." },
+  ]
+},
+{
+  phase: "Phase 1", phaseColor: "#c84b11",
+  title: "Financial Statements & Aerospace Economics",
+  subtitle: "The three statements every executive reads — income statement, balance sheet, cash flow — and what they reveal in aerospace.",
+  time: "60 min", type: "Core Concept",
+  video: { id: "WEDIj9JBTC8", title: "Bill Ackman — Everything You Need to Know About Finance and Investing in Under an Hour (Big Think)" },
+  content: [
+    { type: "p", text: "Every executive conversation at an aerospace company eventually comes back to the financial statements. If you can't read them, you're locked out of strategic discussions. The good news: the concepts are straightforward once you see how they map to an aerospace business." },
+    { type: "h3", text: "The Three Statements" },
+    { type: "grid", items: [
+      { title: "Income Statement", text: "Profit over time. Revenue minus cost of goods sold minus operating expenses = operating income. Tells you if the business made money this period." },
+      { title: "Balance Sheet", text: "Snapshot in time. Assets (what the company owns) = Liabilities (what it owes) + Equity (shareholder value). Tells you financial strength." },
+      { title: "Cash Flow Statement", text: "Actual cash movement. Operating, investing, financing. A company can be 'profitable' but cash-starved — this is where you see it." },
+    ]},
+    { type: "h3", text: "Aerospace-Specific Dynamics" },
+    { type: "p", text: "Aerospace has long cycles and high capital intensity. A commercial airliner program takes 10+ years from launch to profit. This distorts standard financial analysis — large upfront R&D hits the income statement immediately, while returns trickle in over decades." },
+    { type: "callout", variant: "info", label: "Program Accounting", text: "Boeing famously uses 'program accounting' — spreading costs across an estimated total production run (e.g. 1,300 units of 737 MAX). This smooths reported earnings but can mask problems if assumptions are wrong. Read the footnotes." },
+    { type: "h3", text: "Key Aerospace Metrics" },
+    { type: "p", text: "Backlog (signed but undelivered orders) is a leading indicator. Book-to-bill ratio (new orders ÷ deliveries) shows whether the business is growing or shrinking. Operating margin in aerospace typically runs 8-12% in good years — commercial is lower than defense." },
+    { type: "callout", variant: "warning", label: "Common Misread", text: "High revenue growth with declining margins usually signals a troubled fixed-price contract (common in defense). Don't just look at the top line — look at operating income trends." },
+    { type: "h3", text: "How Engineers Should Use This" },
+    { type: "p", text: "When you propose a capital investment or a new process, your leadership is mentally mapping it onto these statements. 'Does this hurt operating margin?' 'What's the payback in free cash flow?' 'Does it improve return on assets?' Speak that language and your proposals land." },
+  ],
+  quizzes: [
+    { question: "Which financial statement would tell you whether an aerospace company has enough cash to fund the next 12 months of operations?", options: ["Income statement", "Balance sheet combined with the cash flow statement", "Marketing plan", "Order backlog report only"], correct: 1, explanation: "The cash flow statement shows actual cash generation; the balance sheet shows cash and debt position. Income can be strong while cash is strained — particularly in aerospace with long program cycles." },
+    { question: "Why is backlog such an important metric in aerospace?", options: ["It's required to be reported by the SEC", "It represents signed but undelivered orders — a leading indicator of future revenue", "It determines stock price directly", "It measures current quarter profitability"], correct: 1, explanation: "Backlog provides visibility into future revenue. A growing backlog suggests healthy demand; a shrinking one signals trouble ahead. Aerospace programs take years to deliver, so backlog is especially meaningful." },
+    { question: "What is 'program accounting' in aerospace?", options: ["A method of smoothing reported earnings by spreading costs across an estimated total production run", "A requirement to account for every program separately with no shared costs", "An illegal accounting practice", "A method only used by defense contractors"], correct: 0, explanation: "Program accounting (used notably by Boeing) spreads costs across the estimated total units of a program. It smooths earnings but relies heavily on assumptions about total units and unit costs — risky if those assumptions prove wrong." },
+  ]
+},
+{
+  phase: "Phase 1", phaseColor: "#c84b11",
+  title: "Cost Accounting for Manufacturing",
+  subtitle: "Direct vs. indirect costs, overhead allocation, and why your shop rate is often wrong.",
+  time: "55 min", type: "Core Concept",
+  video: { id: "QaVlWoaBytQ", title: "Activity Based Costing (with full-length example) — Edspira" },
+  content: [
+    { type: "p", text: "Cost accounting is how manufacturing companies understand what their products actually cost. It drives pricing decisions, make-vs-buy choices, and investment prioritization. Most engineers have seen their shop's 'fully burdened rate' without really understanding where that number comes from — this lesson fixes that." },
+    { type: "h3", text: "Direct vs. Indirect Costs" },
+    { type: "grid", items: [
+      { title: "Direct Material", text: "Raw material that becomes part of the finished product — titanium billet, fasteners, aluminum sheet." },
+      { title: "Direct Labor", text: "Hours spent directly building the part — machinists, assemblers, inspectors assigned to that job." },
+      { title: "Indirect Costs (Overhead)", text: "Everything else: facility rent, utilities, quality engineering salaries, supervisors, depreciation on shared equipment." },
+    ]},
+    { type: "h3", text: "How Overhead Gets Allocated" },
+    { type: "p", text: "Indirect costs can't be directly tied to a single part, so they're allocated across all production. Traditional cost accounting uses a rate like 'overhead = 200% of direct labor hours'. This is simple but often wildly inaccurate — a heavily automated part gets under-allocated, while a labor-intensive part gets over-allocated." },
+    { type: "callout", variant: "info", label: "Activity-Based Costing (ABC)", text: "Modern alternative: identify activities (machine setup, QC inspection, material handling), measure what drives their cost, and allocate based on actual usage. An aerospace machine shop running ABC might learn that a complex NCR investigation costs 4x more than overhead rate suggested." },
+    { type: "h3", text: "Why This Matters for Decisions" },
+    { type: "p", text: "If your overhead allocation is wrong, your unit costs are wrong, and your pricing and make-vs-buy decisions are wrong. Companies have exited profitable product lines because bad cost accounting made them look unprofitable — and kept losers because bad allocation hid their true cost." },
+    { type: "callout", variant: "warning", label: "Red Flag", text: "If leadership is making product-line decisions based on fully burdened costs with no activity-based refinement, push back. Simple overhead rates misallocate costs and distort decisions, especially in mixed-complexity aerospace shops." },
+    { type: "h3", text: "Standard vs. Actual Costing" },
+    { type: "p", text: "Standard costing sets expected costs based on engineered estimates; actuals are compared to standards to identify variances. Material, labor, and overhead variances each tell different stories — price variance vs. usage variance. This is how program managers know if a job is running hot." },
+  ],
+  quizzes: [
+    { question: "A machine shop uses a single overhead rate of 200% of direct labor. One product runs on automated CNC (low labor, high machine time); another is hand-finished (high labor, low machine time). What's the likely effect?", options: ["Both products get accurately costed", "The automated part is over-allocated overhead; the hand-finished part is under-allocated", "The automated part is under-allocated overhead; the hand-finished part is over-allocated", "Overhead rates have no effect on relative product costs"], correct: 2, explanation: "Using labor as the allocation base means low-labor (automated) products absorb less overhead despite consuming significant facility resources. The hand-finished part absorbs more. Activity-based costing would correct this." },
+    { question: "What's a cost variance in standard costing?", options: ["A rounding error between quarters", "The difference between actual cost incurred and the pre-established standard cost", "The legal variance allowed by GAAP", "The difference between direct and indirect costs"], correct: 1, explanation: "Variances compare actuals to standards and are decomposed into drivers like price variance (paid more than expected) vs. usage variance (used more material or hours than expected). This is core to program financial management." },
+    { question: "Activity-Based Costing (ABC) differs from traditional overhead allocation by:", options: ["Allocating all overhead to direct labor hours", "Identifying specific activities and their cost drivers, allocating based on actual activity consumption", "Only counting direct costs", "Requiring external auditors for every allocation"], correct: 1, explanation: "ABC traces indirect costs through specific activities (setups, inspections, engineering changes) based on what actually drives them — more accurate than a single blanket rate, especially in mixed-complexity operations." },
+  ]
+},
+{
+  phase: "Phase 1", phaseColor: "#c84b11",
+  title: "Capital Budgeting & Program Economics",
+  subtitle: "NPV, IRR, payback period — the tools for evaluating whether to buy the new 5-axis mill.",
+  time: "55 min", type: "Core Concept",
+  video: { id: "Fw5-wccViOM", title: "NPV and IRR Explained — The Finance Storyteller" },
+  content: [
+    { type: "p", text: "Every significant capital decision — a new machine, a facility expansion, a program launch — comes down to the same question: will this investment return more than it costs, adjusted for time and risk? Capital budgeting is the toolkit for answering that." },
+    { type: "h3", text: "Time Value of Money" },
+    { type: "p", text: "A dollar today is worth more than a dollar a year from now. Why? You could invest today's dollar and earn a return. Capital budgeting methods explicitly account for this through 'discounting' — reducing future cash flows to their present value." },
+    { type: "h3", text: "The Three Core Methods" },
+    { type: "grid", items: [
+      { title: "Payback Period", text: "Years until cumulative cash flows recover the initial investment. Simple, intuitive, but ignores time value and cash flows after payback." },
+      { title: "Net Present Value (NPV)", text: "Sum of all future cash flows discounted to today, minus the initial investment. Positive NPV = value-creating. The gold standard." },
+      { title: "Internal Rate of Return (IRR)", text: "The discount rate at which NPV = 0. If IRR exceeds your company's cost of capital, the project adds value." },
+    ]},
+    { type: "callout", variant: "info", label: "Aerospace Example", text: "A $2M 5-axis mill is expected to save $600K/year in labor and rework for 7 years. At a 10% cost of capital, NPV ≈ $921K (positive) and IRR ≈ 22% (well above cost of capital). Payback is ~3.3 years. All three metrics support the investment." },
+    { type: "h3", text: "What To Include in Cash Flows" },
+    { type: "p", text: "Include incremental after-tax cash flows: added revenue, cost savings, depreciation tax shield, changes in working capital, and any terminal value. Exclude sunk costs (already spent) and allocated overhead that doesn't actually change with the decision." },
+    { type: "callout", variant: "warning", label: "Common Mistake", text: "Engineers often include 'strategic value' or 'capability we'd lose' without quantifying it. For a rigorous case, quantify everything — if you can't, note it explicitly as a qualitative factor instead of padding the cash flows." },
+    { type: "h3", text: "Cost of Capital" },
+    { type: "p", text: "The discount rate used in NPV should reflect the riskiness of the project. A company's Weighted Average Cost of Capital (WACC) is the typical starting point. For riskier projects (new technology, unproven market), add a premium. Aerospace development projects often use 12-15%; established cost-reduction capex might use 8-10%." },
+  ],
+  quizzes: [
+    { question: "Why does Net Present Value (NPV) use a discount rate?", options: ["To comply with SEC reporting rules", "To account for the time value of money — future dollars are worth less than today's dollars", "To make the math harder", "To exclude tax effects"], correct: 1, explanation: "Discounting reduces future cash flows to their present value. The discount rate captures both the opportunity cost of capital (you could invest elsewhere) and the risk of the specific project." },
+    { question: "A project has a payback period of 2 years and an NPV of -$50K. What should you conclude?", options: ["Accept the project because payback is fast", "Reject the project because NPV is negative — it destroys value even if it pays back quickly", "Accept if IRR is above 10%", "Payback is the only metric that matters"], correct: 1, explanation: "Payback ignores cash flows after the payback point and ignores the time value of money. Negative NPV means the project doesn't earn the required return. NPV is the superior decision criterion." },
+    { question: "Which cash flows should be included in a capital budgeting analysis?", options: ["All historical costs ever spent", "Only incremental after-tax cash flows that result from the decision", "Only revenue, not costs", "Marketing expenses from unrelated products"], correct: 1, explanation: "Capital budgeting uses incremental, forward-looking, after-tax cash flows. Sunk costs (already spent) and unrelated expenses should be excluded. The question is always: what changes if we do this project vs. not?" },
+  ]
+},
+{
+  phase: "Phase 1", phaseColor: "#c84b11",
+  title: "Reading an Aerospace Annual Report",
+  subtitle: "10-K filings, MD&A sections, segment reporting — how to extract strategic insight from 200 pages of disclosure.",
+  time: "50 min", type: "Practical Skill",
+  video: { id: "qM2_RlUb3jc", title: "How to read a 10-K annual report — The Finance Storyteller" },
+  content: [
+    { type: "p", text: "Public aerospace companies file a 10-K annual report with the SEC. Inside is a massive amount of strategic and financial information — if you know where to look. This lesson teaches you to navigate a 10-K like an analyst and extract the business reality behind the numbers." },
+    { type: "h3", text: "The Key Sections" },
+    { type: "grid", items: [
+      { title: "Business Description (Item 1)", text: "How the company describes its segments, strategy, competitors, customers, and regulatory environment. Start here — everything else makes more sense in this context." },
+      { title: "Risk Factors (Item 1A)", text: "Legally required disclosure of what could hurt the business. Lots of boilerplate, but scan for program-specific risks (737 MAX grounding, KC-46 charges, supply chain disruptions)." },
+      { title: "MD&A (Item 7)", text: "Management Discussion & Analysis — the plain-English narrative of performance, challenges, and outlook. Often the most useful section for a non-accountant." },
+      { title: "Financial Statements (Item 8)", text: "The actual numbers with footnotes. The footnotes are where interesting details hide — accounting policies, segment detail, pension assumptions, lawsuits." },
+    ]},
+    { type: "h3", text: "What Aerospace Analysts Look For" },
+    { type: "p", text: "Segment performance — commercial vs. defense vs. services often have very different dynamics. Backlog and book-to-bill. Program charges (one-time losses that reveal troubled contracts). R&D as a percent of revenue. Customer concentration (is the business a single-program bet?)." },
+    { type: "callout", variant: "info", label: "Real Example", text: "Boeing's 2019 10-K disclosed the 737 MAX grounding's financial impact in detail — production shutdown costs, customer compensation, program accounting reach-forward losses. That disclosure let analysts estimate the total impact vs. rumors and speculation." },
+    { type: "h3", text: "The 15-Minute Annual Report Read" },
+    { type: "p", text: "For a quick scan: read the CEO letter (2-3 pages), skim MD&A (focus on 'Results of Operations'), check segment reporting, scan for one-time charges, look at backlog trends, read the first two pages of Risk Factors. This gets you 80% of strategic insight in under an hour." },
+    { type: "callout", variant: "warning", label: "Watch for Accounting Changes", text: "When a company changes accounting methods or assumptions (program accounting units, pension discount rates, revenue recognition timing), it's always worth understanding why. These changes can move reported earnings significantly without any real business change." },
+    { type: "h3", text: "Using This in Your Role" },
+    { type: "p", text: "Reading your own company's 10-K (and your customers'/competitors') gives you context that most middle managers lack. You'll understand why budgets tightened, why a program got canceled, why the company is pushing into services. That context makes you a better advocate for your own initiatives." },
+  ],
+  quizzes: [
+    { question: "Where in a 10-K would you find management's narrative explanation of the year's financial performance?", options: ["Item 1 (Business Description)", "Item 7 (Management Discussion & Analysis, MD&A)", "Item 8 (Financial Statements)", "The CEO's bio"], correct: 1, explanation: "MD&A is management's plain-English narrative of results, trends, and outlook. It's often the most digestible section for a non-accountant reader." },
+    { question: "Why do aerospace analysts focus on segment reporting?", options: ["Segments are legally required to be equal in size", "Commercial, defense, and services segments have very different economics — consolidated numbers mask what's actually happening", "Segments must all report the same operating margin", "Segment data is optional and usually absent"], correct: 1, explanation: "A diversified aerospace company might show stable consolidated numbers while commercial craters and defense booms. Segment reporting reveals the underlying dynamics that matter for strategy and valuation." },
+    { question: "What's the significance of a 'reach-forward loss' on a long-duration aerospace program?", options: ["A routine accounting adjustment with no business significance", "A signal that cumulative program economics have deteriorated enough to require recognizing expected future losses now", "A legal requirement unrelated to profitability", "Good news for the program's outlook"], correct: 1, explanation: "Under program accounting, when the total expected cost of a program exceeds total expected revenue, the company must recognize the full expected loss immediately. It's a major warning sign about program health." },
+  ]
+},
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PHASE 2 — OPERATIONS & STRATEGY
+// ═══════════════════════════════════════════════════════════════════════════
+{
+  phase: "Phase 2", phaseColor: "#8a6a20",
+  title: "Strategic Management & Competitive Positioning",
+  subtitle: "Porter's Five Forces, SWOT, and how to think about competitive advantage in aerospace.",
+  time: "60 min", type: "Core Concept",
+  video: { id: "mYF2_FBCvXw", title: "Porter's Five Forces Explained" },
+  content: [
+    { type: "p", text: "Strategy answers one question: where should we compete, and how? Aerospace is structurally attractive in some places (high barriers, long customer relationships, protected defense programs) and brutal in others (commoditized component supply, price-sensitive commercial aviation). Knowing which is which shapes every major decision." },
+    { type: "h3", text: "Porter's Five Forces" },
+    { type: "grid", items: [
+      { title: "Rivalry among competitors", text: "How many players, how differentiated, how much price competition. Aerospace OEM: few players, differentiated → low rivalry. Machining job shops: many, commoditized → high rivalry." },
+      { title: "Buyer power", text: "How much leverage customers have. Defense primes pressure suppliers hard; a niche specialty forger has more pricing power." },
+      { title: "Supplier power", text: "How much leverage suppliers have. Single-source titanium or electronics creates concentrated supplier power." },
+      { title: "Threat of new entrants", text: "Barriers to entry. AS9100, capital equipment, qualifications, customer relationships — aerospace has very high barriers." },
+      { title: "Threat of substitutes", text: "Alternative ways to satisfy the same customer need. Composites substituting for aluminum; 3D printing for machined parts." },
+    ]},
+    { type: "h3", text: "Generic Competitive Strategies" },
+    { type: "p", text: "Porter argues there are three viable positions: overall cost leadership, differentiation (unique value), or focus (dominating a niche). Trying to be all things to all customers — 'stuck in the middle' — usually loses to focused competitors. Most successful aerospace suppliers pick one and commit." },
+    { type: "callout", variant: "info", label: "SWOT as a Planning Tool", text: "Strengths, Weaknesses (internal), Opportunities, Threats (external). Simple but useful — especially when you force yourself to be honest about weaknesses and not just list strengths." },
+    { type: "h3", text: "Sustainable Competitive Advantage" },
+    { type: "p", text: "A competitive advantage that lasts requires something hard to copy: proprietary technology, regulatory moats (FAA certification, ITAR), long-term customer relationships with switching costs, scale economies that favor the largest player. If everything you do could be replicated in 6 months, you don't really have an advantage." },
+    { type: "callout", variant: "warning", label: "Strategy vs. Goals", text: "'Grow revenue 15%' is not a strategy — it's a goal. Strategy defines how you'll win: which customers, which segments, which capabilities to invest in, which trade-offs to accept. Goals without strategy are wishes." },
+    { type: "h3", text: "Value Chain Analysis" },
+    { type: "p", text: "Map every activity from raw material to customer delivery and identify where you create disproportionate value vs. competitors. In aerospace manufacturing, value chain thinking reveals whether you compete on lowest-cost conversion, fastest cycle time, or highest quality — and informs where to invest for advantage." },
+  ],
+  quizzes: [
+    { question: "Why does aerospace manufacturing have high barriers to entry?", options: ["The industry is secretly regulated to prevent competition", "AS9100 certification, capital equipment requirements, flight-part qualifications, and customer approval processes create multi-year and multi-million-dollar hurdles", "Only U.S. citizens can own aerospace companies", "Aerospace parts are illegal for new entrants to produce"], correct: 1, explanation: "Qualifying as an aerospace supplier takes years and significant investment. These barriers create competitive moats for established players — a structural feature that influences profitability across the industry." },
+    { question: "Porter argues a company 'stuck in the middle' is:", options: ["In the best strategic position", "Trying to be both lowest-cost and most differentiated, typically losing to focused competitors on both dimensions", "Required by antitrust law", "Guaranteed to become profitable over time"], correct: 1, explanation: "Companies that try to compete on everything usually lose to specialists. Picking a clear position — cost leadership OR differentiation OR focus on a niche — and committing is the core of Porter's generic strategies." },
+    { question: "What makes a competitive advantage sustainable?", options: ["It's patented immediately", "It's difficult for competitors to copy — due to scale, relationships, regulatory moats, or proprietary technology", "It generates revenue for one quarter", "It requires large marketing spend"], correct: 1, explanation: "Anything easily copied doesn't provide lasting advantage. Durable advantages come from hard-to-replicate assets: regulatory positions, long-term customer relationships with switching costs, proprietary know-how, or scale economies." },
+  ]
+},
+{
+  phase: "Phase 2", phaseColor: "#8a6a20",
+  title: "Operations Management & Lean in Aerospace",
+  subtitle: "Throughput, bottlenecks, lean principles, and the Toyota Production System applied to low-volume aerospace work.",
+  time: "55 min", type: "Core Concept",
+  video: { id: "16-6-Q_nwf4", title: "Toyota Production System — Introduction to Lean" },
+  content: [
+    { type: "p", text: "Operations management is the discipline of running processes efficiently. In aerospace, the challenge is adapting high-volume lean concepts (originally from automotive) to low-volume, high-mix production where a single fixture might run 20 different part numbers." },
+    { type: "h3", text: "The Theory of Constraints" },
+    { type: "p", text: "Every process has a bottleneck — the slowest step that limits the whole system's throughput. You can only make the overall system faster by improving the bottleneck. Improvements elsewhere just build inventory in front of the bottleneck without increasing output." },
+    { type: "callout", variant: "info", label: "Practical Implication", text: "Before spending $500K on a faster CNC, map your value stream and verify CNC is actually the bottleneck. Often the real constraint is inspection, program setup, or supplier lead time — and no amount of CNC speed fixes those." },
+    { type: "h3", text: "Lean Core Principles" },
+    { type: "grid", items: [
+      { title: "Value", text: "Defined by the customer — not you. Anything the customer wouldn't pay for is waste." },
+      { title: "Value Stream", text: "End-to-end flow from raw material to delivered part. Map it to see waste." },
+      { title: "Flow", text: "Parts should move continuously — stalled work-in-process is cash tied up and quality risk accumulating." },
+      { title: "Pull", text: "Produce in response to demand, not forecasts. Reduces excess inventory." },
+      { title: "Perfection", text: "Continuous improvement toward zero waste." },
+    ]},
+    { type: "h3", text: "The Seven Wastes (Muda)" },
+    { type: "p", text: "Transportation, Inventory, Motion, Waiting, Overproduction, Overprocessing, Defects — remembered as TIMWOOD. Every lean project is fundamentally an effort to eliminate these." },
+    { type: "callout", variant: "info", label: "Aerospace Adaptation", text: "Classic Toyota-style kanban doesn't fit low-volume aerospace well. But the principles adapt: single-piece flow becomes small-batch flow; heijunka (level loading) becomes careful mix scheduling; kaizen events work on specific cells or programs." },
+    { type: "h3", text: "Throughput Accounting" },
+    { type: "p", text: "Traditional cost accounting prioritizes utilization — keep every machine running to 'absorb overhead'. Throughput accounting inverts this: only the bottleneck needs to run constantly; non-bottleneck machines SHOULD have idle time. Running them full-speed just builds inventory." },
+    { type: "callout", variant: "warning", label: "Efficiency Trap", text: "Measuring individual machine or operator utilization and rewarding high numbers often hurts total throughput. A non-bottleneck running 100% produces parts that just wait at the bottleneck — high utilization, low throughput, more inventory." },
+    { type: "h3", text: "Applying This" },
+    { type: "p", text: "Walk your shop floor with fresh eyes. Where are parts waiting? Where do operators walk? Where does quality catch problems? Each observation is a potential improvement. Aerospace lean isn't about copying Toyota — it's about seeing your own operation clearly and eliminating what doesn't add value." },
+  ],
+  quizzes: [
+    { question: "According to the Theory of Constraints, what's the effect of improving a non-bottleneck step?", options: ["It speeds up the whole system proportionally", "It creates more output but higher costs", "It builds inventory in front of the bottleneck without increasing total throughput", "It always reduces quality"], correct: 2, explanation: "The bottleneck limits system throughput. Improving a non-bottleneck just means it waits at the bottleneck — inventory builds, cash is tied up, but total output doesn't change. Improve bottlenecks first." },
+    { question: "Which of the seven wastes (TIMWOOD) includes excess work-in-process that sits between operations?", options: ["Transportation only", "Inventory", "Motion", "Defects"], correct: 1, explanation: "Inventory is one of the seven wastes. Excess WIP hides problems, ties up cash, takes up space, and increases the chance of damage or obsolescence. Lean systems actively reduce WIP to expose underlying issues." },
+    { question: "Why is single-piece flow often adapted to small-batch flow in aerospace?", options: ["Aerospace customers require large batches by regulation", "Low-volume, high-mix aerospace work has setup costs and inspection requirements that make pure single-piece flow impractical", "Small-batch flow is illegal under AS9100", "Single-piece flow is always the better choice in every industry"], correct: 1, explanation: "Pure single-piece flow works best with short setups and continuous demand. Aerospace has long setups, lot-based inspection, and variable demand — so 'as-close-to-single-piece-as-practical' small-batch flow tends to win." },
+  ]
+},
+{
+  phase: "Phase 2", phaseColor: "#8a6a20",
+  title: "Supply Chain & Risk Management",
+  subtitle: "Single-source risk, strategic sourcing, inventory strategy, and supply chain resilience after 2020.",
+  time: "50 min", type: "Core Concept",
+  video: { id: "xIY097gEXjk", title: "Introduction to Supply Chain Management (under 10 minutes)" },
+  content: [
+    { type: "p", text: "Aerospace supply chains are famously complex — an airliner has 2-4 million parts, many with lead times of 6+ months and single sources of supply. COVID and ongoing geopolitical tensions have made supply chain resilience a C-suite priority, which means it's a source of both career opportunity and career risk for operations professionals." },
+    { type: "h3", text: "Types of Supply Risk" },
+    { type: "grid", items: [
+      { title: "Single-source risk", text: "Only one qualified supplier. Common in aerospace due to qualification cost and certification time." },
+      { title: "Geographic concentration", text: "Critical raw materials (titanium, rare earths, semiconductors) sourced from a small number of countries." },
+      { title: "Financial distress", text: "Small suppliers that might not survive a slowdown. Aerospace has seen this repeatedly — primes bail out key suppliers to preserve their own programs." },
+      { title: "Quality/compliance risk", text: "A supplier's nonconformance becomes your nonconformance. Scar tissue from past incidents drives aggressive supplier quality oversight." },
+    ]},
+    { type: "h3", text: "Strategic Sourcing Framework" },
+    { type: "p", text: "The Kraljic Matrix classifies purchases into four quadrants based on supply risk and business impact. Strategic items (high risk + high impact): develop deep relationships, multiple sources if possible, long-term contracts. Leverage items (low risk + high impact): use competitive pressure to optimize cost. Bottleneck items (high risk + low impact): reduce dependence. Non-critical: simplify." },
+    { type: "callout", variant: "info", label: "Dual Sourcing Reality", text: "Having two qualified suppliers for a critical component costs more than single-sourcing (qualification costs, split volumes reduce leverage) but provides resilience. Many companies reduced dual-sourcing to cut costs pre-pandemic and regretted it." },
+    { type: "h3", text: "Inventory Strategy" },
+    { type: "p", text: "Just-in-time (JIT) minimizes inventory carrying cost but maximizes exposure to supply disruption. Just-in-case (JIC) holds safety stock for resilience but ties up cash. The answer is almost always hybrid — JIT for stable, commodity inputs; safety stock for critical or at-risk items." },
+    { type: "callout", variant: "warning", label: "Post-2020 Lesson", text: "Companies that ran on aggressive JIT pre-pandemic suffered massive production halts. Resilience costs money, but so do $100M/month production shutdowns. The calculus shifted permanently — expect more inventory buffer as a deliberate strategy." },
+    { type: "h3", text: "Supplier Relationship Management" },
+    { type: "p", text: "Transactional suppliers compete on price every quote. Partnership suppliers share forecasts, collaborate on cost reduction, participate in early design, and get loyalty in downturns. Partnership relationships take years to build but produce better outcomes — especially for strategic components." },
+  ],
+  quizzes: [
+    { question: "In the Kraljic Matrix, a component that's hard to source but has low total business impact is classified as:", options: ["Strategic", "Leverage", "Bottleneck", "Non-critical"], correct: 2, explanation: "Bottleneck items are hard to source but not huge cost drivers. The right strategy is to reduce dependence — find substitutes, redesign to eliminate them, or build safety stock. Don't waste relationship capital on them." },
+    { question: "Why did aggressive just-in-time (JIT) inventory strategies fail so dramatically during 2020-2022?", options: ["JIT has always been a failure", "With no buffer inventory, any supply disruption cascaded immediately into production halts — while single-source dependencies amplified the problem", "Regulators banned JIT", "Labor unions shut down production deliberately"], correct: 1, explanation: "JIT optimizes for carrying cost assuming stable supply. When multiple disruptions hit simultaneously (COVID shutdowns, logistics failures, geopolitical shocks), companies with no buffer had no resilience. The calculus of 'carrying cost vs. shutdown cost' shifted." },
+    { question: "Partnership supplier relationships typically outperform transactional ones for strategic components because:", options: ["They always offer the lowest unit cost", "They enable information sharing, joint improvement, and greater reliability — at the cost of higher transactional price competition", "They're required by FAA regulation", "They eliminate the need for contracts"], correct: 1, explanation: "Partnership suppliers share forecasts, participate in early design, and prioritize each other in downturns. You give up some immediate price leverage but gain long-term performance and resilience — particularly valuable for strategic items." },
+  ]
+},
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PHASE 3 — PEOPLE & MARKETS
+// ═══════════════════════════════════════════════════════════════════════════
+{
+  phase: "Phase 3", phaseColor: "#1c4a7a",
+  title: "Leadership & Organizational Behavior",
+  subtitle: "Situational leadership, team dynamics, and influencing without authority in engineering organizations.",
+  time: "60 min", type: "Core Concept",
+  video: { id: "lmyZMtPVodo", title: "Why good leaders make you feel safe — Simon Sinek (TED)" },
+  content: [
+    { type: "p", text: "Technical skill gets you to senior engineer. Leadership skill gets you beyond. And leadership in engineering organizations is particularly tricky — you're often leading people more technical than you, across functions you don't control, on matrix teams with unclear authority." },
+    { type: "h3", text: "Situational Leadership" },
+    { type: "p", text: "No single leadership style works for all situations. Hersey-Blanchard's model matches leadership style to follower readiness: a new junior engineer needs directive coaching, while a senior expert needs delegation with light touch. Adjusting your style based on who you're leading and what they're doing is core leadership competence." },
+    { type: "h3", text: "The Six Leadership Styles (Goleman)" },
+    { type: "grid", items: [
+      { title: "Commanding", text: "'Do it because I said so.' Useful in crisis, toxic in steady state." },
+      { title: "Visionary", text: "'Come with me toward this future.' Effective when change is needed and direction is clear." },
+      { title: "Affiliative", text: "'People come first.' Builds harmony; overused, avoids hard conversations." },
+      { title: "Democratic", text: "'What do you think?' Builds buy-in; slow in crisis." },
+      { title: "Pacesetting", text: "'Keep up with me.' Good with expert teams; burns out most others." },
+      { title: "Coaching", text: "'Let's develop you long-term.' Highest-impact but time-intensive." },
+    ]},
+    { type: "h3", text: "Influencing Without Authority" },
+    { type: "p", text: "In matrix organizations, your ability to get things done depends more on influence than formal power. The fundamentals: understand what each stakeholder wants, build coalitions before key decisions, give credit generously, deliver on commitments ruthlessly. Engineering people who understand this become disproportionately effective." },
+    { type: "callout", variant: "info", label: "Trust is the Currency", text: "Every commitment you deliver on builds trust; every one you miss depletes it. In engineering organizations with long memories, your track record follows you for years. The best leaders are famous for keeping promises." },
+    { type: "h3", text: "Psychological Safety" },
+    { type: "p", text: "Amy Edmondson's research at Harvard: the highest-performing teams aren't the ones with fewest mistakes — they're the ones that feel safest admitting mistakes. In aerospace especially, where reporting issues early saves lives, psychological safety is a direct contributor to quality." },
+    { type: "callout", variant: "warning", label: "Blame Culture Costs", text: "Organizations that punish the messenger of bad news get less bad news — until the problems are too big to hide. Mature engineering cultures separate 'what went wrong?' (blameless post-mortem) from individual performance management." },
+    { type: "h3", text: "Delegation" },
+    { type: "p", text: "New managers often confuse delegation with dumping. Effective delegation is: clear outcome, clear boundaries (budget/time/resources), clear decision rights, clear check-ins. 'Own this' with no context sets people up to fail — 'Own this outcome with these constraints, check in on Wednesdays, you can spend up to $X without approval' enables them to succeed." },
+  ],
+  quizzes: [
+    { question: "According to Goleman's leadership styles research, which style is most useful in a genuine crisis with no time for consensus?", options: ["Democratic", "Affiliative", "Commanding", "Coaching"], correct: 2, explanation: "Commanding leadership ('do this now') works in genuine crisis where speed matters more than buy-in. The danger is using it routinely — commanding as a default style damages morale, engagement, and development." },
+    { question: "What's psychological safety in a team context?", options: ["A team's willingness to let members be absent without consequences", "Team members feeling safe taking interpersonal risks — speaking up, admitting mistakes, asking questions — without fear of punishment", "Physical workplace safety rules", "Team insurance coverage"], correct: 1, explanation: "Psychological safety (from Amy Edmondson's research) correlates strongly with high performance. Teams that feel safe reporting issues catch problems earlier — especially vital in safety-critical industries like aerospace." },
+    { question: "Effective delegation includes:", options: ["Assigning a task with no context and expecting results", "Clear outcome, clear boundaries, clear decision rights, clear check-ins", "Doing the task yourself to ensure it's done right", "Delegating only unpleasant tasks"], correct: 1, explanation: "Delegation that sets people up to succeed requires framing: here's the outcome, here's what you can decide vs. need approval for, here's the budget and timeline, here's when we check in. 'Just own this' without context usually produces poor results." },
+  ]
+},
+{
+  phase: "Phase 3", phaseColor: "#1c4a7a",
+  title: "Marketing & Business Development in Defense/Aerospace",
+  subtitle: "B2B marketing, capture management, and the long sales cycles of aerospace contracts.",
+  time: "50 min", type: "Core Concept",
+  video: { id: "z0PnhkJxf6o", title: "B2B vs. B2C Marketing — What is the Difference?" },
+  content: [
+    { type: "p", text: "Aerospace marketing isn't Super Bowl commercials. It's multi-year relationship cultivation, capture management, proposal development, and influencing requirements before an RFP is even issued. Engineers who understand how this works become far more valuable — both to their employer and in their own career trajectories." },
+    { type: "h3", text: "B2B Aerospace vs. Consumer Marketing" },
+    { type: "p", text: "Your customers are other businesses (Boeing, Raytheon, government agencies), not individual consumers. Decision committees rather than impulse buyers. Years-long selection processes. Technical merit matters, but so do past performance, relationships, and perceived risk. Price is rarely the deciding factor for strategic components." },
+    { type: "h3", text: "Capture Management" },
+    { type: "p", text: "For large aerospace contracts, the company that wins usually started positioning 1-3 years before the formal RFP. 'Capture' is the discipline of identifying opportunities early, shaping requirements, building relationships with program offices, and pre-positioning your solution so your RFP response is actually a confirmation of positioning already done." },
+    { type: "callout", variant: "info", label: "The Shaping Phase", text: "Companies with mature capture processes influence customer requirements while they're still being written — legally and ethically — through industry days, draft RFP comments, CRADA agreements, and white papers. By the time the RFP drops, the competitive landscape is often set." },
+    { type: "h3", text: "Proposals" },
+    { type: "p", text: "Aerospace proposals are massive — often 500+ pages, 6-12 month development cycles, multi-million-dollar pursuit costs. The technical volume, management volume, cost volume, and past performance volume each have evaluators and scoring rubrics. Win rate is a closely-tracked metric; most companies target 30-40% for strategic pursuits." },
+    { type: "callout", variant: "warning", label: "Bid-No-Bid Decisions", text: "Pursuing every opportunity burns resources on losers. Mature capture processes have rigorous bid-no-bid gates: do we have a credible solution? Incumbent advantage we can overcome? Customer relationships? Price to win? Saying no to weak pursuits frees budget for winners." },
+    { type: "h3", text: "Past Performance" },
+    { type: "p", text: "Government aerospace contracts weigh past performance heavily. A company's track record on similar prior contracts (on time? on budget? quality?) directly affects current win probability. This creates a compounding advantage for incumbents — and means program execution is itself a marketing investment." },
+    { type: "h3", text: "Engineering's Role" },
+    { type: "p", text: "Engineers contribute to winning work in many ways: writing technical sections of proposals, briefing customers during shaping, developing white papers, doing technical interchanges. This is often where engineers get noticed by senior leadership — and it's a rare marketing skill set that commands a premium on the talent market." },
+  ],
+  quizzes: [
+    { question: "What distinguishes capture management from standard proposal response?", options: ["Capture happens after the RFP is released", "Capture is the long-term positioning work (relationships, requirements shaping, pre-positioning) done 1-3 years BEFORE the RFP is released", "Capture is a legal requirement for all government contracts", "Capture is only for commercial aerospace, not defense"], correct: 1, explanation: "By the time an RFP drops, the playing field is often largely set by who invested in capture. Companies that only start when the RFP is released are usually competing for second or third place." },
+    { question: "Why is past performance weighted so heavily in government aerospace contracting?", options: ["It's required by FAA regulation", "It's a strong predictor of future performance — so the contract is partly a reputational bet", "All contracts require past performance", "Past performance has no actual effect on awards"], correct: 1, explanation: "Government buyers have seen too many contractors overpromise and underdeliver. Past performance is the most reliable signal available — which creates compounding advantage for companies that execute well over time." },
+    { question: "A rigorous bid-no-bid gate process primarily helps companies by:", options: ["Speeding up all proposal submissions", "Focusing pursuit resources on opportunities with credible win probability — increasing win rate and protecting budget for winners", "Avoiding all government contracts", "Maximizing the total number of proposals submitted"], correct: 1, explanation: "Pursuing every opportunity dilutes effort. A strong bid-no-bid process says no to weak pursuits (no credible solution, no relationship, unreasonable price-to-win) so resources concentrate on pursuits you can actually win." },
+  ]
+},
+{
+  phase: "Phase 3", phaseColor: "#1c4a7a",
+  title: "Negotiation & Contract Strategy",
+  subtitle: "BATNA, ZOPA, interests vs. positions, and the core structures of aerospace contracts.",
+  time: "55 min", type: "Core Concept",
+  video: { id: "Hc6yi_FtoNo", title: "The walk from \"no\" to \"yes\" — William Ury (TED)" },
+  content: [
+    { type: "p", text: "Most engineers think of negotiation as haggling over price. Real negotiation is a structured process for reaching agreements that create value for both sides. Engineers who understand this — because they negotiate internally (budget, scope, resources) and externally (suppliers, sometimes customers) — punch far above their weight." },
+    { type: "h3", text: "Principled Negotiation (Fisher & Ury)" },
+    { type: "p", text: "The core framework from 'Getting to Yes': separate people from the problem (don't make it personal), focus on interests not positions (why they want what they want), invent options for mutual gain (expand the pie before dividing it), use objective criteria (independent standards everyone agrees are fair)." },
+    { type: "h3", text: "Key Concepts" },
+    { type: "grid", items: [
+      { title: "BATNA", text: "Best Alternative To Negotiated Agreement. Your fallback if no deal. Strong BATNA = strong position; weak BATNA = weak position." },
+      { title: "Reservation Price", text: "The worst deal you'd still accept. Don't reveal it; never accept below it." },
+      { title: "ZOPA", text: "Zone of Possible Agreement — the range between both parties' reservation prices. If ZOPA doesn't exist, no deal is possible." },
+      { title: "Anchoring", text: "The first number thrown out strongly influences the final agreement. Make the first credible anchor when you can." },
+    ]},
+    { type: "h3", text: "Aerospace Contract Types" },
+    { type: "p", text: "Firm Fixed Price (FFP): buyer pays set price, seller absorbs cost risk. Cost-Plus-Fixed-Fee (CPFF): buyer pays costs plus fixed fee, seller has no cost risk. Cost-Plus-Incentive-Fee (CPIF): shared risk based on cost performance vs. target. Time & Materials (T&M): pay for hours and materials used. Each allocates risk differently — understanding which is right for a given project matters hugely." },
+    { type: "callout", variant: "info", label: "FFP Trap", text: "Fixed price contracts on new development work frequently produce massive losses for the seller — Boeing KC-46, T-7, and Starliner are all high-profile examples. Uncertainty that seemed manageable at bid time becomes material when technical or schedule problems emerge." },
+    { type: "h3", text: "Interest-Based Trading" },
+    { type: "p", text: "Value creation in negotiation comes from each side getting things it values more than they cost the other. Supplier may value a multi-year commitment highly (stable work) but cost you little to grant. You may value flexibility on delivery dates highly (program buffer) but cost them little to grant. Trade these and both sides win." },
+    { type: "callout", variant: "warning", label: "Positional Bargaining Trap", text: "'I need 10% off.' 'I can only do 5%.' 'I said 10!' This pattern locks both sides into positions and prevents finding the real zone of mutual gain. Ask 'why' until you understand the underlying interest, then invent solutions that serve it." },
+    { type: "h3", text: "Preparation" },
+    { type: "p", text: "The most important determinant of negotiation outcome is preparation. Know your BATNA, estimate theirs, identify interests on both sides, prepare anchor and reservation positions, think through trades. The side that walks in better prepared almost always does better." },
+  ],
+  quizzes: [
+    { question: "Your BATNA is:", options: ["The first offer you should make", "Your Best Alternative To a Negotiated Agreement — your fallback if no deal is reached", "The legal minimum price", "Your internal project budget"], correct: 1, explanation: "BATNA (Best Alternative To Negotiated Agreement) is what you'll do if this deal falls through. A strong BATNA lets you walk away confidently. A weak one forces concessions. Improving your BATNA before the negotiation (alternative suppliers, etc.) strengthens your position." },
+    { question: "In a Firm Fixed Price (FFP) contract:", options: ["The buyer absorbs all cost overruns", "The seller absorbs cost risk — if actuals exceed bid cost, seller loses money", "There is no risk for either side", "Costs are shared 50/50"], correct: 1, explanation: "FFP puts cost risk entirely on the seller. That's why fixed-price development contracts on uncertain technology (new designs, new tech, immature supply chains) have caused major losses at companies that bid them aggressively." },
+    { question: "Positional bargaining ('10%!' 'No, 5%!') fails compared to interest-based negotiation because:", options: ["It's illegal under contract law", "It locks both sides into positions without exploring the underlying interests that could enable mutually beneficial trades", "It takes longer", "It requires written documentation"], correct: 1, explanation: "Positions are demands; interests are the reasons behind them. Asking 'why do you need that?' often reveals an interest that can be satisfied in a different way — expanding the pie rather than fighting over its division." },
+  ]
+},
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PHASE 4 — EXECUTION
+// ═══════════════════════════════════════════════════════════════════════════
+{
+  phase: "Phase 4", phaseColor: "#1a6b3c",
+  title: "Aerospace Industry Structure & Regulation",
+  subtitle: "Primes, tier-1s, MROs, FAA/DoD dynamics, and the regulatory environment shaping every decision.",
+  time: "50 min", type: "Industry Context",
+  video: { id: "Cx1lTUx9GC0", title: "How Airbus Surpassed Boeing To Become The World's Top Plane Maker (CNBC)" },
+  content: [
+    { type: "p", text: "You can't make smart business decisions in aerospace without understanding how the industry is structured. Who are the players? Who has leverage over whom? How does regulation shape competitive dynamics? This lesson gives you the industry map most engineers never get." },
+    { type: "h3", text: "The Industry Tiers" },
+    { type: "grid", items: [
+      { title: "OEM / Prime Contractors", text: "Build the final aircraft, engines, or weapon systems. Boeing, Airbus, Lockheed Martin, Northrop Grumman, Raytheon, GE Aerospace, Pratt & Whitney." },
+      { title: "Tier 1 Suppliers", text: "Major subsystems and assemblies. Collins Aerospace, Safran, Honeywell, Spirit AeroSystems. Often as large as smaller primes." },
+      { title: "Tier 2-3 Suppliers", text: "Components and sub-assemblies. The layer most aerospace manufacturing shops sit in — where competition is intense and margins are thinner." },
+      { title: "MROs", text: "Maintenance, Repair, and Overhaul. AAR, ST Engineering, airline in-house operations. Growing segment as fleets age." },
+    ]},
+    { type: "h3", text: "Commercial vs. Defense" },
+    { type: "p", text: "Commercial aerospace is cyclical — tied to airline demand, fuel prices, global travel. Higher volume, lower margins, intense price pressure. Defense is counter-cyclical — tied to government budgets and geopolitics. Lower volume, higher complexity, better margins, but long and political sales cycles. Most primes straddle both for balance." },
+    { type: "callout", variant: "info", label: "Services Matter", text: "Both commercial and defense increasingly rely on aftermarket services — spare parts, upgrades, and sustainment contracts — for profitable recurring revenue. An installed base of aircraft throws off services revenue for decades." },
+    { type: "h3", text: "The Regulatory Environment" },
+    { type: "p", text: "FAA regulates commercial aviation safety. Compliance costs are significant but create barriers to entry. DoD regulates defense procurement with a thick book of Federal Acquisition Regulation (FAR) supplements. ITAR controls export of defense technology. EAR covers dual-use items. AS9100 is the industry quality standard everyone lives by." },
+    { type: "callout", variant: "warning", label: "Regulation As Strategy", text: "Regulatory compliance isn't just a cost — it's a strategic asset. Companies that master certification and compliance move faster than competitors who treat them as afterthoughts. FAA delegations (Designated Engineering Representatives) are particularly valuable capabilities." },
+    { type: "h3", text: "Industry Consolidation" },
+    { type: "p", text: "Aerospace has consolidated dramatically over decades. The 'Big Five' defense primes used to be dozens. Boeing's 2018 acquisition of Embraer's commercial unit (eventually collapsed), Raytheon's 2020 merger with UTC, Lockheed's attempt to acquire Aerojet Rocketdyne (blocked) — consolidation continues under antitrust scrutiny. Implications: fewer customers, more leverage for primes over suppliers, regulatory concern." },
+    { type: "h3", text: "Your Position in the Ecosystem" },
+    { type: "p", text: "Understanding where your company sits (prime? tier 1? tier 2?) and who the real customer is (direct OEM? airline? DoD program office?) shapes everything — what matters in proposals, what the customer really cares about, what leverage exists on price. Engineers in tier-2 shops often don't realize their real customer may be a program office two layers up from their direct contract." },
+  ],
+  quizzes: [
+    { question: "Why does aftermarket services matter so much in aerospace economics?", options: ["Services are regulated more loosely than production", "An installed base of aircraft generates spare parts, upgrade, and sustainment revenue for decades — providing stable, high-margin, recurring revenue", "Services are cheaper to deliver than production", "Only small companies do services"], correct: 1, explanation: "Production is cyclical, but aftermarket is relatively stable — planes need parts and maintenance regardless of the production cycle. Successful aerospace OEMs work hard to capture as much aftermarket as possible because it's where long-term profit lives." },
+    { question: "How does defense aerospace demand typically move relative to commercial aerospace demand?", options: ["They always move in lock-step", "Defense tends to be counter-cyclical to commercial — driven by government budgets and geopolitics rather than airline travel demand", "Defense follows commercial with a 6-month lag", "Defense only grows; commercial only shrinks"], correct: 1, explanation: "Commercial cycles with travel demand and airline profitability. Defense cycles with government spending priorities and threats — often inversely. Primes with both segments balance their exposure to either cycle." },
+    { question: "Why is FAA compliance described as both a cost AND a strategic asset?", options: ["It's a small cost and irrelevant strategically", "Compliance requires significant investment but creates barriers to entry for competitors — companies with mature compliance capabilities move faster than those without", "FAA compliance is free", "Strategic assets never have costs"], correct: 1, explanation: "Certification takes time and money — but once established, it becomes a moat. Companies with mature compliance infrastructure (and ideally FAA delegations like DERs) launch products faster than newcomers who have to build compliance from scratch." },
+  ]
+},
+{
+  phase: "Phase 4", phaseColor: "#1a6b3c",
+  title: "Program Management & Earned Value",
+  subtitle: "Running a program by the numbers — cost performance index, schedule performance index, and variance analysis.",
+  time: "55 min", type: "Practical Skill",
+  video: { id: "7DLyZjsrG14", title: "Earned Value Analysis Calculations — CPI, SPI, CV, SV, EAC" },
+  content: [
+    { type: "p", text: "Aerospace programs are measured and managed through Earned Value Management (EVM). If you work on any DoD program or substantial commercial one, you'll encounter it. Understanding EVM lets you read program status reports critically, ask the right questions in reviews, and manage work to the right metrics." },
+    { type: "h3", text: "The Three Core Numbers" },
+    { type: "grid", items: [
+      { title: "PV (Planned Value)", text: "The budgeted cost of work scheduled to be done by this point. Your baseline plan." },
+      { title: "EV (Earned Value)", text: "The budgeted cost of work actually completed. What you PLANNED the completed work to cost — not what it actually cost." },
+      { title: "AC (Actual Cost)", text: "What the completed work actually cost. Real dollars spent." },
+    ]},
+    { type: "h3", text: "The Key Ratios" },
+    { type: "grid", items: [
+      { title: "SPI = EV / PV", text: "Schedule Performance Index. Above 1.0 = ahead of schedule. Below 1.0 = behind." },
+      { title: "CPI = EV / AC", text: "Cost Performance Index. Above 1.0 = under budget. Below 1.0 = over budget." },
+      { title: "SV = EV - PV", text: "Schedule Variance. Negative = behind schedule (in dollar terms)." },
+      { title: "CV = EV - AC", text: "Cost Variance. Negative = over budget." },
+    ]},
+    { type: "callout", variant: "info", label: "Worked Example", text: "Month 3 of a 12-month program: PV = $300K (planned 25% done), EV = $240K (only 20% actually complete), AC = $290K (paid for what's done). SPI = 240/300 = 0.80 (20% behind schedule). CPI = 240/290 = 0.83 (17% over budget on completed work). Program is in trouble on both fronts." },
+    { type: "h3", text: "Estimate at Completion (EAC)" },
+    { type: "p", text: "How much will the program ultimately cost? Simple formula: EAC = BAC / CPI (where BAC is Budget at Completion). If you're running 17% over budget on work done so far, expect to end up 17% over total. This extrapolation is often the most important number in a program review — and the one management least wants to hear." },
+    { type: "callout", variant: "warning", label: "The 15% Rule", text: "Industry research shows that once a program is more than 15-20% complete, CPI at that point is highly predictive of final CPI. Programs don't usually recover — they stabilize at whatever efficiency they're demonstrating. Early warnings deserve urgent action." },
+    { type: "h3", text: "Reading Program Reports Critically" },
+    { type: "p", text: "Good questions to ask when CPI drops below 0.95: what's driving it (labor hours? material cost? rework?)? Which control account is worst? What's being done to recover? When will we know if recovery is working? Less-good responses include 'we'll make it up later' and 'just measurement noise'. Real recovery requires diagnosed root cause and credible actions." },
+    { type: "h3", text: "Why Engineers Should Care" },
+    { type: "p", text: "EVM drives how your work gets measured. If you lead a control account (WBS element with budget and schedule), your performance literally shows up in the CPI and SPI numbers. Understanding this lets you set realistic budgets, flag issues early, and discuss your program intelligently with finance and program leadership." },
+  ],
+  quizzes: [
+    { question: "A program reports CPI = 0.85. What does this indicate?", options: ["The program is 15% under budget on completed work", "The program is 15% over budget on completed work — for every dollar of value earned, it cost $1.17", "The program is 85% complete", "CPI has no meaning without context"], correct: 1, explanation: "CPI = EV/AC. 0.85 means the completed work that was budgeted at $0.85 actually cost $1.00 — roughly 18% cost overrun on work done so far. That's significant and typically persists through program completion." },
+    { question: "Estimate at Completion (EAC) using the simple CPI-based formula is:", options: ["EAC = BAC + additional funding requested", "EAC = BAC / CPI — extrapolating current efficiency to the remaining work", "EAC = actual cost × 2", "EAC is always equal to BAC"], correct: 1, explanation: "If you're running at 85% efficiency so far (CPI = 0.85), it typically takes BAC/0.85 to complete the program. This simple extrapolation is surprisingly accurate once the program is more than ~15% complete." },
+    { question: "Research shows that once a program is 15-20% complete:", options: ["CPI usually improves dramatically by the end", "CPI at that point is highly predictive of final CPI — programs don't usually recover, they stabilize", "CPI has no predictive value", "Recovery happens automatically over time"], correct: 1, explanation: "The 'you can't improve what you can't see' lesson. Early CPI trends persist because they reflect underlying process performance. Meaningful recovery requires identifying root cause and changing the process — which rarely happens well from lip service." },
+  ]
+},
+{
+  phase: "Phase 4", phaseColor: "#1a6b3c",
+  title: "Building Your Executive Business Case",
+  subtitle: "A one-page proposal template that gets funded — combining everything from the previous 13 lessons.",
+  time: "45 min", type: "Capstone",
+  video: { id: "xSQJXJC2tNo", title: "Writing the Business Case — Free Template" },
+  content: [
+    { type: "p", text: "The capstone of the course: you can now read financials, evaluate capital investments, understand your industry structure, and manage programs. The final skill is translating all that into a compelling business case that executive leadership will actually read and fund. Most engineers fail at this not because their ideas are wrong — but because they can't package them for a busy decision-maker." },
+    { type: "h3", text: "The One-Page Principle" },
+    { type: "p", text: "If it takes more than one page to sell the idea, you've already lost. Executives decide based on the executive summary. Every sentence after it is supporting detail for questions — not for convincing. Your one page must include: the problem, the proposed solution, the numbers, the risks, and the ask." },
+    { type: "h3", text: "The One-Page Template" },
+    { type: "grid", items: [
+      { title: "Problem", text: "2-3 sentences. What's the specific, quantified business problem? (e.g., '$2.3M annual scrap cost from thermal stress in Program X')" },
+      { title: "Proposed Solution", text: "2-3 sentences. What specifically would you do? (e.g., 'Deploy in-process inspection using X technology on the two highest-scrap operations')" },
+      { title: "Financial Summary", text: "The numbers. Investment required, expected annual benefit, payback period, NPV at company WACC." },
+      { title: "Risks & Mitigations", text: "Top 3 risks, each with a specific mitigation. Credibility comes from showing you thought about what could go wrong." },
+      { title: "Timeline & Milestones", text: "What gets done when. Clear decision points and off-ramps if things go wrong." },
+      { title: "The Ask", text: "Specific — how much money, over what timeframe, for what. 'Approve $450K capital investment for FY25Q2 deployment' beats 'we should look into this.'" },
+    ]},
+    { type: "h3", text: "The Numbers Must Be Defensible" },
+    { type: "p", text: "Every number in your case will be questioned. Where does the $2.3M scrap cost come from? Is it annual or one-time? Does it include rework labor? How did you estimate the 70% reduction? Have an answer for every question — ideally with the back-up on a follow-up slide, not on page one." },
+    { type: "callout", variant: "info", label: "Sensitivity Analysis", text: "Executives trust cases that show awareness of uncertainty. 'At conservative assumptions (50% reduction), payback is 14 months; at optimistic (80%), 8 months' is stronger than 'payback is 11 months'." },
+    { type: "h3", text: "Anticipate the Three Executive Questions" },
+    { type: "p", text: "1. What's the return and how confident are you in the numbers? 2. What could go wrong and what have you done about it? 3. Why this instead of the 20 other things competing for this budget? Have crisp answers ready. If you can't answer all three, the case isn't ready." },
+    { type: "callout", variant: "warning", label: "Strategic Alignment", text: "Even a great financial return won't get funded if it doesn't align with current strategic priorities. Know your company's top 3-5 priorities (from earnings calls, all-hands meetings, leadership communications) and frame your case to directly support one of them." },
+    { type: "h3", text: "After the Decision" },
+    { type: "p", text: "Win or lose, follow up with stakeholders. Thank them for the hearing. Ask what would strengthen the case next time. Execute any commitments you made in the meeting. The engineers who get their cases funded over time are the ones who build track records of credible estimates, on-time delivery, and honest follow-up." },
+    { type: "h3", text: "Congratulations" },
+    { type: "p", text: "You've completed all 14 lessons. You now have the vocabulary, frameworks, and confidence to engage business discussions as a peer — not a technical specialist waiting for translation. The final exam tests comprehension across all four phases. Good luck." },
+  ],
+  quizzes: [
+    { question: "Why should an executive business case fit on one page?", options: ["Longer documents are not allowed under SEC regulations", "Executives decide based on the executive summary — additional pages provide supporting detail for follow-up questions, not convincing material", "One page saves printing costs", "Longer documents are actually better"], correct: 1, explanation: "Busy decision-makers form their verdict on page one. Everything after is answering questions that page one raised. Cases that need 10 pages to make their point usually don't get read — and don't get funded." },
+    { question: "Sensitivity analysis in a business case shows:", options: ["That you can't estimate the numbers precisely", "Awareness of uncertainty — how the conclusions hold up under different assumptions ('conservative case: 14-month payback; optimistic: 8-month')", "That the numbers don't matter", "That the project is too risky to pursue"], correct: 1, explanation: "Executives have seen too many overly precise-looking estimates fail. Showing a range under different assumptions demonstrates rigor — and builds trust. 'I believe X, but here's what happens if I'm wrong' is more credible than 'X exactly.'" },
+    { question: "A technically sound, financially strong business case may still fail to get funded if:", options: ["It's submitted on the wrong day of the week", "It doesn't align with current strategic priorities — everything competes with other priorities for limited budget and attention", "It's written in 12-point font", "It uses too many graphs"], correct: 1, explanation: "Capital and management attention are finite. A great project on a non-priority topic often loses to a decent project on a top priority. Framing your case to support current strategic priorities dramatically improves its chances." },
+  ]
+},
+]; // end MBA_LESSONS
+
+// ────────────────────────────────────────────────────────────────────────────
+// MBA FINAL EXAM POOL
+// ────────────────────────────────────────────────────────────────────────────
+const MBA_FINAL_EXAM = [
+  // ─── Phase 1: Foundation ───────────────────────────────────────────────────
+  { phase: "P1", q: "Which financial statement best reveals whether an aerospace company has enough cash to operate through the next year?",
+    options: ["The cash flow statement combined with the balance sheet",
+              "The income statement alone",
+              "The marketing plan",
+              "The order backlog report"] },
+  { phase: "P1", q: "Why is the order backlog such an important metric in aerospace?",
+    options: ["It represents signed but undelivered orders — a leading indicator of future revenue",
+              "It's required by SEC to be published weekly",
+              "It determines the stock price exactly",
+              "It measures current quarter profitability"] },
+  { phase: "P1", q: "What is 'program accounting' as famously used by Boeing?",
+    options: ["Spreading costs across an estimated total production run to smooth reported earnings",
+              "An illegal accounting practice",
+              "Assigning every program to a different executive",
+              "A requirement unique to the FAA"] },
+  { phase: "P1", q: "A machine shop uses a single overhead rate as a percentage of direct labor. What's the likely effect on a highly automated, low-labor product?",
+    options: ["It receives less overhead allocation than its true resource consumption warrants",
+              "It receives exactly the right overhead",
+              "It receives more overhead than warranted",
+              "Overhead allocation has no effect on product costs"] },
+  { phase: "P1", q: "Activity-Based Costing (ABC) differs from traditional overhead allocation by:",
+    options: ["Tracing indirect costs through specific activities based on actual consumption",
+              "Allocating all overhead to direct labor only",
+              "Ignoring indirect costs entirely",
+              "Requiring external auditors for every allocation"] },
+  { phase: "P1", q: "Why does Net Present Value use a discount rate?",
+    options: ["To account for the time value of money — future dollars are worth less than today's",
+              "To comply with SEC reporting standards",
+              "To make the math harder",
+              "To exclude taxes"] },
+  { phase: "P1", q: "A project has a 2-year payback and NPV of -$50K. The correct interpretation is:",
+    options: ["Reject — negative NPV means the project destroys value even if it pays back quickly",
+              "Accept — fast payback is all that matters",
+              "Accept — NPV is irrelevant",
+              "Wait for more data"] },
+  { phase: "P1", q: "In capital budgeting, which cash flows should be included?",
+    options: ["Only incremental after-tax cash flows that result from the decision",
+              "All historical costs ever spent on the facility",
+              "Only revenue, excluding costs",
+              "Only marketing expenses"] },
+  { phase: "P1", q: "Where in a 10-K would you find management's narrative explanation of the year's performance?",
+    options: ["Item 7 — Management Discussion & Analysis (MD&A)",
+              "Item 1A — Risk Factors",
+              "The CEO's biography",
+              "Item 15 — Exhibits"] },
+  { phase: "P1", q: "Why do aerospace analysts pay close attention to segment reporting?",
+    options: ["Commercial, defense, and services segments have very different economics — consolidated numbers mask what's happening",
+              "All segments must report the same margin by law",
+              "Segment data is optional and usually absent",
+              "Segment reporting is only for consumer companies"] },
+  { phase: "P1", q: "A 'reach-forward loss' on a long-duration aerospace program signals:",
+    options: ["Cumulative program economics have deteriorated enough to require recognizing expected future losses now",
+              "Good news for the program's outlook",
+              "A legal adjustment unrelated to profitability",
+              "A routine quarterly reclassification"] },
+  { phase: "P1", q: "Operating margin in established commercial aerospace typically runs:",
+    options: ["8-12% in good years — thinner than defense",
+              "30-40% consistently",
+              "Under 1%, always",
+              "Exactly matching inflation"] },
+  { phase: "P1", q: "The 'book-to-bill ratio' tracks:",
+    options: ["New orders received divided by shipments delivered — above 1.0 indicates growing backlog",
+              "Number of books printed for investor relations",
+              "Hours billed divided by hours planned",
+              "A retail metric not used in aerospace"] },
+  { phase: "P1", q: "A company's Weighted Average Cost of Capital (WACC) is typically used as:",
+    options: ["The starting discount rate for NPV analysis — reflecting the company's blended cost of debt and equity",
+              "The maximum legal selling price",
+              "An accounting figure with no investment relevance",
+              "The hourly shop rate"] },
+
+  // ─── Phase 2: Operations & Strategy ────────────────────────────────────────
+  { phase: "P2", q: "Why does aerospace manufacturing have high barriers to entry?",
+    options: ["AS9100 certification, capital equipment, flight-part qualifications, and customer approvals take years and millions of dollars",
+              "The industry is secretly regulated to prevent competition",
+              "Only specific countries can produce aerospace parts",
+              "Aerospace parts are illegal for new entrants"] },
+  { phase: "P2", q: "Porter argues that a company 'stuck in the middle' is:",
+    options: ["Trying to compete on both cost and differentiation and losing to focused competitors on each",
+              "In the strongest strategic position",
+              "Required by antitrust law",
+              "Guaranteed profitable over time"] },
+  { phase: "P2", q: "What makes a competitive advantage sustainable?",
+    options: ["Being difficult for competitors to copy — through scale, relationships, regulatory moats, or proprietary technology",
+              "Being patented immediately",
+              "Generating revenue for one quarter",
+              "Requiring large marketing budgets"] },
+  { phase: "P2", q: "In Porter's Five Forces, which factor would you say is LOW for an aerospace OEM like Boeing or Airbus?",
+    options: ["Rivalry among competitors (few players, highly differentiated)",
+              "Supplier power on titanium",
+              "Threat of new entrants for commercial airliners",
+              "Total industry complexity"] },
+  { phase: "P2", q: "What does the Theory of Constraints say about improving a non-bottleneck process step?",
+    options: ["It builds inventory in front of the bottleneck without increasing total throughput",
+              "It proportionally speeds up the whole system",
+              "It always reduces quality",
+              "It's the most important place to invest"] },
+  { phase: "P2", q: "Which of the seven wastes (TIMWOOD) includes excess work-in-process between operations?",
+    options: ["Inventory",
+              "Transportation only",
+              "Motion only",
+              "Defects"] },
+  { phase: "P2", q: "Why is pure single-piece flow often adapted to 'small-batch flow' in aerospace?",
+    options: ["Low-volume, high-mix production with long setups and lot-based inspection makes pure single-piece flow impractical",
+              "AS9100 requires large batches",
+              "Single-piece flow is illegal in aerospace",
+              "Small-batch flow is universally superior in every industry"] },
+  { phase: "P2", q: "Throughput accounting argues that non-bottleneck machines should:",
+    options: ["Have idle time — running them at 100% utilization just builds inventory without increasing throughput",
+              "Always run at 100% to absorb overhead",
+              "Be removed from the shop floor",
+              "Always be prioritized over bottlenecks"] },
+  { phase: "P2", q: "In the Kraljic Matrix, a component that's hard to source but has low total business impact is classified as:",
+    options: ["Bottleneck",
+              "Strategic",
+              "Leverage",
+              "Non-critical"] },
+  { phase: "P2", q: "Why did aggressive just-in-time strategies fail dramatically during 2020-2022?",
+    options: ["Without buffer inventory, supply disruptions cascaded immediately into production halts, amplified by single-source dependencies",
+              "JIT has always been a failure",
+              "Regulators banned JIT",
+              "Labor unions shut down production"] },
+  { phase: "P2", q: "Partnership supplier relationships typically outperform transactional ones for strategic components because:",
+    options: ["Information sharing, joint improvement, and greater reliability — at the cost of less immediate price competition",
+              "They always offer the absolute lowest unit cost",
+              "They're required by FAA regulation",
+              "They eliminate the need for contracts"] },
+  { phase: "P2", q: "'Strategy' versus 'goals' is best distinguished as:",
+    options: ["Strategy defines how you'll win — which customers, segments, capabilities, trade-offs — while goals are quantified targets without that plan",
+              "Goals matter; strategy doesn't",
+              "They're the same thing",
+              "Strategy is only for marketing departments"] },
+  { phase: "P2", q: "SWOT analysis combines:",
+    options: ["Internal strengths and weaknesses with external opportunities and threats",
+              "Revenue with profit",
+              "Labor with material",
+              "Engineering with marketing"] },
+
+  // ─── Phase 3: People & Markets ─────────────────────────────────────────────
+  { phase: "P3", q: "Which leadership style is most appropriate for a genuine crisis with no time for consensus?",
+    options: ["Commanding — 'do this now' — though it damages morale if used routinely",
+              "Democratic",
+              "Affiliative",
+              "Coaching"] },
+  { phase: "P3", q: "Psychological safety on a team means:",
+    options: ["Members feel safe taking interpersonal risks — speaking up, admitting mistakes, asking questions — without fear of punishment",
+              "Insurance coverage for the team",
+              "Physical workplace safety rules",
+              "No one ever disagrees in meetings"] },
+  { phase: "P3", q: "Effective delegation consists of:",
+    options: ["Clear outcome, clear boundaries (budget/time/authority), clear decision rights, clear check-ins",
+              "Assigning a task with no context and expecting results",
+              "Doing the task yourself to ensure it's right",
+              "Delegating only unpleasant tasks"] },
+  { phase: "P3", q: "Influence-without-authority is most effective in matrix organizations when you:",
+    options: ["Understand stakeholders' interests, build coalitions early, give credit generously, and deliver on commitments",
+              "Demand compliance from everyone",
+              "Go around people when they disagree",
+              "Avoid building relationships"] },
+  { phase: "P3", q: "What distinguishes capture management from proposal response?",
+    options: ["Capture is long-term positioning work done 1-3 years before the RFP is released — relationships, requirements shaping, pre-positioning",
+              "Capture only happens after RFP release",
+              "Capture is a legal requirement for all government work",
+              "Capture is only used in commercial, not defense"] },
+  { phase: "P3", q: "Why is 'past performance' weighted so heavily in government aerospace procurement?",
+    options: ["It's a strong predictor of future performance — the contract becomes partly a reputational bet",
+              "It's required by FAA regulation",
+              "All contracts require past performance",
+              "Past performance has no actual effect on awards"] },
+  { phase: "P3", q: "A rigorous bid-no-bid process primarily helps companies by:",
+    options: ["Focusing pursuit resources on opportunities with credible win probability — increasing win rate",
+              "Speeding up all proposal submissions",
+              "Avoiding all government work",
+              "Maximizing total proposals submitted"] },
+  { phase: "P3", q: "Your BATNA is:",
+    options: ["Your Best Alternative To a Negotiated Agreement — what you'll do if no deal is reached",
+              "The first offer you should make",
+              "The legal minimum price",
+              "Your internal project budget"] },
+  { phase: "P3", q: "In a Firm Fixed Price (FFP) contract:",
+    options: ["The seller bears cost risk — if actuals exceed the bid, the seller loses money",
+              "The buyer absorbs all overruns",
+              "There's no risk for either side",
+              "Costs are shared 50/50"] },
+  { phase: "P3", q: "Positional bargaining ('I need 10%!' 'I can only do 5%!') tends to fail compared to interest-based negotiation because:",
+    options: ["It locks both sides into positions without exploring underlying interests that could enable mutually beneficial trades",
+              "It takes longer",
+              "It's illegal under contract law",
+              "It requires written documentation"] },
+  { phase: "P3", q: "Cost-Plus-Incentive-Fee (CPIF) contracts are used when:",
+    options: ["Both parties want to share cost risk — fee varies based on cost performance against a target",
+              "The seller wants to bear all risk",
+              "The buyer wants no flexibility",
+              "Neither party wants a contract"] },
+  { phase: "P3", q: "The Zone of Possible Agreement (ZOPA) is:",
+    options: ["The range between both parties' reservation prices where a deal is possible — if it doesn't exist, no deal is possible",
+              "The geographic region where deals happen",
+              "A legal document",
+              "The first offer made"] },
+  { phase: "P3", q: "Which factor most determines a negotiation's outcome?",
+    options: ["Preparation — understanding your own BATNA/interests and estimating the counterparty's",
+              "Who speaks loudest",
+              "Which side has more attorneys",
+              "Who arrives first to the meeting"] },
+
+  // ─── Phase 4: Execution ────────────────────────────────────────────────────
+  { phase: "P4", q: "Why does aftermarket services matter so much in aerospace economics?",
+    options: ["Installed fleets throw off spare-parts and sustainment revenue for decades — stable, high-margin, recurring income",
+              "Services are regulated more loosely than production",
+              "Services are cheaper to deliver than production",
+              "Only small companies do services"] },
+  { phase: "P4", q: "Defense aerospace demand typically moves relative to commercial aerospace demand as:",
+    options: ["Counter-cyclical — driven by government budgets and geopolitics, often inversely to airline demand",
+              "Perfectly in lock-step",
+              "Lagging commercial by 6 months",
+              "Always growing while commercial shrinks"] },
+  { phase: "P4", q: "FAA compliance is described as both a cost and a strategic asset because:",
+    options: ["Compliance requires investment but creates barriers to entry; mature compliance capabilities let companies launch faster than new entrants",
+              "FAA compliance is free",
+              "Strategic assets never have costs",
+              "Compliance is actually irrelevant"] },
+  { phase: "P4", q: "Which layer of the aerospace supplier tier is Spirit AeroSystems generally considered?",
+    options: ["Tier 1 — major subsystems and assemblies, often comparable in size to smaller primes",
+              "Tier 3",
+              "OEM prime",
+              "MRO only"] },
+  { phase: "P4", q: "A program reports CPI = 0.85 (three months into a 12-month schedule). What does it indicate?",
+    options: ["The work done so far cost about 18% more than budgeted — a typical persistent overrun signal",
+              "The program is 85% complete",
+              "The program is 15% under budget",
+              "CPI has no meaning without context"] },
+  { phase: "P4", q: "The simple Estimate at Completion (EAC) formula based on CPI is:",
+    options: ["EAC = BAC / CPI — extrapolating current efficiency to the remaining work",
+              "EAC = BAC × 2",
+              "EAC = actual cost × 2",
+              "EAC = always equal to BAC"] },
+  { phase: "P4", q: "Research on program performance shows that once a program is 15-20% complete:",
+    options: ["CPI at that point is highly predictive of final CPI — programs don't usually recover, they stabilize",
+              "CPI usually improves dramatically by end",
+              "CPI has no predictive value",
+              "Recovery is automatic over time"] },
+  { phase: "P4", q: "Schedule Performance Index (SPI) is calculated as:",
+    options: ["SPI = EV / PV — ratio of earned value to planned value",
+              "SPI = AC / EV",
+              "SPI = BAC / EAC",
+              "SPI = PV - AC"] },
+  { phase: "P4", q: "A business case should fit on one page because:",
+    options: ["Executives decide based on the executive summary; additional pages are for supporting detail on follow-up questions",
+              "Longer documents aren't allowed under SEC rules",
+              "One page saves printing costs",
+              "Longer is actually better"] },
+  { phase: "P4", q: "Sensitivity analysis in a business case demonstrates:",
+    options: ["Awareness of uncertainty — showing how conclusions hold up under different assumptions",
+              "That you can't estimate the numbers",
+              "That the numbers don't matter",
+              "That the project is too risky to pursue"] },
+  { phase: "P4", q: "A technically sound, financially strong business case may still fail to get funded if:",
+    options: ["It doesn't align with current strategic priorities — it competes against other priorities for limited budget",
+              "It's submitted on the wrong day of the week",
+              "It uses 12-point font",
+              "It has too many graphs"] },
+  { phase: "P4", q: "The three questions most executives want answered in any business case are:",
+    options: ["What's the return and how confident are you? What could go wrong and what have you done? Why this over competing priorities?",
+              "When did you start? Where will it be built? Who is on the team?",
+              "What color will it be? How big is it? How long is the warranty?",
+              "What's the brand name? What's the slogan? What's the launch date?"] },
+  { phase: "P4", q: "Control account managers in an EVM-managed program are responsible for:",
+    options: ["A specific WBS element with defined budget, schedule, and scope — their performance directly shows up in CPI/SPI",
+              "All overhead costs in the company",
+              "Only administrative documents",
+              "Marketing the program externally"] },
+];
+
+
 // Fisher-Yates shuffle — returns a new shuffled copy of an array
 function shuffleArray(arr) {
   const a = [...arr];
@@ -1106,16 +1851,16 @@ function shuffleOptions(options) {
 // Build a fresh 25-question exam attempt using stratified sampling:
 // proportionally pull questions from each phase pool, then shuffle the overall order
 // and randomize option order per question.
-function buildExamAttempt() {
+function buildExamAttempt(pool) {
   const EXAM_SIZE = 25;
   const phases = ["P1", "P2", "P3", "P4"];
 
   // Group pool by phase
   const byPhase = {};
-  phases.forEach(p => { byPhase[p] = FINAL_EXAM.filter(q => q.phase === p); });
+  phases.forEach(p => { byPhase[p] = pool.filter(q => q.phase === p); });
 
   // Allocate question count per phase (proportional to pool sizes)
-  const totalPool = FINAL_EXAM.length;
+  const totalPool = pool.length;
   const allocations = {};
   let allocated = 0;
   phases.forEach((p, i) => {
@@ -1145,8 +1890,8 @@ function buildExamAttempt() {
   });
 }
 
-function FinalExamView({ onExit, isComfortable }) {
-  const [attempt, setAttempt] = useState(() => buildExamAttempt());
+function FinalExamView({ onExit, isComfortable, pool, certificateTitle, certificateSubtitle }) {
+  const [attempt, setAttempt] = useState(() => buildExamAttempt(pool));
   const [answers, setAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [studentName, setStudentName] = useState("");
@@ -1178,7 +1923,7 @@ function FinalExamView({ onExit, isComfortable }) {
   };
 
   const handleReset = () => {
-    setAttempt(buildExamAttempt());
+    setAttempt(buildExamAttempt(pool));
     setAnswers({});
     setSubmitted(false);
     setStudentName("");
@@ -1233,8 +1978,8 @@ function FinalExamView({ onExit, isComfortable }) {
   <text x="550" y="150" font-family="Georgia, serif" font-size="22" fill="#7a6e5f" text-anchor="middle" letter-spacing="6">CERTIFICATE OF COMPLETION</text>
   <line x1="350" y1="180" x2="750" y2="180" stroke="#c84b11" stroke-width="1"/>
 
-  <text x="550" y="260" font-family="Georgia, serif" font-size="48" font-weight="bold" fill="#1a1208" text-anchor="middle">AI for Engineering Mastery</text>
-  <text x="550" y="305" font-family="Georgia, serif" font-size="20" font-style="italic" fill="#7a6e5f" text-anchor="middle">Aerospace Manufacturing Track</text>
+  <text x="550" y="260" font-family="Georgia, serif" font-size="48" font-weight="bold" fill="#1a1208" text-anchor="middle">${escapeXml(certificateTitle)}</text>
+  <text x="550" y="305" font-family="Georgia, serif" font-size="20" font-style="italic" fill="#7a6e5f" text-anchor="middle">${escapeXml(certificateSubtitle)}</text>
 
   <text x="550" y="395" font-family="Georgia, serif" font-size="18" fill="#2a2018" text-anchor="middle">This certifies that</text>
 
@@ -1332,7 +2077,8 @@ function FinalExamView({ onExit, isComfortable }) {
     const a = document.createElement("a");
     a.href = url;
     const safeName = name.replace(/[^a-z0-9_-]/gi, "_");
-    a.download = `AI_Engineering_Mastery_Certificate_${safeName}.svg`;
+    const filePrefix = certificateTitle.replace(/[^a-z0-9]+/gi, "_").replace(/^_|_$/g, "");
+    a.download = `${filePrefix}_Certificate_${safeName}.svg`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -1347,7 +2093,7 @@ function FinalExamView({ onExit, isComfortable }) {
         <span>{totalQuestions} questions · 85% to pass</span>
       </div>
       <h1 style={{ fontSize: isComfortable ? "clamp(32px,3.5vw,48px)" : "clamp(26px,3.5vw,40px)", fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 8, color: "#1a1208" }}>
-        AI for Engineering Mastery
+        {certificateTitle}
       </h1>
       <p style={{ fontSize: isComfortable ? 18 : 16, fontWeight: 300, fontStyle: "italic", color: "#7a6e5f", marginBottom: 20, lineHeight: 1.55 }}>
         A comprehensive test across all four phases. No feedback is shown until you submit. Answer all {totalQuestions} questions, then click Submit.
@@ -1647,6 +2393,8 @@ function LessonView({ lesson, lessonIdx, totalLessons, onPrev, onNext, isComplet
 
 // ─── APP ───────────────────────────────────────────────────────────────────────
 function CourseApp() {
+  // Active track: "ai" (AI for Engineering Certificate) or "mba" (MBA Professional Certificate)
+  const [currentTrack, setCurrentTrack] = useState("ai");
   const [currentLesson, setCurrentLesson] = useState(-1);
   const [completed, setCompleted] = useState(new Set());
   const [storageReady, setStorageReady] = useState(false);
@@ -1660,6 +2408,14 @@ function CourseApp() {
   const [resetToken, setResetToken] = useState(0);
   // Shows in-app reset confirmation modal (window.confirm is unreliable in sandboxed iframes)
   const [showResetConfirm, setShowResetConfirm] = useState(false);
+
+  // Resolve active track's data and storage key
+  const LESSONS = currentTrack === "mba" ? MBA_LESSONS : AI_LESSONS;
+  const FINAL_EXAM = currentTrack === "mba" ? MBA_FINAL_EXAM : AI_FINAL_EXAM;
+  const storageKey = currentTrack === "mba" ? "mba-course-progress" : "ai-course-progress";
+  const courseTitle = currentTrack === "mba" ? "MBA Professional Certificate" : "AI Mastery for Aerospace";
+  const certificateTitle = currentTrack === "mba" ? "MBA Professional Certificate" : "AI for Engineering Certificate";
+  const certificateSubtitle = currentTrack === "mba" ? "Aerospace Business Track" : "Aerospace Manufacturing Track";
 
   // Auto-detect display mode based on viewport width and pointer type.
   // Desktop with mouse + wide screen = comfortable (larger type, more padding).
@@ -1705,44 +2461,79 @@ function CourseApp() {
     return () => { const s = document.getElementById(id); if (s) s.remove(); };
   }, []);
 
-  // Load saved progress on mount
+  // Load global preferences (track, sidebar, display mode) once on mount
   useEffect(() => {
     try {
-      const raw = localStorage.getItem("ai-course-progress");
-      if (raw) {
-        const saved = JSON.parse(raw);
-        if (saved.completed && Array.isArray(saved.completed)) {
-          setCompleted(new Set(saved.completed));
+      // Global prefs (applies to both tracks)
+      const rawPrefs = localStorage.getItem("course-prefs");
+      if (rawPrefs) {
+        const prefs = JSON.parse(rawPrefs);
+        if (prefs.currentTrack === "ai" || prefs.currentTrack === "mba") {
+          setCurrentTrack(prefs.currentTrack);
         }
-        if (typeof saved.currentLesson === "number") {
-          setCurrentLesson(saved.currentLesson);
+        if (typeof prefs.sidebarCollapsed === "boolean") {
+          setSidebarCollapsed(prefs.sidebarCollapsed);
         }
-        if (typeof saved.sidebarCollapsed === "boolean") {
-          setSidebarCollapsed(saved.sidebarCollapsed);
-        }
-        if (saved.displayModePref === "auto" || saved.displayModePref === "compact" || saved.displayModePref === "comfortable") {
-          setDisplayModePref(saved.displayModePref);
+        if (prefs.displayModePref === "auto" || prefs.displayModePref === "compact" || prefs.displayModePref === "comfortable") {
+          setDisplayModePref(prefs.displayModePref);
         }
       }
     } catch (e) { setStorageError(true); }
     setStorageReady(true);
   }, []);
 
-  // Save progress whenever completed lessons, current lesson, or sidebar state changes
+  // Whenever the active track changes (including the initial resolved track), load that track's progress
   useEffect(() => {
     if (!storageReady) return;
     try {
-      localStorage.setItem("ai-course-progress", JSON.stringify({
+      const raw = localStorage.getItem(storageKey);
+      if (raw) {
+        const saved = JSON.parse(raw);
+        setCompleted(new Set(
+          Array.isArray(saved.completed)
+            ? saved.completed.filter(n => Number.isInteger(n) && n >= 0 && n < LESSONS.length)
+            : []
+        ));
+        if (typeof saved.currentLesson === "number") {
+          setCurrentLesson(saved.currentLesson);
+        } else {
+          setCurrentLesson(-1);
+        }
+      } else {
+        // No saved progress for this track — start fresh
+        setCompleted(new Set());
+        setCurrentLesson(-1);
+      }
+    } catch (e) { setStorageError(true); }
+    // Bump resetToken so any lingering child view state is cleared on track switch
+    setResetToken(t => t + 1);
+  }, [currentTrack, storageReady]);
+
+  // Save per-track progress whenever completed/currentLesson changes
+  useEffect(() => {
+    if (!storageReady) return;
+    try {
+      localStorage.setItem(storageKey, JSON.stringify({
         completed: [...completed],
         currentLesson,
-        sidebarCollapsed,
-        displayModePref,
       }));
       if (storageError) setStorageError(false);
     } catch (e) {
       setStorageError(true);
     }
-  }, [completed, currentLesson, sidebarCollapsed, displayModePref, storageReady, storageError]);
+  }, [completed, currentLesson, storageKey, storageReady, storageError]);
+
+  // Save global prefs (track selection, sidebar, display mode) separately
+  useEffect(() => {
+    if (!storageReady) return;
+    try {
+      localStorage.setItem("course-prefs", JSON.stringify({
+        currentTrack,
+        sidebarCollapsed,
+        displayModePref,
+      }));
+    } catch (e) { /* ignore */ }
+  }, [currentTrack, sidebarCollapsed, displayModePref, storageReady]);
 
   const progressPct = Math.round((completed.size / LESSONS.length) * 100);
   const goTo = (idx) => { setCurrentLesson(idx); window.scrollTo(0, 0); };
@@ -1756,9 +2547,10 @@ function CourseApp() {
   // Export current progress as a downloadable JSON file
   const exportProgress = () => {
     const payload = {
-      version: 1,
+      version: 2,
       exportedAt: new Date().toISOString(),
-      app: "AI Mastery for Aerospace",
+      app: courseTitle,
+      track: currentTrack,
       data: {
         completed: [...completed].sort((a, b) => a - b),
         currentLesson,
@@ -1771,7 +2563,7 @@ function CourseApp() {
     const a = document.createElement("a");
     a.href = url;
     const datestamp = new Date().toISOString().slice(0, 10);
-    a.download = `ai-course-progress-${datestamp}.json`;
+    a.download = `${currentTrack}-course-progress-${datestamp}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -1785,29 +2577,42 @@ function CourseApp() {
     reader.onload = (ev) => {
       try {
         const parsed = JSON.parse(ev.target.result);
-        const data = parsed.data || parsed; // allow flat or wrapped shape
+        const data = parsed.data || parsed;
+        const fileTrack = parsed.track || "ai"; // default to ai for old v1 exports
 
         // Validate
         if (!data || typeof data !== "object") throw new Error("Invalid file format");
         if (!Array.isArray(data.completed)) throw new Error("Missing 'completed' array");
 
-        // Filter completed to valid lesson indices
+        // Determine the active-track lesson count for validation
+        const targetLessonCount = fileTrack === "mba" ? MBA_LESSONS.length : AI_LESSONS.length;
+        const targetTrackName = fileTrack === "mba" ? "MBA" : "AI";
+
+        // Filter completed to valid lesson indices for the target track
         const validCompleted = data.completed.filter(n =>
-          Number.isInteger(n) && n >= 0 && n < LESSONS.length
+          Number.isInteger(n) && n >= 0 && n < targetLessonCount
         );
 
         // Summarize what will be imported for the confirm dialog
+        const willSwitchTrack = fileTrack !== currentTrack;
         const msg =
           `Import progress?\n\n` +
-          `• ${validCompleted.length} of ${LESSONS.length} lessons will be marked complete\n` +
+          `• Track: ${targetTrackName}${willSwitchTrack ? " (will switch from current track)" : ""}\n` +
+          `• ${validCompleted.length} of ${targetLessonCount} lessons will be marked complete\n` +
           `• Display preferences will be restored\n\n` +
-          `This will REPLACE your current progress. Continue?`;
+          `This will REPLACE the ${targetTrackName} track's current progress. Continue?`;
 
         if (!window.confirm(msg)) return;
 
+        // Switch track if needed (will trigger load from that track's key; we'll overwrite below)
+        if (willSwitchTrack) {
+          setCurrentTrack(fileTrack);
+        }
+
+        // Apply imported data
         setCompleted(new Set(validCompleted));
         if (typeof data.currentLesson === "number" &&
-            ((data.currentLesson >= 0 && data.currentLesson < LESSONS.length) ||
+            ((data.currentLesson >= 0 && data.currentLesson < targetLessonCount) ||
              data.currentLesson === -1 || data.currentLesson === -2 || data.currentLesson === -3)) {
           setCurrentLesson(data.currentLesson);
         } else {
@@ -1819,7 +2624,7 @@ function CourseApp() {
         if (data.displayModePref === "auto" || data.displayModePref === "compact" || data.displayModePref === "comfortable") {
           setDisplayModePref(data.displayModePref);
         }
-        window.alert(`✓ Progress imported successfully.\n${validCompleted.length} of ${LESSONS.length} lessons restored.`);
+        window.alert(`✓ Progress imported successfully.\n${validCompleted.length} of ${targetLessonCount} lessons restored to the ${targetTrackName} track.`);
       } catch (err) {
         window.alert(`Import failed: ${err.message || "invalid JSON file"}`);
       }
@@ -1837,7 +2642,8 @@ function CourseApp() {
   };
 
   const confirmReset = () => {
-    try { localStorage.removeItem("ai-course-progress"); } catch(e) {}
+    // Only reset the active track's progress — leave the other track untouched
+    try { localStorage.removeItem(storageKey); } catch(e) {}
     setCompleted(new Set());
     setCurrentLesson(-1);
     setSidebarCollapsed(false);
@@ -1922,6 +2728,15 @@ function CourseApp() {
               title="Expand lesson list"
               style={{ background: "rgba(232,168,124,0.1)", border: "1px solid rgba(232,168,124,0.25)", borderRadius: 6, color: "#e8a87c", cursor: "pointer", padding: "6px 8px", fontFamily: "monospace", fontSize: 14, lineHeight: 1 }}>
               ›
+            </button>
+
+            {/* Track indicator — tap to swap tracks */}
+            <button
+              onClick={() => setCurrentTrack(currentTrack === "mba" ? "ai" : "mba")}
+              aria-label={`Current track: ${currentTrack === "mba" ? "MBA" : "AI"}. Tap to switch.`}
+              title={`Switch to ${currentTrack === "mba" ? "AI" : "MBA"} track`}
+              style={{ background: "rgba(232,168,124,0.18)", border: "1px solid rgba(232,168,124,0.35)", borderRadius: 6, color: "#e8a87c", cursor: "pointer", padding: "4px 6px", fontFamily: "monospace", fontSize: 10, fontWeight: 700, letterSpacing: "0.08em", lineHeight: 1.2, minWidth: 28 }}>
+              {currentTrack === "mba" ? "MBA" : "AI"}
             </button>
 
             {/* Home button */}
@@ -2009,7 +2824,12 @@ function CourseApp() {
               <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 6 }}>
                 <div style={{ cursor: "pointer", flex: 1, minWidth: 0 }} onClick={goHome}>
                   <div style={{ fontFamily: "monospace", fontSize: 9, letterSpacing: "0.18em", color: "rgba(255,255,255,0.32)", textTransform: "uppercase", marginBottom: 5 }}>Active Learning Course</div>
-                  <div style={{ fontSize: 16, fontWeight: 700, lineHeight: 1.25 }}>AI Mastery for <span style={{ fontStyle: "italic", color: "#e8a87c" }}>Aerospace</span></div>
+                  <div style={{ fontSize: 15, fontWeight: 700, lineHeight: 1.25, color: "#e8a87c" }}>
+                    {currentTrack === "mba" ? "MBA Professional Certificate" : "AI for Engineering Certificate"}
+                  </div>
+                  <div style={{ fontSize: 11, fontWeight: 400, fontStyle: "italic", lineHeight: 1.3, color: "rgba(255,255,255,0.55)", marginTop: 2 }}>
+                    {currentTrack === "mba" ? "Aerospace Business Track" : "Aerospace Manufacturing Track"}
+                  </div>
                 </div>
                 <div style={{ flexShrink: 0 }}>
                   {/* Collapse button */}
@@ -2021,6 +2841,56 @@ function CourseApp() {
                     style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.18)", borderRadius: 6, color: "rgba(255,255,255,0.65)", cursor: "pointer", padding: "4px 8px", lineHeight: 1, fontFamily: "monospace", fontSize: 13 }}>
                     ‹
                   </button>
+                </div>
+              </div>
+
+              {/* Track selector — switch between AI and MBA tracks */}
+              <div role="radiogroup" aria-label="Course track" style={{ display: "flex", gap: 4, background: "rgba(0,0,0,0.3)", borderRadius: 6, padding: 3, marginTop: 12 }}>
+                {[
+                  { key: "ai",  label: "AI",  title: "AI for Engineering Certificate" },
+                  { key: "mba", label: "MBA", title: "MBA Professional Certificate" },
+                ].map(opt => {
+                  const selected = currentTrack === opt.key;
+                  return (
+                    <button
+                      key={opt.key}
+                      role="radio"
+                      aria-checked={selected}
+                      title={opt.title}
+                      onClick={() => setCurrentTrack(opt.key)}
+                      style={{
+                        flex: 1,
+                        padding: "6px 8px",
+                        fontFamily: "monospace", fontSize: 10,
+                        letterSpacing: "0.12em", textTransform: "uppercase",
+                        borderRadius: 4,
+                        border: "none",
+                        cursor: "pointer",
+                        transition: "background 0.15s, color 0.15s",
+                        background: selected ? "#e8a87c" : "transparent",
+                        color: selected ? "#1a1208" : "rgba(255,255,255,0.55)",
+                        fontWeight: selected ? 700 : 500,
+                      }}>
+                      {opt.label}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Cortex Edge Learning brand emblem — mirrors the right emblem on the certificate */}
+              <div aria-label="Issued by Cortex Edge Learning" title="Issued by Cortex Edge Learning" style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 14, padding: "10px 12px", background: "#1c4a7a", border: "1px solid #13324f", borderRadius: 6 }}>
+                <svg viewBox="0 0 60 60" width="32" height="32" aria-hidden="true" style={{ flexShrink: 0 }}>
+                  <circle cx="30" cy="30" r="28" fill="#1c4a7a" stroke="#13324f" strokeWidth="1.2"/>
+                  <circle cx="30" cy="30" r="22" fill="#153c64" stroke="#7aa8d4" strokeOpacity="0.5" strokeWidth="0.8"/>
+                  {/* Chevron edge mark */}
+                  <path d="M 22 26 L 30 19 L 38 26" fill="none" stroke="#e8d8b8" strokeWidth="1.8" strokeLinejoin="round" strokeLinecap="round"/>
+                  <path d="M 25 30 L 30 25.5 L 35 30" fill="none" stroke="#e8d8b8" strokeWidth="1.3" strokeLinejoin="round" strokeLinecap="round" opacity="0.55"/>
+                  {/* Mini "CE" wordmark */}
+                  <text x="30" y="40" fontFamily="Georgia, serif" fontSize="9" fontWeight="bold" fill="#f5f0e8" textAnchor="middle" letterSpacing="1.5">CE</text>
+                </svg>
+                <div style={{ minWidth: 0, lineHeight: 1.15 }}>
+                  <div style={{ fontFamily: "Georgia, serif", fontSize: 13, fontWeight: 700, color: "#f5f0e8", letterSpacing: "0.02em" }}>CortexEdge</div>
+                  <div style={{ fontFamily: "Georgia, serif", fontSize: 10, fontStyle: "italic", color: "#b5ccdf" }}>learning</div>
                 </div>
               </div>
             </div>
@@ -2213,6 +3083,17 @@ function CourseApp() {
                 );
               })()}
             </div>
+
+            {/* Support / feedback contact */}
+            <div style={{ padding: "14px 18px 18px", marginTop: "auto", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+              <div style={{ fontFamily: "monospace", fontSize: 9, letterSpacing: "0.14em", color: "rgba(232,168,124,0.5)", textTransform: "uppercase", marginBottom: 6 }}>Feedback & Support</div>
+              <div style={{ fontSize: 11, lineHeight: 1.45, color: "rgba(255,255,255,0.55)" }}>
+                Forward bugs or requests to{" "}
+                <a href="mailto:CortexEdge@outlook.com" style={{ color: "#e8a87c", textDecoration: "none", fontWeight: 600, wordBreak: "break-all" }}>
+                  CortexEdge@outlook.com
+                </a>
+              </div>
+            </div>
           </>
         )}
       </nav>
@@ -2221,15 +3102,21 @@ function CourseApp() {
       <main aria-label="Lesson content" style={{ flex: 1, overflowY: "auto", height: "100dvh" }}>
         {currentLesson === -1 && (
           <div style={{ maxWidth: isComfortable ? 820 : 620, margin: "0 auto", padding: isComfortable ? "80px 40px" : "60px 32px", textAlign: "center" }}>
-            <div style={{ fontSize: 58, marginBottom: 18 }}>✈️</div>
+            <div style={{ fontSize: 58, marginBottom: 18 }}>{currentTrack === "mba" ? "📈" : "✈️"}</div>
             <h1 style={{ fontSize: "clamp(28px,5vw,44px)", fontWeight: 700, letterSpacing: "-0.03em", marginBottom: 10 }}>
-              Welcome to Your <span style={{ fontStyle: "italic", color: "#c84b11" }}>AI Mastery</span> Course
+              Welcome to Your{" "}
+              <span style={{ fontStyle: "italic", color: "#c84b11" }}>
+                {currentTrack === "mba" ? "MBA Professional" : "AI Mastery"}
+              </span>{" "}
+              Course
             </h1>
             <p style={{ fontSize: 15, fontWeight: 300, color: "#7a6e5f", lineHeight: 1.78, marginBottom: 28 }}>
-              An interactive learning experience built for aerospace manufacturing professionals. Each lesson combines curated videos, written content with aerospace manufacturing examples, and knowledge-check quizzes with immediate feedback.
+              {currentTrack === "mba"
+                ? "An interactive learning experience built for aerospace professionals pursuing executive-level business fluency. Each lesson combines curated videos, written content with aerospace industry examples, and knowledge-check quizzes with immediate feedback."
+                : "An interactive learning experience built for aerospace manufacturing professionals. Each lesson combines curated videos, written content with aerospace manufacturing examples, and knowledge-check quizzes with immediate feedback."}
             </p>
             <div style={{ display: "flex", justifyContent: "center", gap: 24, marginBottom: 28, padding: 20, background: "#ede7d6", borderRadius: 12, border: "1px solid #c8bfaa", flexWrap: "wrap" }}>
-              {[["14", "Lessons"], ["4", "Phases"], ["~6", "Months"], ["3+", "Quizzes/Lesson"]].map(([val, label]) => (
+              {[[String(LESSONS.length), "Lessons"], ["4", "Phases"], ["~6", "Months"], ["3+", "Quizzes/Lesson"]].map(([val, label]) => (
                 <div key={label} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3, minWidth: 70 }}>
                   <span style={{ fontSize: 24, fontWeight: 700 }}>{val}</span>
                   <span style={{ fontFamily: "monospace", fontSize: 9, color: "#7a6e5f", letterSpacing: "0.12em", textTransform: "uppercase" }}>{label}</span>
@@ -2238,7 +3125,9 @@ function CourseApp() {
             </div>
             <div style={{ background: "#ede7d6", border: "1px solid #c8bfaa", borderRadius: 10, padding: "14px 20px", marginBottom: 28, textAlign: "left", fontSize: 13, lineHeight: 1.8, color: "#2a2018" }}>
               <div style={{ fontFamily: "monospace", fontSize: 9, letterSpacing: "0.14em", textTransform: "uppercase", color: "#7a6e5f", marginBottom: 8 }}>Each lesson includes</div>
-              📹 Curated video from a top AI educator · 📖 Written content with aerospace examples · 🧩 Multiple-choice quizzes with full explanations · 💡 Practical callouts for manufacturing applications
+              {currentTrack === "mba"
+                ? "📹 Curated video from leading business educators · 📖 Written content with aerospace industry examples · 🧩 Multiple-choice quizzes with full explanations · 💡 Practical callouts grounded in real aerospace business situations"
+                : "📹 Curated video from a top AI educator · 📖 Written content with aerospace examples · 🧩 Multiple-choice quizzes with full explanations · 💡 Practical callouts for manufacturing applications"}
             </div>
             {completed.size > 0 && (
               <div style={{ fontFamily: "monospace", fontSize: 11, color: "#7a6e5f", marginBottom: 14 }}>
@@ -2261,9 +3150,12 @@ function CourseApp() {
 
         {currentLesson === -3 && (
           <FinalExamView
-            key={`exam-${resetToken}`}
+            key={`exam-${currentTrack}-${resetToken}`}
             onExit={goHome}
             isComfortable={isComfortable}
+            pool={FINAL_EXAM}
+            certificateTitle={certificateTitle}
+            certificateSubtitle={certificateSubtitle}
           />
         )}
 
@@ -2272,16 +3164,30 @@ function CourseApp() {
             <div style={{ fontSize: 70, marginBottom: 18 }}>🎓</div>
             <h1 style={{ fontSize: 40, fontWeight: 700, letterSpacing: "-0.03em", marginBottom: 10 }}>Course Complete!</h1>
             <p style={{ fontSize: 15, fontWeight: 300, color: "#7a6e5f", lineHeight: 1.78, marginBottom: 28 }}>
-              You have completed all 14 lessons across 4 phases. You now have the knowledge to build real AI applications for aerospace manufacturing and the business acumen to deploy them responsibly.
+              {currentTrack === "mba"
+                ? `You have completed all ${LESSONS.length} lessons across 4 phases. You now have the vocabulary, frameworks, and confidence to engage business discussions as a peer — from financial statements to capital budgeting to executive business cases.`
+                : `You have completed all ${LESSONS.length} lessons across 4 phases. You now have the knowledge to build real AI applications for aerospace manufacturing and the business acumen to deploy them responsibly.`}
             </p>
             <div style={{ background: "#ede7d6", border: "1px solid #c8bfaa", borderRadius: 12, padding: 24, textAlign: "left", marginBottom: 24 }}>
               <div style={{ fontFamily: "monospace", fontSize: 10, letterSpacing: "0.14em", color: "#7a6e5f", textTransform: "uppercase", marginBottom: 12 }}>Your next steps</div>
               <div style={{ fontSize: 14, lineHeight: 2.0, color: "#2a2018" }}>
-                → Pick your top AI use case from your Lesson 12 (Aerospace Use Cases) analysis<br/>
-                → Complete the one-page business case template from Lesson 14 (Business Case)<br/>
-                → Set up your Windows dev environment if you have not yet<br/>
-                → Build a working prototype of your top priority use case<br/>
-                → Schedule 30 minutes with your manager to present the opportunity
+                {currentTrack === "mba" ? (
+                  <>
+                    → Read your company's most recent 10-K with the analytical lens from Lesson 5<br/>
+                    → Build a one-page executive business case for a real opportunity in your operation<br/>
+                    → Shadow a program review and listen for EVM metrics in action<br/>
+                    → Practice the negotiation frameworks on an upcoming internal budget discussion<br/>
+                    → Schedule time with a senior leader to discuss your career path
+                  </>
+                ) : (
+                  <>
+                    → Pick your top AI use case from your Lesson 12 (Aerospace Use Cases) analysis<br/>
+                    → Complete the one-page business case template from Lesson 14 (Business Case)<br/>
+                    → Set up your Windows dev environment if you have not yet<br/>
+                    → Build a working prototype of your top priority use case<br/>
+                    → Schedule 30 minutes with your manager to present the opportunity
+                  </>
+                )}
               </div>
             </div>
             <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
@@ -2293,7 +3199,7 @@ function CourseApp() {
 
         {currentLesson >= 0 && currentLesson < LESSONS.length && (
           <LessonView
-            key={`lesson-${currentLesson}-${resetToken}`}
+            key={`lesson-${currentTrack}-${currentLesson}-${resetToken}`}
             lesson={LESSONS[currentLesson]}
             lessonIdx={currentLesson}
             totalLessons={LESSONS.length}
@@ -2389,7 +3295,12 @@ class ErrorBoundary extends Component {
     console.error("Course app crashed:", error, info);
   }
   handleReset = () => {
-    try { localStorage.removeItem("ai-course-progress"); } catch (e) {}
+    // ErrorBoundary doesn't know active track, so wipe all course data to recover cleanly
+    try {
+      localStorage.removeItem("ai-course-progress");
+      localStorage.removeItem("mba-course-progress");
+      localStorage.removeItem("course-prefs");
+    } catch (e) {}
     window.location.reload();
   };
   handleReload = () => {

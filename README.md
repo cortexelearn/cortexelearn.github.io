@@ -1,6 +1,6 @@
-# AI Mastery for Aerospace — GitHub Pages Deployment
+# Aerospace Learning Courses — GitHub Pages Deployment
 
-A self-contained interactive course that runs directly from GitHub Pages. No build step required.
+A self-contained interactive app containing two courses (AI Mastery and MBA Professional Certificate), switchable from the sidebar. Runs directly from GitHub Pages. No build step required.
 
 ## What's in this bundle
 

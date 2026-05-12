@@ -1,7 +1,7 @@
 // Service Worker for AI Mastery for Aerospace
 // Provides offline support after first visit
 
-const CACHE_NAME = 'ai-aerospace-v26';
+const CACHE_NAME = 'ai-aerospace-v28';
 const PRECACHE_URLS = [
   './',
   './index.html',

@@ -1096,7 +1096,8 @@ function QuizSet({ quizzes }) {
   // Shuffle options at mount so the correct answer's position is randomized per session
   // Stable across renders within this lesson view; re-shuffles when user navigates away and back
   const [shuffled] = useState(() => quizzes.map(q => {
-    const { shuffled, correctIdx } = shuffleOptions(q.options);
+    // Pass q.correct so the shuffle correctly tracks where the right answer ended up
+    const { shuffled, correctIdx } = shuffleOptions(q.options, q.correct);
     // Build a new quiz object with shuffled options and updated correct index
     return { ...q, options: shuffled, correct: correctIdx };
   }));
@@ -2578,10 +2579,11 @@ function shuffleArray(arr) {
 }
 
 // Fisher-Yates shuffle for option text that also returns the new index of the originally-correct answer
-function shuffleOptions(options) {
+// origCorrectIdx defaults to 0 to preserve compatibility with AI/MBA exam pools where option[0] is always correct
+function shuffleOptions(options, origCorrectIdx = 0) {
   const indexed = options.map((text, origIdx) => ({ text, origIdx }));
   const shuffled = shuffleArray(indexed);
-  const newCorrectIdx = shuffled.findIndex(x => x.origIdx === 0);
+  const newCorrectIdx = shuffled.findIndex(x => x.origIdx === origCorrectIdx);
   return { shuffled: shuffled.map(x => x.text), correctIdx: newCorrectIdx };
 }
 
@@ -2621,9 +2623,13 @@ function buildExamAttempt(pool) {
   const ordered = shuffleArray(selected);
 
   // Build attempt with per-question option shuffling
+  // For AI/MBA exam pools (older schema), item.correct is undefined → defaults to 0 (option[0] = correct by convention)
+  // For AM/Motor/Embed/Copilot exam pools (newer schema), item.correct is the explicit correct index
+  // Also support both q (older) and question (newer) field names
   return ordered.map((item, i) => {
-    const { shuffled, correctIdx } = shuffleOptions(item.options);
-    return { id: i, phase: item.phase, q: item.q, options: shuffled, correctIdx };
+    const origCorrect = item.correct !== undefined ? item.correct : 0;
+    const { shuffled, correctIdx } = shuffleOptions(item.options, origCorrect);
+    return { id: i, phase: item.phase, q: item.q || item.question, options: shuffled, correctIdx };
   });
 }
 
@@ -3192,7 +3198,7 @@ const AM_LESSONS = [
       explanation: "The LEAP nozzle is the canonical aerospace AM success: 20 separately brazed pieces consolidated into one printed component. The win wasn't 'first ever' — it was parts consolidation that made AM economically and technically superior to traditional manufacturing for that specific component." },
     { question: "Why does aerospace adopt additive manufacturing more cautiously than other industries?",
       options: [
-        "Aerospace executives are more conservative than executives in other industries by personality and background",
+        "Aerospace AM patents are concentrated in a few firms — others must license expensive IP before any aerospace deployment",
         "Aerospace certification, traceability, and material qualification requirements are extensive — qualifying any new process takes years",
         "Aerospace AM machines cost dramatically more than industrial machines used in other manufacturing sectors",
         "The FAA explicitly prohibits AM for any flight-critical components on civil aviation aircraft"
@@ -4165,7 +4171,7 @@ const AM_FINAL_EXAM = [
               "Proved that low-cost FDM printing could replace expensive metal forgings in commercial engines"],
     correct: 1, explanation: "The LEAP nozzle is the canonical aerospace AM success: parts consolidation that made AM economically and technically superior." },
   { phase: 1, question: "Why does aerospace adopt AM more cautiously than other industries?",
-    options: ["Aerospace executives are more conservative than executives in other industries by background",
+    options: ["Aerospace AM patents are concentrated in a few firms — others must license expensive IP before deployment",
               "Aerospace certification, traceability, and material qualification requirements are extensive — qualifying new processes takes years",
               "Aerospace AM machines cost dramatically more than industrial machines in other manufacturing sectors",
               "The FAA explicitly prohibits AM for any flight-critical components on civil aviation aircraft"],

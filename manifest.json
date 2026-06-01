@@ -1,7 +1,7 @@
 {
-  "name": "AI Mastery for Aerospace",
-  "short_name": "AI Aerospace",
-  "description": "Interactive AI learning course for aerospace manufacturing professionals.",
+  "name": "CortexEdge Aerospace Learning",
+  "short_name": "CortexEdge",
+  "description": "Interactive learning courses for aerospace professionals — AI, Microsoft Copilot, MBA, Additive Manufacturing, Motors, and Embedded Platforms tracks.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

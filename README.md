@@ -1,6 +1,6 @@
 # Aerospace Learning Courses — GitHub Pages Deployment
 
-A self-contained interactive app containing two courses (AI Mastery and MBA Professional Certificate), switchable from the sidebar. Runs directly from GitHub Pages. No build step required.
+A self-contained interactive Progressive Web App containing seven learning tracks (AI for Engineering, Microsoft Copilot, MBA Professional Certificate, Additive Manufacturing, Motor Engineering, Embedded Platforms, and Agentic AI), switchable from the sidebar. Each track has 14 lessons and a 53-question final exam pool. Runs directly from GitHub Pages. No build step required.
 
 ## What's in this bundle
 
@@ -91,8 +91,8 @@ The app will open in its own window and show up in your applications.
 
 To update content:
 
-1. Edit `index.html` (the course content lives in the `LESSONS` array near the top of the `<script>` tag)
-2. Bump the `CACHE_NAME` in `sw.js` (e.g., `'ai-aerospace-v1'` → `'ai-aerospace-v2'`) so the service worker refreshes cached files
+1. Edit `index.html` (course content lives in seven per-track arrays: `AI_LESSONS`, `COPILOT_LESSONS`, `MBA_LESSONS`, `AM_LESSONS`, `MOTOR_LESSONS`, `EMBED_LESSONS`, `AGENTIC_LESSONS`, plus matching `_FINAL_EXAM` pools)
+2. Bump the `CACHE_NAME` in `sw.js` by 1 (e.g., `'ai-aerospace-v43'` → `'ai-aerospace-v44'`) so the service worker refreshes cached files
 3. Commit and push — GitHub Pages will redeploy in 1-2 minutes
 
 Installed PWA users will pick up the new version on their next app launch.

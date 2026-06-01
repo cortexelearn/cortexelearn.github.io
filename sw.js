@@ -1,7 +1,7 @@
 // Service Worker for AI Mastery for Aerospace
 // Provides offline support after first visit
 
-const CACHE_NAME = 'ai-aerospace-v34';
+const CACHE_NAME = 'ai-aerospace-v43';
 const PRECACHE_URLS = [
   './',
   './index.html',
@@ -52,28 +52,48 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // App shell: cache-first
   const isAppShell = url.origin === self.location.origin;
   const isCdnAsset = RUNTIME_CACHE_HOSTS.some((host) => url.hostname.includes(host));
+  if (!isAppShell && !isCdnAsset) return;
 
-  if (isAppShell || isCdnAsset) {
+  // The HTML shell (navigations and index.html) uses NETWORK-FIRST so that a new
+  // deploy is picked up on the next online launch even if the SW version wasn't
+  // bumped. Falls back to cache when offline. Everything else (icons, manifest,
+  // versioned CDN libraries) uses CACHE-FIRST since those are immutable per URL.
+  const isHtmlShell =
+    request.mode === 'navigate' ||
+    url.pathname === '/' ||
+    url.pathname.endsWith('/') ||
+    url.pathname.endsWith('/index.html');
+
+  if (isHtmlShell) {
     event.respondWith(
-      caches.match(request).then((cached) => {
-        if (cached) return cached;
-        return fetch(request).then((response) => {
-          // Only cache successful responses
+      fetch(request)
+        .then((response) => {
           if (response && response.status === 200) {
             const copy = response.clone();
             caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
           }
           return response;
-        }).catch(() => {
-          // Offline fallback for navigation requests
-          if (request.mode === 'navigate') {
-            return caches.match('./index.html');
-          }
-        });
-      })
+        })
+        .catch(() =>
+          caches.match(request).then((cached) => cached || caches.match('./index.html'))
+        )
     );
+    return;
   }
+
+  // Static assets + CDN: cache-first
+  event.respondWith(
+    caches.match(request).then((cached) => {
+      if (cached) return cached;
+      return fetch(request).then((response) => {
+        if (response && response.status === 200) {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+        }
+        return response;
+      });
+    })
+  );
 });

@@ -27,12 +27,23 @@
       color: #1a1208;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      /* Paint the dark brand color into the notch/safe-area gutters so
+         the translucent status bar region matches the sidebar, not white. */
+      background-color: #1a1208;
     }
-    #root { min-height: 100dvh; }
+    /* Expose safe-area insets as CSS vars with 0 fallback for non-notch devices */
+    :root {
+      --sai-top: env(safe-area-inset-top, 0px);
+      --sai-right: env(safe-area-inset-right, 0px);
+      --sai-bottom: env(safe-area-inset-bottom, 0px);
+      --sai-left: env(safe-area-inset-left, 0px);
+    }
+    #root { min-height: 100dvh; background: #f5f0e8; }
     .boot-loader {
       display: flex; align-items: center; justify-content: center;
       min-height: 100dvh; flex-direction: column; gap: 16px;
       font-family: Georgia, serif; color: #7a6e5f;
+      padding-top: var(--sai-top); padding-bottom: var(--sai-bottom);
     }
     .boot-loader .plane { font-size: 48px; animation: pulse 1.6s ease-in-out infinite; }
     .boot-loader .label {
@@ -75,7 +86,7 @@ const AI_LESSONS = [
   title: "Welcome & Orientation",
   subtitle: "What this course covers, how it works, and what you'll be able to do when you're done.",
   time: "20 min", type: "Orientation",
-  video: { id: "zjkBMFhNj_g", title: "Intro to Large Language Models (Andrej Karpathy, 1 hr)" },
+  video: { id: "osKyvYJ3PRM", title: "Large Language Models (LLMs) - Everything You NEED To Know (25 min)" },
   content: [
     { type: "p", text: "Welcome. This course is built specifically for your situation: you've used AI tools like ChatGPT or Claude, have some coding exposure, and work in aerospace component manufacturing. That context shapes everything — no generic AI hype, just practical skills grounded in real manufacturing problems." },
     { type: "h3", text: "How This Course Works" },
@@ -132,7 +143,7 @@ const AI_LESSONS = [
   title: "How LLMs Actually Work",
   subtitle: "Demystify the technology. No math required — just the mental models that make everything click.",
   time: "35 min", type: "Core Concept",
-  video: { id: "LPZh9BOjkQs", title: "But what is a GPT? Visual intro to Transformers (3Blue1Brown, 26 min)" },
+  video: { id: "wjZofJX0v4M", title: "But what is a GPT? Visual intro to Transformers (3Blue1Brown, 26 min)" },
   content: [
     { type: "p", text: "Most people use AI like a black box. That is fine for casual use — but if you want to build with it confidently and catch when it is wrong, you need a working mental model. Three key ideas cover 90% of what you need to know." },
     { type: "h3", text: "Idea 1: Tokens, Not Words" },
@@ -919,6 +930,7 @@ function VideoEmbed({ video }) {
   }, [expanded]);
 
   if (!video) return null;
+  if (video.id === "PENDING_VERIFY" || !video.id) return null;
 
   const ytUrl    = `https://www.youtube.com/watch?v=${video.id}`;
   const embedSrc = `https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&rel=0&modestbranding=1`;
@@ -929,7 +941,10 @@ function VideoEmbed({ video }) {
 
   const wrapStyle = expanded
     ? { position:"fixed", inset:0, zIndex:99998, background:DARK,
-        display:"flex", flexDirection:"column", margin:0, borderRadius:0, border:"none" }
+        display:"flex", flexDirection:"column", margin:0, borderRadius:0, border:"none",
+        paddingTop:"env(safe-area-inset-top, 0px)", paddingBottom:"env(safe-area-inset-bottom, 0px)",
+        paddingLeft:"env(safe-area-inset-left, 0px)", paddingRight:"env(safe-area-inset-right, 0px)",
+        boxSizing:"border-box" }
     : { margin:"20px 0", border:"1px solid #c8bfaa", borderRadius:12,
         overflow:"hidden", background:DARK };
 
@@ -1476,7 +1491,7 @@ const MBA_LESSONS = [
   title: "Welcome & Orientation",
   subtitle: "What this MBA track covers, how it maps to aerospace, and what you'll be able to do when you're done.",
   time: "20 min", type: "Orientation",
-  video: { id: "x7trgZp5KCQ", title: "Master of Business Administration (MBA) Explained — Careers, Curriculum & Admissions" },
+  video: { id: "PHe0bXAIuk0", title: "How The Economic Machine Works (Ray Dalio, 30 min)" },
   content: [
     { type: "p", text: "Welcome to the MBA Professional Certificate track. This course is designed for aerospace engineers and manufacturing professionals who want executive-level business fluency without leaving their technical identity behind. You already understand how the product gets made — this course teaches you how the business gets run." },
     { type: "h3", text: "How This Course Works" },
@@ -5679,7 +5694,7 @@ const MOTOR_LESSONS = [
     {
       question: "Why is reading the actual datasheet (not the summary or marketing material) critical?",
       options: [
-        "Marketing material is often inaccurate — the datasheet contains the manufacturer's verified specifications and operating limits",
+        "Marketing material always shows worst-case specs while datasheets show best-case — so trust marketing for real-world motor performance",
         "Summary documents typically have correct headline numbers but miss key specifications, operating envelope details, and the fine print that determines if the motor actually fits the application",
         "Datasheets are written for legal protection — only the marketing material accurately describes motor capability",
         "Marketing material is sufficient for non-aerospace applications — datasheets are required only for ITAR-restricted programs"
@@ -5987,7 +6002,7 @@ const MOTOR_FINAL_EXAM = [
               "Specifying motors with too much margin — leading to oversized, overweight motors that hurt aircraft performance"],
     correct: 0, explanation: "Engineers often size for steady-state only. Real applications have accelerations, transients, worst-case duty cycles. Both continuous AND peak must be considered." },
   { phase: 4, question: "Why is reading the actual datasheet critical for motor selection?",
-    options: ["Marketing material is often inaccurate — datasheet contains manufacturer's verified specifications and operating limits",
+    options: ["Marketing material always shows worst-case specs while datasheets show best-case — so trust marketing for real-world motor performance",
               "Summary documents have headline numbers but miss key specs, operating envelope details, and fine print that determines if motor fits",
               "Datasheets are written for legal protection — only marketing material accurately describes motor capability",
               "Marketing material is sufficient for non-aerospace applications — datasheets required only for ITAR-restricted programs"],
@@ -7774,7 +7789,7 @@ const COPILOT_LESSONS = [
   title: "Setup, Licensing & Governance Basics",
   subtitle: "What IT enables before engineers can use it — Entra ID, Purview, SharePoint hygiene, sensitivity labels.",
   time: "35 min", type: "Foundations",
-  video: { id: "JbOJliF-Cn4", title: "Microsoft 365 Copilot Tutorial – Beginner's Guide (2025)" },
+  video: { id: "F1ARVMTBAak", title: "Oversharing Control at Enterprise Scale — Microsoft 365 Copilot in Microsoft Purview (Microsoft Mechanics)" },
   content: [
     { type: "p", text: "Copilot doesn't just turn on. Even for the free Copilot Chat tier, your tenant has to meet certain prerequisites. For the paid M365 Copilot Enterprise license, the prerequisites are more substantial — and skipping them leads to data exposure incidents, compliance failures, and degraded answer quality. This lesson is the IT/governance setup an engineer should understand even if they don't run it." },
 
@@ -7953,7 +7968,7 @@ const COPILOT_LESSONS = [
   title: "Copilot in Word & PowerPoint",
   subtitle: "Drafting technical reports and decks from outlines — and what NOT to delegate to Copilot.",
   time: "40 min", type: "Productivity",
-  video: { id: "_q2Efh5xfgM", title: "How to Create a PowerPoint from Word with Copilot" },
+  video: { id: "O4voDdOy2lQ", title: "Copilot now included with Word, Excel, PowerPoint, Outlook & OneNote (Microsoft Mechanics, ~7 min)" },
   content: [
     { type: "p", text: "Word and PowerPoint Copilot turns the worst part of engineering documentation — the writing itself — into a much smaller chore. The headline feature: Word document → PowerPoint deck in one prompt. Engineers write more docs than they want to, and the deck-from-doc transformation saves hours per program review cycle. But the limits are real, and over-delegation is the trap." },
 
@@ -8142,9 +8157,9 @@ const COPILOT_LESSONS = [
   title: "Copilot in OneNote, Loop & Pages",
   subtitle: "Engineering notebooks and shared workspaces — and CUI-aware note-taking practices.",
   time: "35 min", type: "Productivity",
-  video: { id: "ScdcGxJfINk", title: "How to Take OneNote to the Next Level with Copilot" },
+  video: { id: "oSp35lXnX1I", title: "How to turn projects into progress with Microsoft Loop and Copilot (Microsoft)" },
   content: [
-    { type: "p", text: "OneNote is the engineering notebook of choice for many aerospace teams: meeting notes, design history files, troubleshooting logs, distributed team knowledge. Copilot makes OneNote searchable in ways that handwritten notebooks never were. Loop is the newer collaborative-document app that competes with notion-style workspaces. Pages is the Copilot Chat output canvas. This lesson is the trio's role in engineering workflow." },
+    { type: "p", text: "Engineering teams capture knowledge in three places now: OneNote (the long-standing engineering notebook for meeting notes, design history files, troubleshooting logs), Loop (the newer collaborative-workspace app that competes with Notion-style tools), and Pages (the Copilot Chat output canvas). Copilot brings AI-powered search, summarization, and structuring to all three. This lesson is each app's role in engineering workflow and how to use them without oversharing CUI." },
 
     { type: "h3", text: "Copilot in OneNote" },
     { type: "ul", items: [
@@ -8328,7 +8343,7 @@ const COPILOT_LESSONS = [
   title: "Copilot Agents — Pre-Built and Simple Custom",
   subtitle: "Researcher, Analyst, simple agents you build in minutes — what an agent is vs a chat session.",
   time: "40 min", type: "Agents",
-  video: { id: "9_Dw9qcjLgA", title: "The EASIEST Way to Build a Copilot Agent — Microsoft Agent Builder Tutorial" },
+  video: { id: "5ZVDNStqUCk", title: "New reasoning agents: Researcher and Analyst in Microsoft 365 Copilot (Microsoft Mechanics)" },
   content: [
     { type: "p", text: "An 'agent' in Copilot terminology is a scoped, specialized version of Copilot configured for a specific task or domain. The line between 'a Copilot Chat session with a long context' and 'an agent' is sometimes fuzzy, but the value is clear: agents are reusable, shareable, and can be more specialized than a generic chat. This lesson covers the pre-built agents Microsoft ships and the simple custom agents anyone can build." },
 
@@ -8431,7 +8446,7 @@ const COPILOT_LESSONS = [
   title: "Copilot Studio Fundamentals",
   subtitle: "Building production-grade custom agents — knowledge, topics, actions, deployment.",
   time: "50 min", type: "Studio",
-  video: { id: "Iz3ul6hSeTs", title: "How to Build an AI Agent with Microsoft 365 Copilot — No Code Step-by-Step" },
+  video: { id: "x4OCwDRGeLE", title: "Copilot Studio fundamentals — knowledge, tools, topics, instructions (Microsoft Learn)" },
   content: [
     { type: "p", text: "Agent Builder (last lesson) is the no-code, beginner-friendly path. Copilot Studio is the production-grade tool: full agent lifecycle, knowledge connectors to external systems, structured conversation topics, custom actions via Power Automate, generative orchestration, environment management, and deployment to multiple channels. Studio is where IT teams, citizen developers, and process owners build real custom agents. This lesson is the conceptual map." },
 
@@ -8903,7 +8918,7 @@ const COPILOT_LESSONS = [
   title: "Capstone — A Copilot-Enabled Engineering Workflow End-to-End",
   subtitle: "Pick a real recurring task. Architect across Copilot Chat, M365 Copilot, Studio. Write the management pitch.",
   time: "60 min", type: "Capstone",
-  video: { id: "48-2OTttJS8", title: "Copilot Studio Autonomous Agents Deep Dive Demo" },
+  video: { id: "4vkPv9lX64k", title: "Claude + GPT — Multi-model intelligence in Copilot: cross-product workflows with Cowork (Microsoft Mechanics)" },
   content: [
     { type: "p", text: "This capstone is the synthesis of everything in the previous 13 lessons. You'll architect a complete Copilot-enabled engineering workflow — combining Copilot Chat (free), M365 Copilot (Enterprise), and Copilot Studio agents where each fits — and write the one-page pitch to your management for the Enterprise upgrade. Use this as a template for real workflows you'll automate." },
 
@@ -9036,6 +9051,1189 @@ const COPILOT_LESSONS = [
   ]
 },
 
+];
+
+const AGENTIC_LESSONS = [
+  {
+    phase: "Phase 1", phaseColor: "#c84b11",
+    title: "Welcome & What \"Agentic\" Actually Means",
+    subtitle: "Agents vs. chatbots vs. automation. The Analysis → Planning → Execution loop, and why it matters for aerospace operations.",
+    time: "30 min", type: "Foundations",
+    video: { id: "F8NKVhkZZWI", title: "What are AI Agents? (IBM Technology, Maya Murad)" },
+    content: [
+      { type: "p", text: "This track is built for engineers and technical professionals who already use AI chat tools and want to understand the next step: systems that don't just answer questions, but take actions. The term for these is 'agentic AI' — and the gap between a chatbot and an agent is larger than the marketing suggests." },
+
+      { type: "h3", text: "Three Things People Confuse" },
+
+      { type: "p", text: "Before anything else, separate three categories that get lumped together:" },
+
+      { type: "ul", items: [
+        "**Chatbot / assistant** — reactive. You send a prompt, it returns text. It has no ability to act on the world, remember across sessions by default, or decide to do anything you didn't explicitly ask. ChatGPT in a browser window is the canonical example.",
+        "**Automation / workflow** — deterministic. A fixed sequence of steps runs the same way every time: 'when an email arrives, extract the attachment, save it to this folder.' Powerful and reliable, but it can't handle anything the author didn't anticipate. Zapier and classic n8n flows are this.",
+        "**Agent** — autonomous and goal-directed. You give it an objective, and it decides which steps to take, in what order, using which tools, adapting as it goes. It can call tools, observe the results, and re-plan. This is the qualitative shift."
+      ]},
+
+      { type: "p", text: "The distinction that matters: a workflow follows a path you drew. An agent finds a path you didn't." },
+
+      { type: "h3", text: "The Core Loop" },
+
+      { type: "p", text: "Nearly every agent framework — OpenClaw, n8n's AI Agent node, LangChain, and the rest — implements some version of the same cycle:" },
+
+      { type: "ul", items: [
+        "**Analysis** — the agent examines the goal and the current state. What is being asked? What do I know? What's missing?",
+        "**Planning** — it decides the next action. Which tool should I call? What argument should I give it? Sometimes this is a full multi-step plan; sometimes it's just 'the single best next step.'",
+        "**Execution** — it calls the tool (search the web, read a file, send an email, query a database), observes the result, and loops back to Analysis with new information."
+      ]},
+
+      { type: "p", text: "This loop is what people mean by the **ReAct pattern** (Reason + Act), and it's why agents can handle open-ended tasks. The loop continues until the agent judges the goal met — or until a guardrail (a step limit, a cost cap, a human approval gate) stops it." },
+
+      { type: "h3", text: "Why This Matters in Aerospace" },
+
+      { type: "p", text: "Aerospace work is full of multi-step, judgment-laden processes that are too variable for rigid automation but too repetitive to want a senior engineer doing them by hand: triaging supplier non-conformance reports, cross-checking a drawing revision against the change log, summarizing a design review and routing action items, monitoring a certification deadline and chasing the responsible parties. These sit exactly in the gap agents fill." },
+
+      { type: "p", text: "**But** — and this track will return to this repeatedly — autonomy plus regulated data is a combination that demands care. An agent that can send emails and read files is an agent that can leak ITAR-controlled data or email the wrong supplier. The engineering discipline here is as much about constraints as capabilities." },
+
+      { type: "h3", text: "What This Track Covers" },
+
+      { type: "ul", items: [
+        "**Phase 1** (lessons 1–3): the concepts — what agents are, how they're built, and when an agent is the wrong answer.",
+        "**Phase 2** (lessons 4–8): hands-on building with **n8n**, the most capable open-source agent platform, from your first agent to multi-agent orchestration with human-in-the-loop controls.",
+        "**Phase 3** (lessons 9–11): **OpenClaw** and the local-first agent ecosystem, plus how to choose among the growing field of tools.",
+        "**Phase 4** (lessons 12–14): enterprise reality — real use cases, security and governance for regulated environments, and a capstone where you architect an agentic workflow end to end."
+      ]},
+
+      { type: "p", text: "**A note on a fast-moving field.** Agentic AI is moving faster than any other topic in this course. Specific product features, pricing, and even tool names change month to month. This track teaches the durable concepts and the current state of the leading tools as of early 2026 — but always verify specifics against current documentation before you build production systems." }
+    ],
+    quizzes: [
+      {
+        question: "What is the defining difference between a workflow/automation and an agent?",
+        options: [
+          "A workflow follows a fixed sequence the author defined in advance; an agent decides its own steps at runtime to reach a goal, adapting based on what it observes",
+          "Workflows run in the cloud while agents run locally on your own hardware",
+          "Agents are always more reliable than workflows because they use larger language models",
+          "Workflows can only process text, while agents can process images and files"
+        ],
+        correct: 0,
+        explanation: "The qualitative shift is autonomy of method. A workflow executes a path the author drew; an agent is given a goal and determines the path itself, re-planning as it observes tool results. Reliability is actually often the reverse — deterministic workflows are more predictable than autonomous agents, which is exactly why the 'when to use which' question matters."
+      },
+      {
+        question: "In the Analysis → Planning → Execution loop, what happens after the Execution step?",
+        options: [
+          "The agent terminates and returns its final answer to the user",
+          "The result is automatically sent to a human for approval before anything else can happen",
+          "The agent observes the result of the action it took and loops back to Analysis with that new information, continuing until the goal is met or a guardrail stops it",
+          "The agent permanently stores the result in long-term memory before shutting down"
+        ],
+        correct: 2,
+        explanation: "Execution feeds back into Analysis — the agent observes what its action produced and re-reasons with the new state. This loop (the ReAct pattern: Reason + Act) is what lets agents handle open-ended tasks. It continues until the agent judges the goal met or a guardrail (step limit, cost cap, approval gate) halts it."
+      },
+      {
+        question: "Why is the combination of agent autonomy and aerospace data flagged as requiring special care?",
+        options: [
+          "Agents consume too much compute to be cost-effective on aerospace budgets",
+          "Language models cannot understand aerospace terminology accurately enough to be useful",
+          "Aerospace networks are too slow to support real-time agent loops",
+          "An autonomous agent with the ability to act — read files, send emails, query systems — can also take harmful actions like leaking ITAR-controlled data or contacting the wrong party, so constraints matter as much as capabilities"
+        ],
+        correct: 3,
+        explanation: "The same capability that makes agents useful — taking real actions on real systems — is the source of the risk. An agent that can email and read files can email the wrong supplier or expose controlled technical data. In regulated environments the engineering discipline is as much about bounding what the agent may do as enabling what it can do."
+      }
+    ]
+  },
+
+  {
+    phase: "Phase 1", phaseColor: "#c84b11",
+    title: "Anatomy of an Agent",
+    subtitle: "The four parts every agent shares: an LLM brain, tools, memory, and a planning loop. How tool-calling actually works under the hood.",
+    time: "35 min", type: "Foundations",
+    video: { id: "PENDING_VERIFY", title: "[NEEDS VIDEO: agent anatomy / tool-calling & function-calling explainer]" },
+    content: [
+      { type: "p", text: "Every agent — regardless of platform — is assembled from the same four building blocks. Once you can see these four parts, every agent framework stops looking like magic and starts looking like configuration." },
+
+      { type: "h3", text: "1. The Model (the \"brain\")" },
+
+      { type: "p", text: "At the center is a large language model — Claude, GPT, Gemini, or an open-weight model like Llama. The model does the reasoning: it reads the goal and current state and decides what to do next. Critically, the model itself takes no actions. It only produces text — including a special kind of structured text that says 'call this tool with these arguments.' Everything the agent actually *does* happens because surrounding code interprets that text and acts on it." },
+
+      { type: "h3", text: "2. Tools (the \"hands\")" },
+
+      { type: "p", text: "Tools are functions the agent can invoke: search the web, read a file, run a database query, send an email, call an API. Each tool is described to the model with a name, a description of what it does, and a schema for its inputs. This is **tool-calling** (also called function-calling)." },
+
+      { type: "p", text: "The mechanism is worth understanding precisely, because it dispels the mystery:" },
+
+      { type: "ul", items: [
+        "You give the model a list of available tools and their input schemas, along with the user's goal.",
+        "The model, instead of replying with prose, replies with structured output: 'call `search_web` with `{query: \"AS9100 revision history\"}`.'",
+        "Your agent code (n8n, OpenClaw, etc.) parses that, actually runs the search, and feeds the result back to the model.",
+        "The model reads the result and either calls another tool or produces a final answer."
+      ]},
+
+      { type: "p", text: "The model never touches the internet or your files directly. It only ever emits text requesting an action; the framework executes it. This separation is the foundation of every guardrail you'll build later — you control which tools exist and what they're allowed to do." },
+
+      { type: "h3", text: "3. Memory (the \"notebook\")" },
+
+      { type: "p", text: "By default, a language model is stateless — it forgets everything between calls. Memory is what lets an agent maintain continuity:" },
+
+      { type: "ul", items: [
+        "**Short-term memory** — the conversation/task history kept in the model's context window during a single run. This is how the agent remembers what it already tried two steps ago.",
+        "**Long-term memory** — information persisted across runs, usually in a database or vector store. This is how an agent can 'remember' a supplier's history, a project's prior decisions, or a user's preferences over weeks."
+      ]},
+
+      { type: "p", text: "Context windows are finite, so a real challenge in agent design is deciding what to keep in short-term memory, what to push to long-term storage, and what to summarize or discard. An agent that stuffs everything into context gets slow, expensive, and eventually hits the wall." },
+
+      { type: "h3", text: "4. The Planning Loop (the \"workflow\")" },
+
+      { type: "p", text: "The loop from Lesson 1 — Analysis → Planning → Execution — is the fourth component. Different frameworks implement it differently: some let the model plan all steps up front, others force one-step-at-a-time. The loop also enforces limits: a maximum number of iterations, a cost ceiling, and the points where a human must approve before proceeding." },
+
+      { type: "h3", text: "Putting It Together" },
+
+      { type: "p", text: "An agent, then, is: a model that reasons, a set of tools it can call, memory that gives it continuity, and a loop that runs the cycle with guardrails. When you build in n8n later, you'll literally wire these together as nodes — a chat-model node (the brain), tool nodes (the hands), a memory sub-node (the notebook), and the AI Agent node that runs the loop. Seeing the anatomy now makes that wiring obvious." }
+    ],
+    quizzes: [
+      {
+        question: "When an agent 'calls a tool,' what does the language model actually do?",
+        options: [
+          "The model directly connects to the internet or file system and performs the action itself",
+          "The model emits structured text requesting an action (tool name + arguments); surrounding framework code parses that text, executes the real action, and feeds the result back to the model",
+          "The model rewrites its own source code to add the new capability",
+          "The model delegates to a second, larger model that has action permissions"
+        ],
+        correct: 1,
+        explanation: "The model only ever produces text — including structured 'call this tool with these arguments' output. It never touches the internet or files directly. The agent framework interprets that output and performs the real action. This separation is precisely what makes guardrails possible: you control which tools exist and what they may do."
+      },
+      {
+        question: "What is the practical difference between short-term and long-term memory in an agent?",
+        options: [
+          "Short-term memory is the task/conversation history held in the context window during a single run; long-term memory persists information across runs, typically in a database or vector store",
+          "Short-term memory is stored on disk; long-term memory is stored in RAM",
+          "Short-term memory is for text; long-term memory is for images and files",
+          "There is no real difference — they are two names for the same context window"
+        ],
+        correct: 0,
+        explanation: "Short-term memory lives in the context window for the duration of one run (how the agent recalls what it tried two steps ago). Long-term memory is persisted externally across runs (how it 'remembers' a supplier's history or a project's prior decisions over weeks). Because context windows are finite, deciding what to keep, persist, or summarize is a core design problem."
+      },
+      {
+        question: "An engineer says 'I don't want this agent to ever be able to delete files.' Where is that constraint enforced?",
+        options: [
+          "In the language model's training data, which must be retrained to remove the capability",
+          "Only by disconnecting the agent from the internet entirely",
+          "It cannot be enforced; any sufficiently capable agent can delete files",
+          "In the set of tools the agent is given — if no file-deletion tool is provided to the agent, the model has no way to delete files regardless of what it reasons"
+        ],
+        correct: 3,
+        explanation: "The model can only request actions for which a tool exists. If you never give the agent a file-deletion tool, it physically cannot delete files — it can only emit text, and there's nothing to interpret a delete request. Controlling the tool set is the most fundamental guardrail in agent design."
+      }
+    ]
+  },
+
+  {
+    phase: "Phase 1", phaseColor: "#c84b11",
+    title: "Workflows vs. Agents: Choosing the Right Tool",
+    subtitle: "Deterministic pipelines vs. autonomous decision-making. When an agent is the wrong answer, and the cost/reliability tradeoffs that decide it.",
+    time: "30 min", type: "Foundations",
+    video: { id: "GuaKeDS6UKU", title: "n8n Quick Start — Build Your First AI Agent (covers agent vs workflow) [2026]" },
+    content: [
+      { type: "p", text: "The most common and most expensive mistake in agentic AI is reaching for an agent when a workflow would do. Autonomy is seductive, but it costs money, adds latency, and introduces unpredictability. A senior engineer's instinct should be: use the simplest thing that solves the problem, and only add autonomy where the problem genuinely requires it." },
+
+      { type: "h3", text: "The Spectrum" },
+
+      { type: "p", text: "It helps to think of a spectrum rather than a binary:" },
+
+      { type: "ul", items: [
+        "**Fixed workflow** — every step and branch is predetermined. 'When a PDF lands in this folder, extract the part number, look it up in the ERP, and post to Slack.' Maximum reliability, minimum cost, zero adaptability.",
+        "**Workflow with LLM steps** — a deterministic pipeline that uses a language model for specific tasks (classify this email, summarize this document) but doesn't let the model decide the flow. Still predictable; the LLM is a smart function, not a decision-maker.",
+        "**Agent** — the model decides the flow. Use when the path genuinely can't be known in advance: the input is too varied, the task requires investigation, or the steps depend on intermediate findings."
+      ]},
+
+      { type: "h3", text: "When an Agent Is the Right Answer" },
+
+      { type: "ul", items: [
+        "The task requires **investigation** — you can't know step 3 until you see the result of step 2 (e.g., 'find out why this supplier shipment was rejected and draft a response' — the agent has to read records to know what to write).",
+        "The **input space is huge and varied** — you can't enumerate the branches because there are effectively infinite cases.",
+        "The task involves **judgment that benefits from reasoning over multiple sources**, not a lookup."
+      ]},
+
+      { type: "h3", text: "When an Agent Is the Wrong Answer" },
+
+      { type: "ul", items: [
+        "**The process is fixed and well-understood.** If you can draw the flowchart, build the flowchart. Don't pay an LLM to rediscover it on every run.",
+        "**Reliability is critical and errors are costly.** Agents are probabilistic — the same input can produce different paths. For a compliance gate where the answer must be identical every time, determinism wins.",
+        "**Latency or cost matters at scale.** Each agent step is an LLM call. A 6-step agent run is 6+ model calls; a deterministic workflow is zero. At thousands of executions a day, the difference is enormous.",
+        "**The task is trivially scriptable.** If a regex or a database query does it, an agent is wild overkill."
+      ]},
+
+      { type: "h3", text: "The Cost/Reliability Tradeoff" },
+
+      { type: "p", text: "Make the tradeoff explicit when you design:" },
+
+      { type: "table", headers: ["Dimension", "Fixed workflow", "Agent"],
+        rows: [
+          ["Cost per run", "Near zero (no LLM, or one call)", "Multiple LLM calls — scales with steps"],
+          ["Latency", "Milliseconds to seconds", "Seconds to minutes"],
+          ["Predictability", "Identical every time", "Probabilistic — paths vary"],
+          ["Handles novel inputs", "Only what was anticipated", "Adapts to the unforeseen"],
+          ["Debugging", "Trace the fixed path", "Must reconstruct the reasoning"],
+          ["Best for", "High-volume, well-defined tasks", "Low-volume, open-ended, investigative tasks"]
+        ]
+      },
+
+      { type: "h3", text: "The Hybrid Reality" },
+
+      { type: "p", text: "In practice, the best production systems are hybrids: a deterministic workflow handles the predictable scaffolding (triggers, data fetching, routing, logging) and hands off to an agent only for the genuinely open-ended sub-task, then takes back control to act on the result. You'll build exactly this pattern in Phase 2 — a workflow that wraps an agent, giving you autonomy where you need it and determinism everywhere else." },
+
+      { type: "p", text: "**The discipline:** start by assuming you need a workflow. Promote to an agent only when you can name the specific reason the path can't be predetermined. 'It would be cool' is not a reason. 'Step 3 depends on what we find in step 2' is." }
+    ],
+    quizzes: [
+      {
+        question: "According to the lesson, what should an engineer's default assumption be when designing an automation?",
+        options: [
+          "Always build an agent — autonomy is the most future-proof choice",
+          "Always build a hybrid, regardless of the task",
+          "Start by assuming a workflow will do, and only promote to an agent when you can name a specific reason the path cannot be predetermined",
+          "Choose based on which tool the team is most familiar with"
+        ],
+        correct: 2,
+        explanation: "The discipline is to use the simplest thing that solves the problem. Default to a deterministic workflow; promote to an agent only when there's a concrete reason the path can't be drawn in advance — for example, 'step 3 depends on what we find in step 2.' 'It would be cool' doesn't qualify."
+      },
+      {
+        question: "Why are fixed workflows generally preferable for a high-volume compliance gate where the answer must be identical every time?",
+        options: [
+          "Workflows use more advanced language models than agents",
+          "Agents are probabilistic — the same input can produce different paths — whereas a deterministic workflow produces identical results every run and costs far less at scale",
+          "Workflows are the only option that can connect to compliance databases",
+          "Agents cannot be used for compliance tasks for legal reasons"
+        ],
+        correct: 1,
+        explanation: "Two reasons converge: determinism (a compliance gate needs the same answer every time, and agents vary their paths probabilistically) and cost/latency (each agent step is an LLM call, so high-volume agent use is expensive and slow versus a near-zero-cost deterministic flow). Reliability-critical, high-volume, well-defined tasks favor workflows."
+      },
+      {
+        question: "What does the 'hybrid' pattern recommended for production systems look like?",
+        options: [
+          "Running two separate agents that vote on every decision",
+          "Using an agent for everything but logging the steps as if it were a workflow",
+          "Alternating between agent and workflow modes at random to balance cost",
+          "A deterministic workflow handles the predictable scaffolding — triggers, data fetching, routing, logging — and hands off to an agent only for the genuinely open-ended sub-task, then resumes control to act on the result"
+        ],
+        correct: 3,
+        explanation: "The strongest production systems wrap an agent inside a workflow: determinism for the predictable parts (triggers, fetching, routing, logging) and autonomy only for the specific open-ended sub-task, then back to deterministic control to act on the agent's output. You get autonomy where needed and predictability everywhere else."
+      }
+    ]
+  },
+
+  {
+    phase: "Phase 2", phaseColor: "#1c4a7a",
+    title: "n8n Orientation",
+    subtitle: "The most capable open-source agent platform. Self-hosted vs. cloud, the visual canvas, and the node/trigger/credential model you'll build on.",
+    time: "35 min", type: "Hands-On",
+    video: { id: "ZbIVOy_GPyQ", title: "n8n Full Tutorial — Building AI Agents for Beginners (interface & hierarchy) (AI Foundations)" },
+    content: [
+      { type: "p", text: "n8n (pronounced 'n-eight-n', short for 'nodemation') is an open-source workflow automation platform that has become, as of 2026, the most capable open-source environment for building AI agents. It ships with 400+ integration nodes and 70+ dedicated AI nodes built on the LangChain framework. For an aerospace org with data-privacy or ITAR concerns, its defining advantage is that you can self-host it entirely on your own infrastructure — no data leaves your control." },
+
+      { type: "h3", text: "Self-Hosted vs. Cloud" },
+
+      { type: "p", text: "n8n offers two deployment models, and the choice has real consequences for regulated work:" },
+
+      { type: "ul", items: [
+        "**n8n Cloud** — n8n hosts it for you, subscription-based. Fastest to start, no infrastructure to manage, automatic updates. But your workflow data and the data flowing through it touch n8n's servers. For non-sensitive automation this is fine; for controlled technical data it is usually a non-starter.",
+        "**Self-hosted** — you run n8n on your own server, VPS, or on-prem hardware, typically via Docker. Free community edition or paid enterprise tiers. Everything stays inside your boundary. This is the deployment aerospace teams will almost always want, and it's required for some features like the LangChain Code node.",
+        "**Fair-code license** — n8n is 'fair-code,' not strictly open-source: free to self-host and modify, with some restrictions on reselling it as a hosted service. For internal corporate use this distinction rarely matters, but legal should be aware of it."
+      ]},
+
+      { type: "h3", text: "The Mental Model: Nodes on a Canvas" },
+
+      { type: "p", text: "An n8n workflow is a visual graph. You drag **nodes** onto a canvas and wire them together with connections. Data flows left to right along the wires. The three node categories you must understand:" },
+
+      { type: "ul", items: [
+        "**Trigger nodes** — start a workflow. A schedule ('every morning at 6am'), a webhook (an external system calls a URL), a chat message, an email arriving, a file appearing. Every workflow begins with exactly one trigger.",
+        "**Action / regular nodes** — do something: call an API, query a database, transform data, send a message. The bulk of a workflow.",
+        "**Cluster nodes (AI)** — the special category for agents. A root node (like the AI Agent node) coordinates attached sub-nodes (a chat-model node, a memory node, tool nodes). This is how the agent anatomy from Lesson 2 gets wired visually."
+      ]},
+
+      { type: "h3", text: "Credentials" },
+
+      { type: "p", text: "n8n separates **credentials** from workflows. You register an API key once (OpenAI, Anthropic, your email server, a database) in n8n's encrypted credential store, then reference it by name in any node. This matters for security: credentials are encrypted at rest, never hard-coded into the workflow definition, and can be scoped and rotated centrally. When you self-host, those credentials live in your database, under your control — never on a third party's servers." },
+
+      { type: "h3", text: "Data Between Nodes" },
+
+      { type: "p", text: "Every node passes data to the next as a list of JSON items. A node receives items, does its work, and outputs items. Understanding that data is always 'a list of JSON objects flowing down the wire' is the single concept that makes n8n click — expressions, loops, and branching all operate on that item list. You'll see this concretely the moment you build your first workflow in the next lesson." },
+
+      { type: "h3", text: "Why n8n for This Track" },
+
+      { type: "p", text: "We use n8n as the primary hands-on platform for three reasons: it's free to self-host (you can follow along at zero cost), it makes the agent anatomy visible (you literally see the brain, tools, and memory as wired nodes), and it's genuinely production-capable (it scales with Docker, PostgreSQL, and queue mode, so what you learn transfers to real deployments). The concepts — tool-calling, memory, orchestration, human-in-the-loop — are universal; n8n just makes them tangible." }
+    ],
+    quizzes: [
+      {
+        question: "For an aerospace team handling ITAR-controlled technical data, which n8n deployment model is generally appropriate and why?",
+        options: [
+          "Self-hosted, because the platform and all data flowing through it stay entirely inside the organization's own infrastructure boundary",
+          "n8n Cloud, because n8n's servers provide better security than most companies can",
+          "Either one — the deployment model has no bearing on where data goes",
+          "n8n Cloud, because controlled data is automatically encrypted before reaching n8n's servers"
+        ],
+        correct: 0,
+        explanation: "Self-hosting keeps n8n and every byte flowing through it inside your own boundary (your server/VPS/on-prem, typically via Docker). n8n Cloud routes workflow data through n8n's servers, which is usually a non-starter for controlled technical data regardless of encryption. Self-hosted is also required for some features like the LangChain Code node."
+      },
+      {
+        question: "What starts every n8n workflow?",
+        options: [
+          "An AI Agent node, which is mandatory in all workflows",
+          "Exactly one trigger node — a schedule, webhook, incoming message, email, or file event",
+          "A credential node that authenticates the user",
+          "A manual button click by an administrator"
+        ],
+        correct: 1,
+        explanation: "Every workflow begins with exactly one trigger node, which defines what starts it: a schedule, a webhook call, an incoming chat message, an email arriving, a file appearing, etc. Action nodes and AI cluster nodes come after the trigger. Not every workflow needs an AI Agent node — only agentic ones."
+      },
+      {
+        question: "Why does n8n separate credentials from the workflow definition?",
+        options: [
+          "To make workflows run faster by caching credentials",
+          "Because the language model needs credentials in a separate file to function",
+          "So API keys are stored encrypted in a central store, referenced by name rather than hard-coded into workflows, and can be scoped and rotated centrally — and on self-host they stay in your own database",
+          "It's a cosmetic choice with no security implication"
+        ],
+        correct: 2,
+        explanation: "Credentials live in n8n's encrypted store and are referenced by name, never hard-coded into the workflow JSON. This means they're encrypted at rest, centrally rotatable, and — when self-hosted — under your control in your own database rather than on a third party's servers. It's a core security property, not cosmetic."
+      }
+    ]
+  },
+
+  {
+    phase: "Phase 2", phaseColor: "#1c4a7a",
+    title: "Your First AI Agent in n8n",
+    subtitle: "Wiring the AI Agent node: chat-model sub-node, system prompt, and the four components every agent workflow needs.",
+    time: "40 min", type: "Hands-On",
+    video: { id: "ZbIVOy_GPyQ", title: "n8n Full Tutorial — Building AI Agents: AI Agent node, chat model & first test (AI Foundations)" },
+    content: [
+      { type: "p", text: "Now the anatomy from Lesson 2 becomes concrete. In n8n, building an agent means dropping an **AI Agent node** on the canvas and attaching the sub-nodes that give it a brain, optional memory, and tools. This lesson builds the simplest useful agent: one that can answer questions using a single tool." },
+
+      { type: "h3", text: "The Four Required Components" },
+
+      { type: "p", text: "Every n8n AI agent workflow assembles four things:" },
+
+      { type: "ul", items: [
+        "**A trigger** — usually a Chat Trigger node (gives you a chat interface) or a webhook, so something can kick off the agent.",
+        "**The AI Agent node** — the root cluster node that runs the Analysis→Planning→Execution loop. This is where you write the system prompt that defines the agent's role and constraints.",
+        "**A Chat Model sub-node** — the brain. You attach a model node (OpenAI Chat Model, Anthropic Chat Model, or a local model) and select the specific model and parameters (temperature, max tokens).",
+        "**Tools and/or memory sub-nodes** — optional but usually the point. Attach tool nodes for the agent to call and a memory sub-node so it remembers within the conversation."
+      ]},
+
+      { type: "h3", text: "The System Prompt Is the Agent's Job Description" },
+
+      { type: "p", text: "The single most important thing you write is the AI Agent node's system prompt. It defines who the agent is, what it should and shouldn't do, what tools it has and when to use them, and how to format output. A vague system prompt produces a vague, unreliable agent. A precise one — 'You are a supplier-correspondence assistant. Use the lookup_supplier tool to retrieve records before answering. Never invent part numbers. If a request involves pricing, defer to a human.' — produces predictable behavior." },
+
+      { type: "p", text: "**Engineering discipline carries over here.** The same precision you'd put into a requirements document belongs in a system prompt. 'Never invent part numbers' is a requirement. 'Defer pricing to a human' is a guardrail. The prompt is where you encode both." },
+
+      { type: "h3", text: "Temperature and Determinism" },
+
+      { type: "p", text: "The Chat Model sub-node exposes a **temperature** parameter (typically 0.0–2.0). Lower temperature means more deterministic, focused output; higher means more varied and creative. For agents doing factual, tool-driven work — the aerospace norm — keep temperature low (0–0.3). You want the agent to reliably call the right tool, not to be creative about it. Save higher temperatures for genuinely generative tasks like drafting." },
+
+      { type: "h3", text: "A Concrete First Build" },
+
+      { type: "p", text: "A minimal but real first agent: a Chat Trigger → AI Agent node (system prompt: 'You answer questions about company engineering standards. Use the search_standards tool to find relevant documents before answering. Cite the document you used.') → Anthropic Chat Model sub-node (temperature 0.1) → one tool sub-node that searches a document store. Send it a question; watch the execution log show the agent reason, call the tool, read the result, and answer. That execution log — n8n shows you each step the agent took — is your primary debugging surface and the thing that makes n8n excellent for learning." },
+
+      { type: "h3", text: "Reading the Execution Log" },
+
+      { type: "p", text: "After a run, n8n displays exactly what happened: the agent's reasoning, which tool it called, what arguments it passed, what came back, and how it used the result. When an agent misbehaves, this log tells you whether the problem is the system prompt (bad instructions), the tool (returned wrong data), or the model (reasoned poorly). Learning to read it is the difference between debugging an agent and guessing at one." }
+    ],
+    quizzes: [
+      {
+        question: "In an n8n AI agent, which component is the 'brain' that does the reasoning?",
+        options: [
+          "The Chat Trigger node",
+          "The memory sub-node",
+          "The Chat Model sub-node (e.g., an Anthropic or OpenAI model node) attached to the AI Agent node",
+          "The credential store"
+        ],
+        correct: 2,
+        explanation: "The Chat Model sub-node is the brain — it's the LLM that reasons and decides. The AI Agent node runs the loop and holds the system prompt, the Chat Trigger starts the workflow, and memory provides continuity, but the reasoning happens in the attached chat-model node."
+      },
+      {
+        question: "Why does the lesson recommend a low temperature (0–0.3) for typical aerospace agent work?",
+        options: [
+          "Factual, tool-driven work benefits from deterministic, focused output — you want the agent to reliably call the right tool, not be creative about it",
+          "Low temperature makes the model run faster and cheaper",
+          "High temperature is not supported by the AI Agent node",
+          "Temperature only affects image generation, so the value is irrelevant"
+        ],
+        correct: 0,
+        explanation: "Lower temperature yields more deterministic, focused behavior, which is what you want for factual, tool-driven tasks — reliably calling the correct tool with correct arguments. Higher temperature increases variability, useful for generative drafting but a liability when you need consistent, predictable agent actions."
+      },
+      {
+        question: "An agent in n8n is calling the wrong tool. What is the primary surface for diagnosing why?",
+        options: [
+          "Re-training the underlying language model on company data",
+          "Increasing the temperature until it picks the right tool",
+          "Deleting and rebuilding the entire workflow from scratch",
+          "The execution log, which shows the agent's reasoning, which tool it called, the arguments passed, and the result — revealing whether the fault is the system prompt, the tool, or the model's reasoning"
+        ],
+        correct: 3,
+        explanation: "n8n's execution log shows each step the agent took — its reasoning, the tool call, the arguments, and the returned data. That trace tells you whether the problem is bad instructions (system prompt), bad data (the tool), or bad reasoning (the model). It's the core debugging surface and a major reason n8n is good for learning agents."
+      }
+    ]
+  },
+
+  {
+    phase: "Phase 2", phaseColor: "#1c4a7a",
+    title: "Tools & Memory",
+    subtitle: "Connecting tools the agent can call, and giving it short- and long-term memory. The Tools Agent and how schemas guide tool selection.",
+    time: "40 min", type: "Hands-On",
+    video: { id: "PENDING_VERIFY", title: "[NEEDS VIDEO: n8n agent tools and memory sub-nodes deep dive]" },
+    content: [
+      { type: "p", text: "An agent with no tools is just a chatbot in a workflow. Tools are what let it act, and memory is what lets it stay coherent. This lesson goes deeper on both — the parts that turn the first agent from Lesson 5 into something genuinely useful." },
+
+      { type: "h3", text: "How n8n Presents Tools to the Agent" },
+
+      { type: "p", text: "n8n's AI Agent node uses the **Tools Agent** pattern, which implements LangChain's tool-calling interface. Each tool you attach is described to the model with a name, a description, and an input schema. The model reads these descriptions and decides which tool fits the task — so the quality of your tool descriptions directly determines whether the agent picks the right one." },
+
+      { type: "ul", items: [
+        "**Name** — short and unambiguous: `lookup_part`, not `tool1`.",
+        "**Description** — this is what the model reads to decide. 'Looks up a part by part number and returns its specification, current stock, and approved suppliers.' Be specific about what it does and what it returns.",
+        "**Input schema** — the structured arguments the tool expects (e.g., `{part_number: string}`). The model fills these in when it calls the tool."
+      ]},
+
+      { type: "p", text: "A common failure mode: an agent ignores a tool or uses the wrong one because the description is vague. 'Gets data' tells the model nothing. Treat tool descriptions as part of the agent's instructions — they are." },
+
+      { type: "h3", text: "Types of Tools in n8n" },
+
+      { type: "ul", items: [
+        "**Built-in app tools** — pre-made nodes wrapped as tools: send a Slack message, query a database, search the web, read a Google Sheet.",
+        "**HTTP Request tool** — lets the agent call any REST API. This is the universal adapter: if your ERP, PLM, or quality system has an API, the agent can reach it.",
+        "**Call n8n Workflow tool** — turns an entire other n8n workflow into a tool the agent can invoke. Powerful for composing complex deterministic logic that the agent triggers as a single step.",
+        "**Code tool** — runs custom JavaScript/Python for logic that doesn't fit an existing node."
+      ]},
+
+      { type: "h3", text: "Memory Sub-Nodes" },
+
+      { type: "p", text: "Attach a memory sub-node to the AI Agent node to give it continuity. n8n offers several types:" },
+
+      { type: "ul", items: [
+        "**Window buffer memory** — keeps the last N messages in context. Simple, good for short conversations. Note: this is per-session and does NOT persist between sessions by default.",
+        "**Database-backed memory** — persists conversation history to a database (Postgres, Redis), so the agent can recall context across sessions and over time. This is how you get true long-term memory.",
+        "**Vector store memory** — stores information as embeddings for semantic recall. Used when the agent needs to 'remember' a large body of documents and retrieve relevant pieces (the basis of RAG — retrieval-augmented generation)."
+      ]},
+
+      { type: "p", text: "The design tension from Lesson 2 is real here: more memory means more context, which means higher cost and slower runs, and eventually the context window fills. Choose the lightest memory that meets the need." },
+
+      { type: "h3", text: "Tools + Memory Together: A Useful Pattern" },
+
+      { type: "p", text: "Combine them and you get an agent that's both capable and coherent: a supplier-correspondence agent with a `lookup_supplier` tool (HTTP Request to your quality system), a `search_past_correspondence` tool (vector store), and database-backed memory so it remembers the current thread. It can answer 'what was the disposition on the last non-conformance from this supplier?' by recalling the conversation, searching past correspondence, and looking up the live record — three tools, coordinated by the loop, grounded by memory." },
+
+      { type: "p", text: "**Guardrail reminder:** every tool you add is a new capability — and a new risk surface. A tool that can write to your ERP is a tool that can write *wrong* data to your ERP. Add read-only tools first; gate write-capable tools behind the human-in-the-loop controls covered in Lesson 8." }
+    ],
+    quizzes: [
+      {
+        question: "Why does the quality of a tool's description directly affect agent behavior?",
+        options: [
+          "The description is shown to end users in the chat interface",
+          "The model reads each tool's description to decide which tool fits the task — a vague description ('gets data') gives the model nothing to reason with, so it may pick the wrong tool or none",
+          "Longer descriptions make the tool execute faster",
+          "Descriptions are only used for documentation and have no runtime effect"
+        ],
+        correct: 1,
+        explanation: "In the Tools Agent pattern, the model selects tools by reading their names, descriptions, and input schemas. The description is effectively part of the agent's instructions — 'Looks up a part by number and returns spec, stock, and approved suppliers' guides correct selection, while 'gets data' leaves the model guessing. Treat tool descriptions as carefully as the system prompt."
+      },
+      {
+        question: "An agent needs to call your existing PLM system, which exposes a REST API but has no pre-built n8n node. Which tool fits?",
+        options: [
+          "The HTTP Request tool, the universal adapter that lets the agent call any REST API",
+          "The Code tool, which is the only way to reach any external system",
+          "Window buffer memory",
+          "It's impossible without a dedicated n8n integration node for that PLM"
+        ],
+        correct: 0,
+        explanation: "The HTTP Request tool is the universal adapter — if a system exposes a REST API, the agent can reach it without a dedicated node. The Code tool is for custom logic, and memory nodes aren't tools for external calls. This is how agents integrate with ERP/PLM/quality systems that lack pre-built nodes."
+      },
+      {
+        question: "What is the practical downside of giving an agent more memory than it needs?",
+        options: [
+          "Extra memory has no downside; more context always improves results",
+          "Memory sub-nodes are incompatible with tool sub-nodes",
+          "More memory means more context per call, which raises cost and latency and eventually fills the finite context window — so you should choose the lightest memory that meets the need",
+          "Long-term memory permanently locks the agent to one language model"
+        ],
+        correct: 2,
+        explanation: "Memory feeds context into every model call, so more memory increases token cost and latency and eventually exhausts the context window. The design discipline from the anatomy lesson applies: keep the lightest memory that satisfies the requirement rather than stuffing everything in."
+      }
+    ]
+  },
+
+  {
+    phase: "Phase 2", phaseColor: "#1c4a7a",
+    title: "Multi-Agent Orchestration",
+    subtitle: "Supervisor and delegate patterns. Using the AI Agent Tool node to let one agent call specialized sub-agents without context chaos.",
+    time: "40 min", type: "Hands-On",
+    video: { id: "ZbIVOy_GPyQ", title: "n8n Full Tutorial — Sub-Agents & multi-agent orchestration (AI Foundations, ch. @27:52)" },
+    content: [
+      { type: "p", text: "A single agent with twenty tools and a thousand-word system prompt becomes unreliable — too many choices, too much instruction, too much context. The answer, as with software in general, is decomposition: break the work into specialized agents and have one coordinate them. n8n supports this directly." },
+
+      { type: "h3", text: "The Supervisor/Delegate Pattern" },
+
+      { type: "p", text: "The dominant multi-agent architecture is a **supervisor** (also called orchestrator) that delegates to specialized **sub-agents**:" },
+
+      { type: "ul", items: [
+        "The **supervisor** receives the goal, decides which specialist should handle each part, and coordinates their outputs. It doesn't do the detailed work itself — it routes and assembles.",
+        "Each **sub-agent** is focused: a 'document-retrieval agent,' a 'compliance-check agent,' a 'drafting agent.' Each has a tight system prompt and only the tools relevant to its specialty.",
+        "The supervisor calls a sub-agent the way it would call any tool, gets the result, and moves on."
+      ]},
+
+      { type: "p", text: "The benefit is the same as good function decomposition in code: each piece is simple enough to be reliable, testable, and debuggable in isolation. A focused 'compliance-check agent' with three tools and a clear prompt is far more dependable than one mega-agent trying to do everything." },
+
+      { type: "h3", text: "The AI Agent Tool Node" },
+
+      { type: "p", text: "n8n implements this with the **AI Agent Tool node**: it lets a root-level agent call other agents *as tools*. The supervisor agent sees each sub-agent as just another tool in its list. When it 'calls' the compliance-check sub-agent, that sub-agent runs its own loop with its own model, tools, and prompt, then returns a result — exactly like a tool call, but the 'tool' is itself an intelligent agent." },
+
+      { type: "p", text: "n8n's documentation notes you can nest these into multiple layers for complex, multi-tiered use cases. It also notes the key advantage over plain sub-workflows: the AI Agent Tool node handles the context and variable management that raw sub-workflows would force you to manage manually." },
+
+      { type: "h3", text: "When to Reach for Multiple Agents" },
+
+      { type: "p", text: "Don't decompose prematurely — that's its own complexity trap. Use multiple agents when:" },
+
+      { type: "ul", items: [
+        "A single agent's system prompt is getting long and conditional ('if it's about suppliers do X, if it's about compliance do Y, if...').",
+        "Different parts of the task need genuinely different tool sets or different models (a cheap fast model for routing, a stronger model for analysis).",
+        "You want to test and validate sub-tasks independently — a regulated environment loves this, because you can verify the compliance-check agent in isolation."
+      ]},
+
+      { type: "h3", text: "The Cost Reality" },
+
+      { type: "p", text: "Multi-agent systems multiply LLM calls. A supervisor that consults three sub-agents, each running a multi-step loop, can be a dozen-plus model calls for one request. This is powerful but expensive and slower — exactly the cost/reliability tradeoff from Lesson 3, now at the architecture level. Decompose for reliability and clarity, not because it's elegant, and keep an eye on the per-request cost." },
+
+      { type: "p", text: "**Aerospace framing:** a realistic multi-agent system for a design-review workflow might have a supervisor that delegates to a 'requirements-traceability agent,' an 'action-item-extraction agent,' and a 'distribution agent' that routes items to owners. Each is independently verifiable — which is exactly what you want when the output feeds a regulated process." }
+    ],
+    quizzes: [
+      {
+        question: "In the supervisor/delegate pattern, what is the supervisor agent's primary job?",
+        options: [
+          "To do all the detailed work itself using the largest available model",
+          "To receive the goal, decide which specialized sub-agent handles each part, coordinate their outputs, and assemble the result — routing rather than doing the detailed work",
+          "To store the long-term memory for all other agents",
+          "To replace the need for any tools in the system"
+        ],
+        correct: 1,
+        explanation: "The supervisor (orchestrator) routes and assembles: it decides which specialist handles each part and coordinates outputs, rather than performing the detailed work itself. Each focused sub-agent has a tight prompt and only its relevant tools, making each piece reliable and testable — the same payoff as good function decomposition in code."
+      },
+      {
+        question: "What does n8n's AI Agent Tool node let you do?",
+        options: [
+          "Convert an agent into a static deterministic workflow",
+          "Limit an agent to exactly one tool",
+          "Run an agent without any language model",
+          "Let a root-level agent call other agents as tools — the supervisor sees each sub-agent as a tool, and calling it runs that sub-agent's own loop, with n8n handling context/variable management"
+        ],
+        correct: 3,
+        explanation: "The AI Agent Tool node lets a root agent call other agents as if they were tools. The supervisor 'calls' a sub-agent, which runs its own loop (own model, tools, prompt) and returns a result. n8n notes this handles the context and variable management that raw sub-workflows would otherwise force you to manage manually, and can be nested into multiple tiers."
+      },
+      {
+        question: "What is the main cost of adopting a multi-agent architecture?",
+        options: [
+          "Multi-agent systems cannot use memory",
+          "They can only run on n8n Cloud, not self-hosted",
+          "They require abandoning n8n for a different platform",
+          "They multiply LLM calls — a supervisor consulting several sub-agents, each running a multi-step loop, can be a dozen-plus model calls per request, raising cost and latency"
+        ],
+        correct: 3,
+        explanation: "Decomposition multiplies model calls: a supervisor plus several looping sub-agents can mean a dozen-plus LLM calls for one request — more expensive and slower. It's the Lesson 3 cost/reliability tradeoff at the architecture level. Decompose for reliability and clarity when warranted, while watching per-request cost."
+      }
+    ]
+  },
+
+  {
+    phase: "Phase 2", phaseColor: "#1c4a7a",
+    title: "Human-in-the-Loop & Reliability",
+    subtitle: "Approval gates, error handling, and guardrails that make an agentic workflow safe enough to run in production.",
+    time: "40 min", type: "Hands-On",
+    video: { id: "PENDING_VERIFY", title: "[NEEDS VIDEO: n8n human in the loop approval and error handling for agents]" },
+    content: [
+      { type: "p", text: "Everything so far has been about making agents capable. This lesson is about making them safe to actually deploy. In a regulated, high-consequence environment, an unsupervised agent that can take real actions is a liability until you've put the right controls around it. These controls are not an afterthought — they're the difference between a demo and a production system." },
+
+      { type: "h3", text: "Human-in-the-Loop (HITL)" },
+
+      { type: "p", text: "The most important guardrail is requiring human approval before consequential actions. n8n supports this directly: a workflow can pause, send a notification (email, Slack, a form), and wait for a person to approve, reject, or edit before continuing." },
+
+      { type: "ul", items: [
+        "**Approve before acting** — the agent proposes ('I'm about to email this supplier the attached non-conformance response'), and a human approves before the send actually happens.",
+        "**Edit before acting** — the human can modify the agent's proposed output before it goes out, combining agent speed with human judgment.",
+        "**Tiered approval** — low-risk actions proceed automatically; high-risk ones (anything touching controlled data, external communications, or money) require sign-off. You decide the tiers."
+      ]},
+
+      { type: "p", text: "The design principle: the agent does the work, the human owns the decision. For anything irreversible or externally visible, a human is in the loop. This maps cleanly onto how aerospace approval authority already works — the agent is a very fast junior analyst, not a signatory." },
+
+      { type: "h3", text: "Error Handling" },
+
+      { type: "p", text: "Agents fail in ways deterministic workflows don't: a tool returns an unexpected format, the model hallucinates an argument, an API times out mid-loop. Production agent workflows need:" },
+
+      { type: "ul", items: [
+        "**Error-handling branches** — n8n lets you wire a separate path that runs when a node fails, so a failure becomes a handled event (notify a human, log it, retry) rather than a silent stop.",
+        "**Retries with limits** — transient failures (a timed-out API) can retry, but with a cap so the agent doesn't loop forever burning tokens.",
+        "**Step and cost ceilings** — set a maximum iteration count on the agent loop. An agent that can't reach its goal should give up and escalate, not spin indefinitely.",
+        "**Validation of outputs** — before acting on an agent's output, validate it (is this a real part number? is this email address in our approved list?). Don't trust agent output blindly just because it looks plausible."
+      ]},
+
+      { type: "h3", text: "Guardrails on Tools" },
+
+      { type: "p", text: "Recall from Lesson 2: the agent can only do what its tools allow. Use that:" },
+
+      { type: "ul", items: [
+        "**Prefer read-only tools.** An agent that can read your ERP but not write to it has a dramatically smaller risk surface.",
+        "**Scope write tools narrowly.** If the agent must write, give it a tool that can only write to one specific field or one specific draft folder — not a general-purpose write.",
+        "**Never give an agent destructive tools** unless there is no alternative and a human gate sits in front of every use."
+      ]},
+
+      { type: "h3", text: "Observability" },
+
+      { type: "p", text: "You can't trust what you can't see. Log every agent run: the input, the reasoning, every tool call and result, the final action, and who approved it. In a regulated environment this log is not optional — it's the audit trail that lets you answer 'why did the system do that?' months later. n8n's execution history provides the foundation; for production, route logs to a persistent store." },
+
+      { type: "h3", text: "The Reliability Mindset" },
+
+      { type: "p", text: "Treat an agent like a new hire with no judgment about consequences: fast, tireless, capable, and absolutely not someone you'd let send external correspondence or modify controlled records unsupervised on day one. You grant autonomy incrementally, as trust is earned and as guardrails prove out. The engineering goal is a system where the worst an agent can do — even if the model misbehaves completely — is bounded to something recoverable. If a fully misbehaving agent could cause irreversible harm, the guardrails aren't done yet." }
+    ],
+    quizzes: [
+      {
+        question: "What is the core design principle of human-in-the-loop controls for agents?",
+        options: [
+          "The human does the work and the agent approves it",
+          "The agent does the work, but a human owns the decision — for anything irreversible or externally visible, a person approves (or edits) before the action actually happens",
+          "Humans should be removed from the loop entirely to maximize speed",
+          "Every single agent action, no matter how trivial, must be approved individually"
+        ],
+        correct: 1,
+        explanation: "The principle is 'agent does the work, human owns the decision.' Consequential or irreversible actions — external communications, touching controlled data, anything you can't undo — pause for human approval or editing. Tiered approval lets low-risk actions proceed automatically while gating high-risk ones. The agent is a fast junior analyst, not a signatory."
+      },
+      {
+        question: "Why does the lesson recommend preferring read-only tools and narrowly scoping any write tools?",
+        options: [
+          "Because the agent can only do what its tools allow, limiting tools to read-only (or narrowly-scoped writes) dramatically shrinks the risk surface — even a fully misbehaving agent can't cause damage it has no tool to cause",
+          "Read-only tools execute faster than write tools",
+          "Write tools are not supported in self-hosted n8n",
+          "It's a licensing requirement of the fair-code model"
+        ],
+        correct: 0,
+        explanation: "Since the agent can only act through its tools (Lesson 2), the tool set is your most fundamental guardrail. Read-only tools mean an agent literally cannot write bad data. Where writes are required, scoping them narrowly (one field, one draft folder) bounds the damage. The goal: even a completely misbehaving agent is limited to recoverable actions."
+      },
+      {
+        question: "In a regulated aerospace environment, why is logging every agent run considered non-optional?",
+        options: [
+          "Logs make the agent run faster on subsequent executions",
+          "Logging is only needed during initial development, then can be disabled",
+          "The log is the audit trail — it lets you answer 'why did the system do that?' months later, capturing input, reasoning, every tool call and result, the final action, and who approved it",
+          "Regulations require logs solely to measure token cost"
+        ],
+        correct: 2,
+        explanation: "Observability is the audit trail. In regulated work you must be able to reconstruct why the system acted as it did — the inputs, the agent's reasoning, every tool call and result, the final action, and the approving human. n8n's execution history is the foundation; production routes these logs to a persistent store. You can't trust or defend what you can't see."
+      }
+    ]
+  },
+
+  {
+    phase: "Phase 3", phaseColor: "#1a6b3c",
+    title: "OpenClaw: Local-First Agents",
+    subtitle: "An open-source agent that runs on your own hardware. The Gateway, the Tools vs. Skills architecture, and why local-first matters for controlled data.",
+    time: "40 min", type: "Ecosystem",
+    video: { id: "BoC5MY_7aDk", title: "OpenClaw Full Tutorial for Beginners — Setup Your First AI Agent" },
+    content: [
+      { type: "p", text: "n8n is a visual platform you build workflows in. OpenClaw is a different beast: a persistent, self-hosted agent process that runs continuously on your own hardware and bridges a language model to your real systems — files, terminal, browser, calendar, messaging apps. Where n8n waits to be triggered, OpenClaw can run on a schedule, triaging your inbox while you sleep. Understanding both gives you the two dominant shapes of agentic tooling in 2026." },
+
+      { type: "h3", text: "What OpenClaw Is" },
+
+      { type: "p", text: "OpenClaw (formerly known as Clawdbot/Moltbot/Clawd) is an open-source (MIT-licensed) AI agent framework. Three properties define it:" },
+
+      { type: "ul", items: [
+        "**Local-first** — it runs on your machine, server, or VPS. Its memory is stored as plain Markdown files on your own disk. Nothing inherently goes to a third party (beyond the model API calls you configure).",
+        "**Persistent and scheduled** — unlike a browser chat that vanishes when you close the tab, OpenClaw is an always-on process. It has a heartbeat and can trigger itself on a schedule (cron-like), making it suited to always-on assistants: an inbox monitor, a 24/7 Slack bot, a nightly report generator.",
+        "**Model-agnostic** — you configure model providers (Claude, GPT, Gemini, or local Ollama models) in a config file called `openclaw.json`. A 'Gateway' routes requests, with fallback chains if a provider goes down."
+      ]},
+
+      { type: "h3", text: "The Gateway" },
+
+      { type: "p", text: "At OpenClaw's center is the **Gateway** — the control plane. It manages model routing, authentication, prompt assembly, session management, and tool execution as one integrated runtime. From the Gateway's perspective, a cloud model (Anthropic, OpenAI) and a local model (Ollama) look identical — both are OpenAI-compatible endpoints. The tradeoff: cloud models offer stronger reasoning and larger context (the usual choice for the main orchestrator), while local models keep everything on your hardware at the cost of capability. For controlled-data environments, a local model removes even the model-API data flow — a meaningful option aerospace teams should weigh." },
+
+      { type: "h3", text: "Tools vs. Skills — the Critical Distinction" },
+
+      { type: "p", text: "This is the concept people most often get wrong about OpenClaw, and it's a safety-critical one:" },
+
+      { type: "ul", items: [
+        "**Tools** are the actual capabilities — read a file, execute a shell command, edit, write, and related system operations. There are roughly two dozen. What tools an agent may actually use is governed by a tool policy (`tools.allow`). Core tools like read/exec/edit/write exist in the runtime, but the policy controls which are permitted.",
+        "**Skills** are instruction manuals — `SKILL.md` files (with YAML frontmatter) that teach the agent *how* to accomplish something using tools. A skill does NOT grant a capability. As the documentation puts it bluntly: skills are just instructions; actual capabilities are controlled by the tool allowlist."
+      ]},
+
+      { type: "p", text: "Why this matters: installing a skill does not give the agent new powers — the tool policy does. This separation is exactly the Lesson 2 principle (the agent can only do what its tools allow) made into an explicit configuration layer. Your security posture lives in `tools.allow`, not in which skills are present." },
+
+      { type: "h3", text: "The Security Reality — Read This Twice" },
+
+      { type: "p", text: "OpenClaw's power is also its danger. An always-on agent with file, terminal, and messaging access is a serious capability to hand to a probabilistic system. The community and security researchers are explicit about the precautions:" },
+
+      { type: "ul", items: [
+        "**Run it in isolation.** Use a dedicated device or VM, never your primary machine, so there's a kill switch you can physically reach.",
+        "**Audit skills before installing.** A Cisco analysis found that 26% of community skills contained at least one vulnerability. Treat third-party skills like any untrusted code: review or fork before use.",
+        "**Set spending limits at the provider level** — an agent in a bad loop can burn API credits fast.",
+        "**Scope the tool allowlist tightly** — grant only the tools a given agent genuinely needs, and keep destructive tools (write, exec) gated."
+      ]},
+
+      { type: "p", text: "For an aerospace organization, the message is: OpenClaw is genuinely useful and genuinely risky. It is not something to run casually on a workstation that touches controlled data. Deployed deliberately — isolated, locally-modeled, tightly scoped, audited — it's a powerful local-first option. Deployed carelessly, it's an incident waiting to happen. The next lesson shows it in responsible use." }
+    ],
+    quizzes: [
+      {
+        question: "In OpenClaw, what is the difference between a Tool and a Skill?",
+        options: [
+          "Tools are the actual capabilities (read, exec, edit, write) governed by the tool allowlist; Skills are instruction manuals (SKILL.md files) that teach the agent how to use tools but grant no capability themselves",
+          "Tools are written in Python; Skills are written in JavaScript",
+          "Tools are free; Skills require a paid subscription",
+          "They are two words for the same thing in OpenClaw's documentation"
+        ],
+        correct: 0,
+        explanation: "Tools are real capabilities controlled by the `tools.allow` policy; Skills are just instructions (SKILL.md) for how to use tools. Installing a skill grants no new power — the tool allowlist does. This is the Lesson 2 principle ('an agent can only do what its tools allow') made into an explicit config layer, and your security posture lives in the allowlist, not the skill set."
+      },
+      {
+        question: "What makes OpenClaw 'local-first,' and why does that matter for controlled data?",
+        options: [
+          "It only works without an internet connection",
+          "It stores all data in n8n's cloud by default",
+          "It runs as a persistent process on your own hardware with memory stored as Markdown files on your disk; paired with a local model, even the model-API data flow can be eliminated, keeping controlled data inside your boundary",
+          "It requires a Microsoft 365 license to function"
+        ],
+        correct: 2,
+        explanation: "OpenClaw runs on your own machine/server/VPS with memory persisted as Markdown files locally. Because it's model-agnostic, you can route to a local Ollama model, which removes even the external model-API data flow — letting controlled data stay entirely within your boundary. That's a meaningful option for ITAR/CUI-sensitive work."
+      },
+      {
+        question: "A Cisco analysis found that 26% of community OpenClaw skills contained at least one vulnerability. What is the correct response for an aerospace team?",
+        options: [
+          "Avoid OpenClaw entirely — it cannot be used safely under any configuration",
+          "Only use skills that have more than 1,000 downloads",
+          "Install all skills but disable the language model",
+          "Treat third-party skills like any untrusted code: audit or fork before installing, run OpenClaw isolated on a dedicated VM, scope the tool allowlist tightly, and set provider spending limits"
+        ],
+        correct: 3,
+        explanation: "The vulnerability finding means third-party skills are untrusted code and must be reviewed before use. Combined with the other precautions — isolation on a dedicated device/VM with a reachable kill switch, a tightly-scoped tool allowlist, and provider-level spending limits — OpenClaw can be deployed responsibly. Carelessly, it's an incident waiting to happen; deliberately, it's a powerful local-first option."
+      }
+    ]
+  },
+
+  {
+    phase: "Phase 3", phaseColor: "#1a6b3c",
+    title: "OpenClaw in Practice",
+    subtitle: "Real autonomous tasks: inbox triage, file processing, browser automation. The safety of letting an agent actually execute, and how to bound it.",
+    time: "35 min", type: "Ecosystem",
+    video: { id: "Z6DjYKN4uos", title: "This AI Agent Tracks Stocks 24/7 — OpenClaw Setup & Use-Case Walkthrough" },
+    content: [
+      { type: "p", text: "Lesson 9 covered what OpenClaw is and how to think about its safety model. This lesson looks at what it actually does well, and how to bound each use so the autonomy stays an asset rather than a liability." },
+
+      { type: "h3", text: "Where OpenClaw Shines" },
+
+      { type: "p", text: "OpenClaw's persistence and system access make it strong for tasks that are continuous, span multiple tools, and benefit from running unattended:" },
+
+      { type: "ul", items: [
+        "**Inbox triage** — monitor an inbox, classify incoming mail, summarize threads, draft replies for approval, flag anything urgent. Running on a heartbeat, it can do this overnight so a triaged inbox is waiting in the morning.",
+        "**File processing** — watch a folder, and when documents arrive, extract data, rename and file them, generate a summary. For an engineering team drowning in supplier PDFs, this is immediately useful.",
+        "**Browser automation** — drive a browser to gather information from web sources or internal web apps that lack APIs.",
+        "**Scheduled reporting** — pull from several sources on a schedule and assemble a recurring status report, leaving a draft for review.",
+        "**Messaging-bridged assistants** — answer questions via Slack or Telegram, acting as an always-available interface to internal knowledge (scoped carefully)."
+      ]},
+
+      { type: "h3", text: "The Execution Question" },
+
+      { type: "p", text: "The defining feature — and risk — is that OpenClaw actually executes. It doesn't just suggest 'you could rename these files'; with the right tools enabled, it renames them. This is the leap from assistant to agent, and it demands the bounding discipline from Lesson 8, now applied to a system with real OS-level reach." },
+
+      { type: "h3", text: "Bounding Each Use" },
+
+      { type: "p", text: "Map each task to the minimum capability it needs:" },
+
+      { type: "ul", items: [
+        "**Read-only triage** — an inbox-triage agent that only reads, classifies, and drafts (never sends) needs no send capability. Drafts wait for human approval. Huge value, minimal risk.",
+        "**Scoped write** — a file-organizing agent needs write access, but scope it to one working directory, never the whole filesystem. The isolation VM from Lesson 9 bounds the blast radius further.",
+        "**Never auto-send externally on your behalf** — a recurring caution from experienced operators is to enable messaging for sending to yourself (notifications) but not for corresponding with others autonomously. External communication is exactly where a hallucinated action becomes a real-world incident.",
+        "**Gate exec.** The shell-execution tool is the most powerful and most dangerous. If an agent doesn't need to run commands, don't allow it. If it does, isolate it and watch it."
+      ]},
+
+      { type: "h3", text: "An Aerospace-Appropriate Example" },
+
+      { type: "p", text: "A defensible OpenClaw deployment for an engineering team: an isolated VM running an agent whose job is to watch a shared folder of incoming supplier documents, extract the part number and key fields, cross-reference against a read-only export of the approved-parts list, and post a summary to a private Slack channel flagging anything that doesn't match. Tools allowed: read (folder + the export), messaging (to the team's own channel only). Tools denied: write, exec, external send. It runs every hour. It saves real time, and the worst it can do — even if the model completely misfires — is post a wrong summary to an internal channel, which a human reads anyway. That's a bounded, recoverable failure mode. That is the standard to design to." },
+
+      { type: "h3", text: "When NOT to Use OpenClaw" },
+
+      { type: "p", text: "If the task is a fixed pipeline (no judgment needed), use n8n or a script — OpenClaw's autonomy is wasted overhead. If the data is highly controlled and you can't guarantee isolation, don't deploy it against that data at all. And if you can't articulate the worst-case action the agent could take, you're not ready to turn it on. The tool is powerful; the discipline is knowing when its power is the wrong fit." }
+    ],
+    quizzes: [
+      {
+        question: "Why is an inbox-triage agent that only reads, classifies, and drafts (never sends) considered a high-value, low-risk OpenClaw use?",
+        options: [
+          "Because it delivers real value (a triaged inbox) while needing no send capability — drafts wait for human approval, so even a misfiring agent can't dispatch a wrong message externally",
+          "Because reading email is the only thing OpenClaw is technically capable of",
+          "Because email triage doesn't require a language model",
+          "Because drafts are automatically sent after 24 hours regardless"
+        ],
+        correct: 0,
+        explanation: "Mapping the task to its minimum capability is the discipline: triage needs read + draft, not send. With no send tool enabled, the worst case is a wrong draft that a human reviews before it ever goes out — high value, bounded risk. It's the Lesson 8 guardrail principle applied to a system with real OS-level reach."
+      },
+      {
+        question: "What is the recurring caution from experienced OpenClaw operators about messaging?",
+        options: [
+          "Never use messaging integrations at all",
+          "Only use messaging on weekends",
+          "Enable messaging for sending to yourself (notifications), but not for autonomously corresponding with others on your behalf — external communication is where a hallucinated action becomes a real incident",
+          "Messaging is safe to fully automate because it's reversible"
+        ],
+        correct: 2,
+        explanation: "Operators commonly enable messaging only for self-notifications, not for autonomous external correspondence. External communication is precisely where a hallucinated or wrong action turns into a real-world incident (emailing the wrong party, sending wrong information), so it stays human-gated."
+      },
+      {
+        question: "In the aerospace example, what makes the supplier-document-monitoring deployment defensible?",
+        options: [
+          "It uses the most powerful available model with all tools enabled for maximum capability",
+          "It sends supplier correspondence automatically to save the most time",
+          "It runs on the engineer's primary workstation for convenience",
+          "Its capabilities are scoped to read + post-to-own-channel, with write/exec/external-send denied, running isolated — so the worst-case failure is a wrong summary in an internal channel a human reads anyway: bounded and recoverable"
+        ],
+        correct: 3,
+        explanation: "The deployment is defensible because the failure mode is bounded and recoverable: tools limited to read + internal messaging, with write/exec/external-send denied, on an isolated VM. Even a completely misfiring model can only post an incorrect summary to an internal channel that a human reviews — exactly the 'worst case is recoverable' standard from Lesson 8."
+      }
+    ]
+  },
+
+  {
+    phase: "Phase 3", phaseColor: "#1a6b3c",
+    title: "The Agent Tooling Landscape",
+    subtitle: "n8n vs. OpenClaw vs. the rest, plus MCP — the emerging standard for connecting agents to tools. How to choose for a given use case.",
+    time: "35 min", type: "Ecosystem",
+    video: { id: "CQywdSdi5iA", title: "The Model Context Protocol (MCP) — Anthropic" },
+    content: [
+      { type: "p", text: "You've now built with the two dominant shapes of agent tooling. This lesson zooms out: how the broader landscape is organized, what MCP is and why it matters, and a practical framework for choosing a tool for a given job — because the field is crowded and changing monthly." },
+
+      { type: "h3", text: "The Two Axes That Organize the Field" },
+
+      { type: "p", text: "Most agent tools differ along two axes:" },
+
+      { type: "ul", items: [
+        "**Visual/no-code ↔ code-first.** n8n and similar (Zapier's agent features, Make) sit toward visual. Frameworks like LangChain, LangGraph, and the various SDKs sit toward code-first — maximum flexibility, more engineering effort. OpenClaw sits in between: config-and-Markdown driven, not visual, but not a coding framework either.",
+        "**Hosted/cloud ↔ self-hosted/local.** Cloud platforms are fastest to start but route data through a vendor. Self-hosted (n8n self-host, OpenClaw) keeps data in your boundary — the axis that matters most for regulated work."
+      ]},
+
+      { type: "p", text: "For aerospace, the self-hosted end of the second axis is usually non-negotiable, which is exactly why this track centered n8n and OpenClaw rather than cloud-only platforms." },
+
+      { type: "h3", text: "MCP — the Connective Standard" },
+
+      { type: "p", text: "The most important standardization in agent tooling is the **Model Context Protocol (MCP)**. MCP is an open standard for how agents connect to tools and data sources. Before MCP, every agent framework had its own way of defining tools, so a tool built for one didn't work with another. MCP defines a common interface: a tool or data source exposes itself as an 'MCP server,' and any MCP-compatible agent (an 'MCP client') can use it." },
+
+      { type: "ul", items: [
+        "**Why it matters:** build a connection to your PLM system once as an MCP server, and any MCP-compatible agent — across different frameworks — can use it. No more re-implementing the same integration per platform.",
+        "**The ecosystem effect:** a growing library of MCP servers for common systems means less custom integration work over time.",
+        "**Practical note:** both major platforms in this track are moving toward MCP compatibility, and you'll increasingly see 'connect via MCP' as the standard way to give an agent a new capability."
+      ]},
+
+      { type: "p", text: "Think of MCP as doing for agent-tool connections what a standard port did for hardware: it turns N-by-M custom integrations into a common plug." },
+
+      { type: "h3", text: "A Selection Framework" },
+
+      { type: "p", text: "Choosing a tool comes down to a few honest questions:" },
+
+      { type: "table", headers: ["If you need...", "Lean toward..."],
+        rows: [
+          ["Visual, team-maintainable workflows with strong AI nodes", "n8n (self-hosted)"],
+          ["An always-on, scheduled local agent with system access", "OpenClaw (isolated)"],
+          ["Maximum control / custom logic, with engineering resources", "Code-first framework (LangGraph, SDKs)"],
+          ["Data to never leave your boundary", "Self-hosted n8n or OpenClaw + local model"],
+          ["Fastest possible start, non-sensitive data", "A hosted/cloud platform"],
+          ["To connect one integration to many agents", "Build it as an MCP server"]
+        ]
+      },
+
+      { type: "h3", text: "The Durable Advice in a Churning Field" },
+
+      { type: "p", text: "Specific products will rise and fall — the tool that's hot this quarter may be gone or renamed next year (OpenClaw itself has been renamed multiple times). What doesn't change: the anatomy (model, tools, memory, loop), the workflow-vs-agent judgment, the guardrail discipline, and increasingly MCP as the connective tissue. Learn the concepts deeply and the tools become interchangeable details. That is the entire premise of how this track was built — and why the final phase turns to the thing that truly endures: how you incorporate any of this responsibly into an enterprise." }
+    ],
+    quizzes: [
+      {
+        question: "What problem does the Model Context Protocol (MCP) solve?",
+        options: [
+          "It's an open standard for how agents connect to tools and data sources — build an integration once as an MCP server, and any MCP-compatible agent across different frameworks can use it, replacing per-platform custom integrations",
+          "It makes language models run faster on local hardware",
+          "It encrypts all agent communications end-to-end",
+          "It's a pricing model for agent API calls"
+        ],
+        correct: 0,
+        explanation: "MCP standardizes the agent-to-tool/data interface. Previously every framework defined tools its own way, so integrations weren't portable. With MCP, a system exposes itself once as an MCP server and any MCP-compatible client (agent) can use it — turning N-by-M custom integrations into a common plug, like a standard hardware port."
+      },
+      {
+        question: "For an aerospace use case requiring data to never leave the organization's boundary, which options fit?",
+        options: [
+          "Any hosted cloud platform, since they all encrypt data",
+          "Only code-first frameworks like LangGraph",
+          "Self-hosted n8n or OpenClaw, ideally paired with a local model so even the model-API data flow stays internal",
+          "MCP servers, which are the only private option"
+        ],
+        correct: 2,
+        explanation: "Keeping data in-boundary points to the self-hosted end of the hosting axis: self-hosted n8n or OpenClaw. Pairing with a local model (e.g., Ollama) removes even the external model-API data flow. This is why the track centered these two tools rather than cloud-only platforms — the self-hosted axis is usually non-negotiable for regulated work."
+      },
+      {
+        question: "What is the lesson's 'durable advice' for navigating a fast-churning tooling field?",
+        options: [
+          "Commit to one vendor early and never switch",
+          "Always choose whichever tool is most popular this quarter",
+          "Wait until the field stabilizes before learning anything",
+          "Learn the concepts deeply — the anatomy (model/tools/memory/loop), workflow-vs-agent judgment, guardrail discipline, and MCP — so the specific tools become interchangeable details that you can swap as the field changes"
+        ],
+        correct: 3,
+        explanation: "Specific products rise, fall, and get renamed (OpenClaw itself has changed names multiple times). The durable layer is conceptual: agent anatomy, the workflow-vs-agent decision, guardrail discipline, and MCP as connective tissue. Master those and the tools become swappable implementation details — the premise the whole track is built on."
+      }
+    ]
+  },
+
+  {
+    phase: "Phase 4", phaseColor: "#b8860b",
+    title: "Real-World Use Cases",
+    subtitle: "Concrete agentic workflows for aerospace operations: document processing, compliance checks, supplier comms, and design-review triage.",
+    time: "35 min", type: "Enterprise",
+    video: { id: "PENDING_VERIFY", title: "[NEEDS VIDEO: enterprise AI agent use cases / real-world automation examples]" },
+    content: [
+      { type: "p", text: "Concepts and tools are means; this lesson is about ends. Here are four agentic use cases grounded in real aerospace operations — chosen because each sits squarely in the gap from Lesson 1 (too variable for rigid automation, too repetitive for senior engineers) and each can be bounded to a recoverable failure mode." },
+
+      { type: "h3", text: "1. Document Processing & Extraction" },
+
+      { type: "p", text: "Aerospace runs on documents: supplier certs, material test reports, non-conformance reports, drawing packages. An agent can watch for incoming documents, extract the structured data (part numbers, lot numbers, test values, dates), validate it against expected ranges, and file or route accordingly." },
+
+      { type: "ul", items: [
+        "**Why an agent and not a script:** documents arrive in wildly varied formats from different suppliers. A fixed parser breaks on the next new layout; an agent reasons about the content regardless of format.",
+        "**Bounding:** read + write-to-staging only. Extracted data lands in a review queue, not directly into the system of record. A human confirms before it's authoritative."
+      ]},
+
+      { type: "h3", text: "2. Compliance & Specification Checks" },
+
+      { type: "p", text: "Given a part, drawing, or process, an agent can cross-check it against applicable specifications and flag discrepancies — does this material callout match the approved materials list? Does this process spec reference the current revision? Is this supplier currently approved for this commodity?" },
+
+      { type: "ul", items: [
+        "**Why an agent:** the check spans multiple sources and requires reasoning about which specs apply, not a single lookup.",
+        "**Bounding:** read-only across the reference sources; output is a flag-and-explain report for an engineer, never an automated approval. The agent surfaces concerns; the human dispositions them. Recall from Lesson 3 that a hard compliance *gate* (pass/fail, identical every time) is better as a deterministic check — use the agent for the investigative flagging, not the binding decision."
+      ]},
+
+      { type: "h3", text: "3. Supplier Correspondence" },
+
+      { type: "p", text: "Drafting routine supplier communications — acknowledging a shipment, requesting missing documentation, responding to a standard query — is repetitive and time-consuming. An agent can draft these grounded in the relevant records." },
+
+      { type: "ul", items: [
+        "**Why an agent:** each message depends on the specific record context, which the agent can retrieve and incorporate.",
+        "**Bounding:** this is the canonical human-in-the-loop case. The agent drafts; a human reviews and sends. Never auto-send external correspondence (the Lesson 10 caution). The value is the draft, not the dispatch."
+      ]},
+
+      { type: "h3", text: "4. Design-Review Triage" },
+
+      { type: "p", text: "After a design review, someone has to extract action items, assign owners, check that raised requirements trace to the requirements baseline, and distribute. An agent (or a small multi-agent system, per Lesson 7) can take the review notes and produce a structured action-item list with proposed owners and traceability flags." },
+
+      { type: "ul", items: [
+        "**Why an agent:** unstructured notes, varied each time, requiring extraction and cross-reference — exactly the open-ended shape agents fit.",
+        "**Bounding:** read the notes and the requirements baseline; output a draft action-item package for the review chair to confirm and distribute. Independently verifiable sub-tasks (extraction, traceability, distribution) map naturally onto the multi-agent pattern."
+      ]},
+
+      { type: "h3", text: "The Common Thread" },
+
+      { type: "p", text: "Notice the pattern across all four: the agent does the laborious investigative and drafting work; a human owns every consequential decision; the data access is scoped (mostly read-only); and the worst-case failure is a wrong draft or a wrong flag that a human catches. None of these lets the agent take an irreversible or externally-visible action unsupervised. That is not a coincidence — it's the design discipline of the whole track applied to real work. Build use cases that fit this shape and you capture most of the value at a fraction of the risk." }
+    ],
+    quizzes: [
+      {
+        question: "Why is an agent a better fit than a fixed parser for processing incoming supplier documents?",
+        options: [
+          "Documents arrive in wildly varied formats from different suppliers — a fixed parser breaks on each new layout, while an agent reasons about the content regardless of format",
+          "Agents are always cheaper to run than parsers",
+          "Parsers cannot extract part numbers",
+          "Agents store the documents permanently and parsers do not"
+        ],
+        correct: 0,
+        explanation: "The variability is the reason. A fixed parser is brittle against the next unseen supplier layout; an agent reasons about content rather than relying on a rigid template. This is the Lesson 1 'agent fits when the input space is huge and varied' criterion. Bounding stays tight: extracted data goes to a review queue, not straight into the system of record."
+      },
+      {
+        question: "For a hard compliance gate that must return an identical pass/fail every time, what does the track recommend?",
+        options: [
+          "Use a fully autonomous agent for maximum flexibility",
+          "Use a multi-agent system where agents vote on compliance",
+          "Use a deterministic check for the binding pass/fail decision, and reserve the agent for investigative flagging — the agent surfaces concerns, a human or deterministic logic makes the binding call",
+          "Compliance checks cannot be automated in any form"
+        ],
+        correct: 2,
+        explanation: "From Lesson 3: a binding gate needing identical results every time favors determinism, because agents are probabilistic. So the agent does the investigative cross-source flagging (read-only, flag-and-explain), while the binding pass/fail stays deterministic or human-owned. The agent surfaces concerns; it does not issue the approval."
+      },
+      {
+        question: "What common design pattern unifies all four aerospace use cases in the lesson?",
+        options: [
+          "Each agent is given full write access to maximize automation",
+          "All four eliminate the need for human review entirely",
+          "Each use case requires a different language model",
+          "The agent does the investigative and drafting work while a human owns every consequential decision, data access is mostly read-only, and the worst-case failure is a wrong draft or flag a human catches"
+        ],
+        correct: 3,
+        explanation: "Across document processing, compliance flagging, supplier correspondence, and design-review triage, the shape is identical: laborious work automated, every consequential decision human-owned, scoped (mostly read-only) access, and a bounded/recoverable worst case. That discipline captures most of the value at a fraction of the risk — the through-line of the entire track."
+      }
+    ]
+  },
+
+  {
+    phase: "Phase 4", phaseColor: "#b8860b",
+    title: "Enterprise Incorporation",
+    subtitle: "Security, data boundaries, ITAR/CUI, governance, and audit trails. What it actually takes to run agents responsibly inside a regulated organization.",
+    time: "40 min", type: "Enterprise",
+    video: { id: "PENDING_VERIFY", title: "[NEEDS VIDEO: enterprise AI agent governance security and compliance]" },
+    content: [
+      { type: "p", text: "An agent that works on your laptop and an agent sanctioned to run inside a regulated aerospace enterprise are separated by a large body of governance work. This lesson is that body of work — the non-negotiables for incorporating agentic AI responsibly where the data is controlled and the stakes are real." },
+
+      { type: "h3", text: "Data Boundaries Come First" },
+
+      { type: "p", text: "Before anything else, map where data flows. An agent touches data at several points: the prompt sent to the model, the tools it calls, the memory it stores, the outputs it produces. Each is a place controlled data could escape." },
+
+      { type: "ul", items: [
+        "**Model API calls** — if you use a cloud model, your prompts (which may contain controlled data) go to that provider. For ITAR/CUI data this is often prohibited unless the provider offers a compliant, in-boundary deployment. A local model eliminates this flow entirely.",
+        "**Tool reach** — every tool is a potential egress. A tool that can email externally can email controlled data externally. Scope and gate accordingly.",
+        "**Memory storage** — where does the agent persist memory? If it's a database or Markdown files, those now contain whatever the agent processed, and must be protected at the same classification as the source data.",
+        "**Logs** — the audit logs themselves may contain controlled data and inherit its handling requirements."
+      ]},
+
+      { type: "h3", text: "ITAR, EAR, and CUI" },
+
+      { type: "p", text: "For aerospace specifically, the regulatory frame is unavoidable:" },
+
+      { type: "ul", items: [
+        "**ITAR** (International Traffic in Arms Regulations) governs defense-related technical data. Sending ITAR data to a model or service that could expose it to foreign persons — including cloud infrastructure outside the US or staffed by non-US persons — can be a violation. This is the single biggest constraint on agent deployment in defense aerospace, and it pushes hard toward self-hosted, in-boundary, US-person-administered systems with local or specifically-authorized models.",
+        "**EAR** (Export Administration Regulations) covers dual-use items and has its own controls on technical data.",
+        "**CUI** (Controlled Unclassified Information) has handling requirements (often tied to NIST 800-171) that any agent system touching CUI must satisfy — access control, audit, encryption, and boundary protection."
+      ]},
+
+      { type: "p", text: "**The practical upshot:** for controlled data, the deployment is self-hosted (n8n or OpenClaw), on infrastructure inside the authorization boundary, with a local or specifically-compliant model, administered by authorized persons, with tools scoped so controlled data cannot egress. This is why the track emphasized self-hosting throughout — it's not a preference, it's frequently a legal requirement." },
+
+      { type: "h3", text: "Governance" },
+
+      { type: "p", text: "Beyond data, the organization needs a governance framework around agents:" },
+
+      { type: "ul", items: [
+        "**An approval process for deploying an agent** — who signs off that a given agent, with its specific tools and data access, is acceptable? Treat it like deploying any system that touches controlled data.",
+        "**Ownership** — every production agent has a named human owner accountable for its behavior. Agents don't own decisions; people do.",
+        "**Change control** — modifying an agent's tools, prompt, or model is a change that goes through review, because each can alter what the agent can do.",
+        "**Tiered autonomy policy** — organizational rules for what level of action an agent may take unsupervised (read-only/internal) versus what always requires human approval (external comms, writes to systems of record, anything touching controlled data)."
+      ]},
+
+      { type: "h3", text: "Audit Trails" },
+
+      { type: "p", text: "From Lesson 8, scaled to the enterprise: every agent action must be logged in a way that supports answering, months later and to an auditor, 'what did this agent do, why, on what input, and who approved it?' In a regulated environment the audit trail is not optional infrastructure — it's a condition of being allowed to run the agent at all. Logs are retained per the data's requirements and protected at its classification." },
+
+      { type: "h3", text: "The Incorporation Checklist" },
+
+      { type: "p", text: "Before an agent goes live in a regulated aerospace setting, you should be able to answer yes to all of these: Is every data flow mapped and inside the authorization boundary? Is the model deployment compliant for the data's classification (local or specifically authorized)? Are tools scoped so controlled data cannot egress, with destructive and external-action tools human-gated? Is there a named owner and an approval sign-off? Is every action logged to a protected, retained audit trail? Is there a tiered-autonomy policy and does this agent comply? If any answer is no, the agent is not ready — not because the technology can't do it, but because responsible incorporation isn't finished. That discipline is what separates a sanctioned enterprise capability from a shadow-IT liability." }
+    ],
+    quizzes: [
+      {
+        question: "Why does ITAR push aerospace agent deployments toward self-hosted, in-boundary systems with local or specifically-authorized models?",
+        options: [
+          "Because sending ITAR-controlled technical data to a model or service that could expose it to foreign persons — including foreign cloud infrastructure or non-US-person staff — can be a violation, so the data must stay inside an authorized, US-person-administered boundary",
+          "Because self-hosted systems are cheaper than cloud platforms",
+          "Because cloud models are technically incapable of processing aerospace data",
+          "Because ITAR specifically names n8n and OpenClaw as approved tools"
+        ],
+        correct: 0,
+        explanation: "ITAR governs defense technical data and treats exposure to foreign persons (including via foreign or non-US-person-staffed cloud infrastructure) as a potential violation. That constraint pushes toward self-hosted, in-boundary deployments with local or specifically-compliant models administered by authorized persons. This is why self-hosting was emphasized throughout — often a legal requirement, not a preference."
+      },
+      {
+        question: "When mapping an agent's data flows for controlled data, which of these is a place controlled data could escape?",
+        options: [
+          "Only the final output the agent produces",
+          "Only the model API call, since tools stay local",
+          "Multiple points: the prompt sent to the model, every tool the agent can call, the memory it persists, and the audit logs — each can contain or transmit controlled data",
+          "None — agents do not move data"
+        ],
+        correct: 2,
+        explanation: "Controlled data touches the agent at several points: the model prompt (egress to a provider if cloud), tool reach (any tool is potential egress), memory storage (now holds processed data), and logs (which may contain controlled data and inherit its handling rules). Each must be mapped and protected — not just the final output."
+      },
+      {
+        question: "What does the lesson identify as the role of a named human owner for each production agent?",
+        options: [
+          "To manually run the agent each time since automation isn't trusted",
+          "To approve every individual action the agent takes, without exception",
+          "To write all the agent's skills personally",
+          "To be accountable for the agent's behavior — agents don't own decisions, people do — as part of a governance framework that also includes deployment sign-off, change control, and a tiered-autonomy policy"
+        ],
+        correct: 3,
+        explanation: "Every production agent needs a named owner accountable for its behavior — the principle that people own decisions, not agents. That sits within a broader governance framework: an approval/sign-off process for deployment, change control over tools/prompt/model, and a tiered-autonomy policy. It's not about approving every action (tiering handles that) but about clear human accountability."
+      }
+    ]
+  },
+
+  {
+    phase: "Phase 4", phaseColor: "#b8860b",
+    title: "Capstone: Architect an Agentic Workflow",
+    subtitle: "Bring it together. Take a real recurring aerospace task and design the full agent system — tools, memory, guardrails, governance — end to end.",
+    time: "45 min", type: "Capstone",
+    video: { id: "geR9PeCuHK4", title: "How to Build AI Agents with n8n — Full end-to-end agent build course" },
+    content: [
+      { type: "p", text: "This capstone asks you to do what the whole track has been building toward: take a real recurring task from your own work and architect a complete agentic solution for it — not to build it here, but to design it rigorously, the way you'd spec any system before implementation." },
+
+      { type: "h3", text: "The Design Exercise" },
+
+      { type: "p", text: "Pick a recurring task that fits the agent profile (multi-step, variable, judgment-laden, currently eating someone's time). Then work through the full architecture:" },
+
+      { type: "ul", items: [
+        "**1. Workflow-or-agent decision (Lesson 3).** State explicitly why this needs an agent — name the part of the path that can't be predetermined. If you can't, build a workflow instead and you're done.",
+        "**2. Decompose (Lesson 7).** Is this one agent or a supervisor with sub-agents? If the system prompt would be long and conditional, decompose. Name each agent and its single responsibility.",
+        "**3. Specify the anatomy (Lesson 2).** For each agent: which model (and why that one — cost vs. capability), what tools (named, with what each does), what memory (and why that type), and the system prompt's core instructions and constraints.",
+        "**4. Define the tools precisely (Lessons 6, 8).** For each tool: is it read-only or write? If write, how is it scoped? Which are externally-visible or destructive and therefore human-gated?",
+        "**5. Place the human gates (Lesson 8).** Where does a human approve or edit before action? What proceeds automatically? Draw the tiered-autonomy boundary.",
+        "**6. Bound the failure (Lesson 8).** State the worst thing this system could do if the model misbehaved completely. If that worst case isn't recoverable, redesign until it is.",
+        "**7. Choose the platform (Lesson 11).** n8n, OpenClaw, or something else — and justify it against the use case and the self-hosting/data-boundary requirement.",
+        "**8. Address incorporation (Lesson 13).** Map the data flows. Is anything controlled? Where's the boundary? Who owns it? How is it logged? Does it satisfy the incorporation checklist?"
+      ]},
+
+      { type: "h3", text: "A Worked Example (Abbreviated)" },
+
+      { type: "p", text: "**Task:** Weekly supplier-documentation completeness check — every Friday, verify that each of the week's incoming shipments has its required cert package, and chase what's missing." },
+
+      { type: "ul", items: [
+        "**Agent or workflow:** Agent — the 'what's required' varies by part class and supplier, and chasing requires composing context-specific messages. The investigation can't be fully predetermined.",
+        "**Decomposition:** Supervisor + two sub-agents — a 'completeness-check agent' (reads shipment records and required-docs matrix, identifies gaps) and a 'drafting agent' (composes chase messages for the gaps).",
+        "**Anatomy:** Frontier model for the supervisor and completeness reasoning; cheaper model acceptable for drafting. Tools: read shipment records, read required-docs matrix, draft message. Memory: lightweight — just the current week's run. Prompt: 'Identify missing required documents per shipment using the matrix; never assume a doc exists without confirming it in the records.'",
+        "**Tools:** all read-only except 'draft message,' which writes only to a review queue. No send tool.",
+        "**Human gates:** the entire chase-message set goes to a buyer for review and sending. Nothing leaves automatically.",
+        "**Worst case:** the agent produces a wrong gap list or a wrong draft — caught by the buyer in review. Recoverable. ✓",
+        "**Platform:** self-hosted n8n (visual, team-maintainable, scheduled trigger, read-only DB tools), inside the boundary.",
+        "**Incorporation:** records access is read-only and in-boundary; drafts hold supplier data so the review queue is protected accordingly; named owner is the supplier-quality lead; every run logged. Passes the checklist."
+      ]},
+
+      { type: "h3", text: "What \"Done\" Looks Like" },
+
+      { type: "p", text: "A good capstone design reads like a spec an engineer could hand to an implementer: every agent has a clear job, every tool is justified and scoped, every consequential action is gated, the worst case is bounded and recoverable, and the data/governance story is complete. If you've produced that, you've internalized the track — you can now look at any recurring task and reason about whether and how to make it agentic, responsibly." },
+
+      { type: "h3", text: "Closing" },
+
+      { type: "p", text: "Agentic AI is the most powerful and the most hazardous capability in this entire course. The power is real: it can absorb genuine drudgery and free engineers for the work only they can do. The hazard is equally real: autonomy plus action plus controlled data is a combination that punishes carelessness. The engineers who win with this technology aren't the ones who deploy the most autonomous agents — they're the ones who deploy the right amount of autonomy, bounded so that even total failure is recoverable, governed so the organization can trust and audit it. Build that way, and agentic AI becomes one of the most valuable tools in your kit. You now have the framework to do exactly that." }
+    ],
+    quizzes: [
+      {
+        question: "In the capstone framework, what must you be able to state before choosing an agent over a workflow?",
+        options: [
+          "Which language model vendor offers the best price",
+          "The total monthly API budget",
+          "How many sub-agents the system will have",
+          "The specific part of the task's path that cannot be predetermined — if you can't name it, you should build a workflow instead"
+        ],
+        correct: 3,
+        explanation: "Step 1 of the capstone is the Lesson 3 decision: explicitly name the part of the path that can't be drawn in advance. If you can't articulate why the path is unpredictable, the task is a workflow, not an agent — and you're done. Autonomy must be justified, not assumed."
+      },
+      {
+        question: "The capstone requires stating 'the worst thing this system could do if the model misbehaved completely.' What do you do if that worst case is not recoverable?",
+        options: [
+          "Deploy it anyway but monitor closely",
+          "Add a second agent to watch the first",
+          "Redesign until the worst case is recoverable — bounding the failure to something recoverable is a hard requirement, not an optional nicety",
+          "Accept the risk if the task is valuable enough"
+        ],
+        correct: 2,
+        explanation: "Bounding the failure mode is a hard gate (Lesson 8). If a completely misbehaving agent could cause irreversible harm, the guardrails aren't done — you redesign (tighter tools, more human gates, narrower scope) until even total failure is recoverable. Value doesn't buy an exception to this."
+      },
+      {
+        question: "According to the closing, what distinguishes engineers who succeed with agentic AI?",
+        options: [
+          "They deploy the right amount of autonomy — bounded so even total failure is recoverable, and governed so the organization can trust and audit it",
+          "They deploy the most autonomous agents possible to maximize efficiency",
+          "They avoid agents entirely and stick to deterministic workflows",
+          "They use the largest available model for every task"
+        ],
+        correct: 0,
+        explanation: "The track's thesis: success isn't maximal autonomy, it's appropriate autonomy — bounded so total failure stays recoverable and governed so it's trustworthy and auditable. That discipline turns a powerful, hazardous capability into one of the most valuable tools in an engineer's kit."
+      }
+    ]
+  }
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -9370,6 +10568,379 @@ const COPILOT_FINAL_EXAM = [
     correct: 1, explanation: "When uncertain about controlled content in AI tools, ask the compliance officer first. Cost of asking is trivial; cost of an unintentional export is enormous. This applies industry-wide." }
 ];
 
+const AGENTIC_FINAL_EXAM = [
+  { phase: 1, question: "What most precisely distinguishes an agent from a workflow?", options: [
+    "An agent decides its own steps at runtime to reach a goal; a workflow follows a sequence the author fixed in advance",
+    "An agent runs in the cloud; a workflow runs locally",
+    "An agent uses a larger language model than a workflow",
+    "An agent processes images while a workflow only processes text"
+  ], correct: 0, explanation: "The defining difference is autonomy of method: an agent is given a goal and determines the path itself, adapting to what it observes, while a workflow executes a predetermined sequence." },
+
+  { phase: 1, question: "The ReAct pattern that underlies most agents stands for:", options: [
+    "Rapid Action",
+    "Reason + Act — the agent reasons about state, acts via a tool, observes the result, and loops",
+    "React framework integration",
+    "Reactive Acceleration"
+  ], correct: 1, explanation: "ReAct = Reason + Act. The agent reasons (Analysis), acts (Execution via a tool), observes the result, and loops back — the Analysis→Planning→Execution cycle." },
+
+  { phase: 1, question: "When an agent's loop continues after an Execution step, what feeds the next Analysis?", options: [
+    "A fresh prompt from the user",
+    "A random seed for variety",
+    "The observed result of the action just taken",
+    "The original system prompt only"
+  ], correct: 2, explanation: "Execution produces a result the agent observes, and that new information feeds back into Analysis. The loop runs until the goal is met or a guardrail halts it." },
+
+  { phase: 1, question: "Which of the four agent components is responsible for the reasoning?", options: [
+    "The tools",
+    "The memory",
+    "The planning loop's step counter",
+    "The model (the LLM 'brain')"
+  ], correct: 3, explanation: "The model does the reasoning — it decides what to do next. Tools are the hands, memory the notebook, and the loop the structure that runs the cycle." },
+
+  { phase: 1, question: "When a model 'calls a tool,' the model itself:", options: [
+    "Only emits structured text naming the tool and arguments; framework code performs the real action",
+    "Directly executes the action on the file system or network",
+    "Rewrites its own weights to gain the capability",
+    "Opens a network socket to the tool's server"
+  ], correct: 0, explanation: "The model only produces text, including structured tool-call requests. The agent framework parses that and executes the real action, then feeds the result back. This separation is the basis of all guardrails." },
+
+  { phase: 1, question: "An engineer wants to guarantee an agent can never delete files. The most reliable enforcement is:", options: [
+    "Instructing it in the system prompt not to delete files",
+    "Not providing any file-deletion tool — the model can only request actions for which a tool exists",
+    "Setting the temperature to zero",
+    "Using a smaller model"
+  ], correct: 1, explanation: "The agent can only act through its tools. Omit the deletion tool and the model has no way to delete, regardless of its reasoning. Controlling the tool set is the most fundamental guardrail; a prompt instruction alone is weaker." },
+
+  { phase: 1, question: "Short-term agent memory is best described as:", options: [
+    "Data persisted to a database across runs",
+    "The model's training data",
+    "The task/conversation history held in the context window during a single run",
+    "A vector store of all company documents"
+  ], correct: 2, explanation: "Short-term memory is the in-context history for one run (how the agent recalls earlier steps). Long-term memory is what persists across runs in external storage." },
+
+  { phase: 1, question: "Why is 'stuff everything into memory' a poor agent design?", options: [
+    "Memory is always read-only",
+    "It has no downside; more context is always better",
+    "Memory sub-nodes conflict with tools",
+    "More context per call raises cost and latency and eventually exhausts the finite context window"
+  ], correct: 3, explanation: "Context windows are finite and every token costs money and time. Good design keeps the lightest memory that meets the need, summarizing or offloading the rest." },
+
+  { phase: 1, question: "A task should default to a workflow rather than an agent unless:", options: [
+    "You can name a specific reason the path cannot be predetermined",
+    "The team prefers visual tools",
+    "The budget allows for an agent",
+    "An agent would look more impressive"
+  ], correct: 0, explanation: "Default to the simplest thing. Promote to an agent only with a concrete justification — e.g., 'step 3 depends on what we find in step 2.' Unjustified autonomy adds cost, latency, and unpredictability." },
+
+  { phase: 1, question: "For a high-volume compliance gate requiring an identical pass/fail every time, the better choice is:", options: [
+    "A fully autonomous agent, for flexibility",
+    "A deterministic workflow, because agents are probabilistic and cost more at scale",
+    "A multi-agent voting system",
+    "Whatever model is newest"
+  ], correct: 1, explanation: "Binding, high-volume, identical-result decisions favor determinism. Agents vary their paths probabilistically and incur an LLM call per step, making them costly and unpredictable for this use." },
+
+  { phase: 1, question: "The recommended 'hybrid' production pattern is:", options: [
+    "Two agents that vote on every output",
+    "Switching randomly between agent and workflow modes",
+    "A deterministic workflow handling predictable scaffolding, handing off to an agent only for the open-ended sub-task, then resuming control",
+    "An agent that logs its steps like a workflow"
+  ], correct: 2, explanation: "The strongest systems wrap an agent inside a workflow — determinism for triggers/fetching/routing/logging, autonomy only for the specific open-ended part, then back to deterministic action." },
+
+  { phase: 1, question: "Why is autonomy combined with controlled aerospace data flagged as high-risk?", options: [
+    "Agents are too slow for aerospace networks",
+    "Agents cannot be logged",
+    "Language models can't understand aerospace terms",
+    "An agent that can act — read files, send messages — can also take harmful actions like leaking controlled data, so constraints matter as much as capabilities"
+  ], correct: 3, explanation: "The capability to take real actions is itself the risk. An agent that can email or read files can expose controlled data or contact the wrong party, so bounding what it may do is as important as what it can do." },
+
+  { phase: 1, question: "Which task profile best fits an agent rather than a workflow?", options: [
+    "Investigating why a supplier shipment was rejected and drafting a response, where later steps depend on what earlier reads reveal",
+    "A fixed nightly database backup",
+    "Converting a CSV to JSON on a schedule",
+    "Sending an identical reminder email every Monday"
+  ], correct: 0, explanation: "The investigation case fits an agent: the path can't be predetermined because each step depends on intermediate findings. The other three are fixed, scriptable workflows." },
+
+  { phase: 2, question: "For ITAR-controlled data, the appropriate n8n deployment is generally:", options: [
+    "n8n Cloud, for better managed security",
+    "Self-hosted, keeping the platform and all data inside the organization's boundary",
+    "Either; deployment doesn't affect data location",
+    "n8n Cloud with client-side encryption"
+  ], correct: 1, explanation: "Self-hosting keeps n8n and all data flowing through it inside your own boundary. Cloud routes data through n8n's servers — usually unacceptable for controlled technical data." },
+
+  { phase: 2, question: "Every n8n workflow begins with:", options: [
+    "An AI Agent node",
+    "A credential node",
+    "Exactly one trigger node (schedule, webhook, message, email, or file event)",
+    "A manual admin click"
+  ], correct: 2, explanation: "A single trigger node starts every workflow. AI cluster nodes and action nodes follow; not every workflow needs an agent." },
+
+  { phase: 2, question: "n8n stores API keys as credentials referenced by name because:", options: [
+    "It speeds up execution",
+    "It is only a cosmetic convention",
+    "The model requires a separate credentials file",
+    "They're encrypted at rest, never hard-coded into workflows, centrally rotatable, and on self-host stay in your own database"
+  ], correct: 3, explanation: "Separating credentials gives encryption at rest, central rotation, no hard-coded secrets in workflow JSON, and on self-host keeps them in your database — a core security property." },
+
+  { phase: 2, question: "In an n8n AI agent, the 'brain' that reasons is:", options: [
+    "The Chat Model sub-node attached to the AI Agent node",
+    "The Chat Trigger node",
+    "The memory sub-node",
+    "The HTTP Request tool"
+  ], correct: 0, explanation: "The Chat Model sub-node (e.g., Anthropic or OpenAI) is the reasoning LLM. The AI Agent node runs the loop and holds the system prompt." },
+
+  { phase: 2, question: "For factual, tool-driven aerospace agent work, temperature should generally be:", options: [
+    "High (1.5–2.0) for creativity",
+    "Low (0–0.3) for deterministic, focused tool selection",
+    "Exactly 1.0 always",
+    "Irrelevant — temperature only affects images"
+  ], correct: 1, explanation: "Low temperature yields focused, deterministic behavior — you want reliable correct tool calls, not creativity. Save higher temperatures for generative drafting." },
+
+  { phase: 2, question: "The primary surface for diagnosing why an n8n agent called the wrong tool is:", options: [
+    "Retraining the model",
+    "Raising the temperature",
+    "The execution log showing reasoning, the tool called, arguments, and the result",
+    "Rebuilding the workflow from scratch"
+  ], correct: 2, explanation: "n8n's execution log traces each step — reasoning, tool call, arguments, result — revealing whether the fault is the prompt, the tool, or the model's reasoning." },
+
+  { phase: 2, question: "n8n's AI Agent node selects among tools based primarily on each tool's:", options: [
+    "Execution speed",
+    "Cost per call",
+    "Alphabetical order",
+    "Name, description, and input schema — which the model reads to decide which fits"
+  ], correct: 3, explanation: "The Tools Agent pattern presents each tool's name, description, and schema to the model, which chooses based on them. Vague descriptions cause wrong or missed tool selection." },
+
+  { phase: 2, question: "To let an agent call your PLM system that exposes a REST API but has no pre-built node, use:", options: [
+    "The HTTP Request tool, the universal adapter for any REST API",
+    "Window buffer memory",
+    "A second language model",
+    "n8n Cloud only"
+  ], correct: 0, explanation: "The HTTP Request tool reaches any REST API without a dedicated node — how agents integrate with ERP/PLM/quality systems lacking pre-built nodes." },
+
+  { phase: 2, question: "Window buffer memory in n8n, by default:", options: [
+    "Persists across sessions in a database",
+    "Keeps the last N messages in context for the current session and does not persist between sessions",
+    "Stores embeddings for semantic recall",
+    "Is the same as long-term memory"
+  ], correct: 1, explanation: "Window buffer memory holds recent messages for the current session only. Persistent recall across sessions requires database-backed memory; semantic recall uses vector store memory." },
+
+  { phase: 2, question: "n8n's AI Agent Tool node enables:", options: [
+    "Converting an agent into a deterministic workflow",
+    "Running an agent without a model",
+    "A root agent to call other agents as tools, with n8n handling context/variable management, supporting nested multi-tier orchestration",
+    "Restricting an agent to one tool"
+  ], correct: 2, explanation: "The AI Agent Tool node lets a supervisor call sub-agents as tools; each runs its own loop and returns a result. n8n manages the context/variables that raw sub-workflows would force you to handle manually." },
+
+  { phase: 2, question: "The main cost of a multi-agent architecture is:", options: [
+    "It cannot use memory",
+    "It only runs on cloud",
+    "It requires leaving n8n",
+    "It multiplies LLM calls — a supervisor plus several looping sub-agents can be a dozen-plus calls per request, raising cost and latency"
+  ], correct: 3, explanation: "Decomposition multiplies model calls and thus cost and latency. Decompose for reliability and clarity when warranted, while watching per-request cost — the Lesson 3 tradeoff at the architecture level." },
+
+  { phase: 2, question: "The core principle of human-in-the-loop controls is:", options: [
+    "The agent does the work, but a human owns consequential/irreversible decisions, approving or editing before action",
+    "The human does the work, the agent approves",
+    "Remove humans to maximize speed",
+    "Approve every trivial action individually"
+  ], correct: 0, explanation: "Agent does the work, human owns the decision. Irreversible or externally-visible actions pause for human approval/editing; tiering lets low-risk actions proceed automatically." },
+
+  { phase: 2, question: "Preferring read-only tools and narrowly scoping write tools is recommended because:", options: [
+    "Read-only tools run faster",
+    "Since the agent can only act through its tools, limiting them shrinks the risk surface so even a misbehaving agent can't cause damage it has no tool to cause",
+    "Write tools aren't supported on self-host",
+    "It's a licensing requirement"
+  ], correct: 1, explanation: "The tool set is the fundamental guardrail. Read-only tools mean the agent literally cannot write bad data; narrowly-scoped writes bound the damage. Aim for a recoverable worst case even under total misbehavior." },
+
+  { phase: 3, question: "In OpenClaw, the actual capabilities (read, exec, edit, write) are governed by:", options: [
+    "The set of installed Skills",
+    "The number of agents configured",
+    "The tool policy / allowlist (tools.allow) — Skills are only instruction manuals and grant no capability",
+    "The choice of messaging platform"
+  ], correct: 2, explanation: "Tools are capabilities controlled by the allowlist; Skills (SKILL.md) only teach how to use tools and grant nothing. Your security posture lives in the allowlist, not the skill set." },
+
+  { phase: 3, question: "What makes OpenClaw 'local-first'?", options: [
+    "It only works offline",
+    "It requires Microsoft 365",
+    "It stores data in n8n Cloud",
+    "It runs as a persistent process on your own hardware with memory stored as Markdown files locally; with a local model even the model-API flow can be eliminated"
+  ], correct: 3, explanation: "OpenClaw runs on your own machine/server, persisting memory as local Markdown files. Routing to a local model removes even the external model-API data flow — keeping controlled data in-boundary." },
+
+  { phase: 3, question: "A Cisco analysis found roughly what fraction of community OpenClaw skills had at least one vulnerability?", options: [
+    "About 26%",
+    "About 2%",
+    "About 50%",
+    "About 80%"
+  ], correct: 0, explanation: "About 26% of analyzed community skills contained at least one vulnerability — so third-party skills are untrusted code and must be audited or forked before use." },
+
+  { phase: 3, question: "The recommended way to run OpenClaw safely is:", options: [
+    "On your primary workstation for convenience",
+    "Isolated on a dedicated device or VM with a reachable kill switch, audited skills, a tightly-scoped tool allowlist, and provider spending limits",
+    "With all 26 tools enabled for flexibility",
+    "Only with cloud models"
+  ], correct: 1, explanation: "Isolation (dedicated VM/device), skill auditing, a tight tool allowlist, and provider spending limits together make OpenClaw deployable responsibly. Carelessly it's an incident waiting to happen." },
+
+  { phase: 3, question: "OpenClaw's 'Gateway' is best described as:", options: [
+    "A messaging app",
+    "A type of Skill",
+    "The control plane that manages model routing, auth, prompt assembly, session management, and tool execution as one runtime",
+    "The local Markdown memory store"
+  ], correct: 2, explanation: "The Gateway is OpenClaw's integrated control plane — model routing (with fallback chains), authentication, prompt assembly, session management, and tool execution." },
+
+  { phase: 3, question: "Why is an inbox-triage agent that only reads, classifies, and drafts (never sends) low-risk?", options: [
+    "Reading email is all OpenClaw can do",
+    "Drafts auto-send after 24 hours",
+    "Email triage needs no model",
+    "With no send tool, the worst case is a wrong draft a human reviews before it ever goes out — high value, bounded risk"
+  ], correct: 3, explanation: "Mapping the task to its minimum capability (read + draft, not send) means even a misfiring agent can't dispatch a wrong external message — the human reviews drafts first." },
+
+  { phase: 3, question: "Experienced OpenClaw operators commonly enable messaging:", options: [
+    "For self-notifications, but not for autonomously corresponding with others on the user's behalf",
+    "Fully automated for all external correspondence",
+    "Never, under any circumstances",
+    "Only on weekends"
+  ], correct: 0, explanation: "Self-notifications are low-risk; autonomous external correspondence is where a hallucinated action becomes a real incident, so it stays human-gated." },
+
+  { phase: 3, question: "The shell-execution (exec) tool in OpenClaw should be:", options: [
+    "Always enabled for convenience",
+    "Treated as the most dangerous tool — denied if not needed, and isolated and monitored if it is",
+    "Used instead of all other tools",
+    "Enabled only with cloud models"
+  ], correct: 1, explanation: "Exec is the most powerful and most dangerous capability. If the agent doesn't need to run commands, don't allow it; if it does, isolate and watch it closely." },
+
+  { phase: 3, question: "Most agent tools differ along which two axes?", options: [
+    "Free vs. paid, and fast vs. slow",
+    "American vs. European, and old vs. new",
+    "Visual/no-code ↔ code-first, and hosted/cloud ↔ self-hosted/local",
+    "Text-only vs. multimodal, and single vs. multi-agent"
+  ], correct: 2, explanation: "The organizing axes are interface (visual/no-code to code-first) and hosting (cloud to self-hosted). For regulated work, the self-hosted end of the hosting axis is usually non-negotiable." },
+
+  { phase: 3, question: "The Model Context Protocol (MCP) solves which problem?", options: [
+    "Making models run faster locally",
+    "Pricing API calls",
+    "Encrypting agent traffic",
+    "Standardizing how agents connect to tools/data — build an integration once as an MCP server and any MCP-compatible agent can use it"
+  ], correct: 3, explanation: "MCP is an open standard for agent-to-tool/data connections. Expose a system once as an MCP server and any MCP client can use it — replacing per-platform custom integrations, like a standard hardware port." },
+
+  { phase: 3, question: "For data that must never leave the organization's boundary, the fitting options are:", options: [
+    "Self-hosted n8n or OpenClaw, ideally with a local model to remove the model-API flow too",
+    "Any cloud platform with encryption",
+    "Only code-first frameworks",
+    "Only MCP servers"
+  ], correct: 0, explanation: "In-boundary data points to self-hosted n8n or OpenClaw, and a local model removes even the external model-API flow. This is why the track centered these two over cloud-only platforms." },
+
+  { phase: 3, question: "The track's 'durable advice' for a fast-churning tooling field is:", options: [
+    "Commit to one vendor forever",
+    "Learn the concepts deeply (anatomy, workflow-vs-agent, guardrails, MCP) so specific tools become interchangeable details",
+    "Wait until the field stabilizes",
+    "Always pick the most popular tool"
+  ], correct: 1, explanation: "Products rise, fall, and get renamed (OpenClaw itself changed names repeatedly). The durable layer is conceptual; master it and tools become swappable implementation details." },
+
+  { phase: 3, question: "OpenClaw differs from a browser chat session chiefly in persistence, tools, and:", options: [
+    "Color scheme",
+    "Model size",
+    "Execution — it actually performs actions (with the right tools enabled) rather than only suggesting them",
+    "Language support"
+  ], correct: 2, explanation: "The leap from assistant to agent is execution: OpenClaw doesn't just suggest renaming files, it renames them when the tool is enabled — which is exactly why bounding discipline matters at the OS level." },
+
+  { phase: 4, question: "Why is an agent a better fit than a fixed parser for varied supplier documents?", options: [
+    "Agents are always cheaper",
+    "Agents store documents permanently",
+    "Parsers can't read part numbers",
+    "Documents arrive in varied formats; a fixed parser breaks on each new layout while an agent reasons about content regardless of format"
+  ], correct: 3, explanation: "Format variability favors an agent that reasons about content over a brittle template parser — with bounding kept tight (extracted data to a review queue, not the system of record)." },
+
+  { phase: 4, question: "For a binding compliance pass/fail decision, the track recommends:", options: [
+    "A deterministic check for the binding decision, with the agent reserved for investigative flagging (flag-and-explain, read-only)",
+    "A fully autonomous agent",
+    "Agents voting on compliance",
+    "No automation at all"
+  ], correct: 0, explanation: "Binding identical-result decisions favor determinism; the agent does investigative cross-source flagging while a human or deterministic logic makes the binding call." },
+
+  { phase: 4, question: "The common design thread across the four aerospace use cases is:", options: [
+    "Full write access for maximum automation",
+    "Agent does investigative/drafting work, human owns every consequential decision, access is mostly read-only, and the worst case is a wrong draft/flag a human catches",
+    "Each needs a different model",
+    "Human review is eliminated"
+  ], correct: 1, explanation: "All four share the same bounded shape: automate the labor, keep decisions human-owned, scope access read-only where possible, and ensure a recoverable worst case." },
+
+  { phase: 4, question: "Why does ITAR push aerospace agents toward self-hosted, in-boundary deployment with local/authorized models?", options: [
+    "Self-hosting is cheaper",
+    "Cloud models can't process aerospace data",
+    "Exposing ITAR technical data to foreign persons (including foreign or non-US-person-staffed cloud) can be a violation, so data must stay in an authorized, US-person-administered boundary",
+    "ITAR names specific approved tools"
+  ], correct: 2, explanation: "ITAR treats exposure of defense technical data to foreign persons as a potential violation, pushing toward self-hosted, in-boundary, US-person-administered systems with local or specifically-compliant models." },
+
+  { phase: 4, question: "When mapping an agent's data flows for controlled data, escape points include:", options: [
+    "Only the final output",
+    "None — agents don't move data",
+    "Only the model API call",
+    "The model prompt, every tool the agent can call, the persisted memory, and the audit logs"
+  ], correct: 3, explanation: "Controlled data can escape via the prompt (to a cloud provider), any tool (egress), memory storage (now holds the data), and logs (which inherit handling rules). All must be mapped and protected." },
+
+  { phase: 4, question: "CUI handling requirements for an agent system are often tied to:", options: [
+    "NIST 800-171 controls — access control, audit, encryption, boundary protection",
+    "ISO 9001",
+    "AS9100 only",
+    "The fair-code license"
+  ], correct: 0, explanation: "Controlled Unclassified Information handling is commonly governed by NIST 800-171, which any agent system touching CUI must satisfy (access control, audit, encryption, boundary protection)." },
+
+  { phase: 4, question: "The role of a named human owner for a production agent is to:", options: [
+    "Run it manually each time",
+    "Be accountable for the agent's behavior — people own decisions, not agents",
+    "Write all its skills personally",
+    "Approve every single action"
+  ], correct: 1, explanation: "Each production agent needs a named owner accountable for its behavior, within a governance framework of deployment sign-off, change control, and a tiered-autonomy policy." },
+
+  { phase: 4, question: "Modifying an agent's tools, prompt, or model should go through change control because:", options: [
+    "It's a formality with no real effect",
+    "It speeds up the agent",
+    "Each of those can alter what the agent is able to do, so changes need review like any system touching controlled data",
+    "The license requires it"
+  ], correct: 2, explanation: "Tools, prompt, and model each change the agent's effective capability, so altering them is a reviewable change — especially where controlled data is involved." },
+
+  { phase: 4, question: "In a regulated environment, the agent audit trail is:", options: [
+    "Optional once development is done",
+    "Disabled in production for performance",
+    "Only for measuring token cost",
+    "A condition of being allowed to run the agent — it must answer 'what did it do, why, on what input, who approved it' months later, retained and protected per the data's classification"
+  ], correct: 3, explanation: "The audit trail is non-optional infrastructure in regulated settings — reconstructable, retained, and protected at the data's classification. You can't run what you can't audit." },
+
+  { phase: 4, question: "Step 1 of the capstone — choosing agent over workflow — requires you to:", options: [
+    "Name the specific part of the path that cannot be predetermined; if you can't, build a workflow instead",
+    "Pick the cheapest model",
+    "Decide the number of sub-agents",
+    "Set the monthly budget"
+  ], correct: 0, explanation: "The Lesson 3 decision gates the capstone: articulate why the path is unpredictable. No concrete reason means it's a workflow, not an agent." },
+
+  { phase: 4, question: "If the capstone's worst-case failure (total model misbehavior) is NOT recoverable, you should:", options: [
+    "Deploy anyway with close monitoring",
+    "Redesign — tighter tools, more human gates, narrower scope — until even total failure is recoverable",
+    "Add another agent to watch it",
+    "Accept the risk if the task is valuable"
+  ], correct: 1, explanation: "Bounding the failure to something recoverable is a hard gate. Irreversible worst-case harm means the guardrails aren't done; redesign until total failure is recoverable. Value buys no exception." },
+
+  { phase: 4, question: "Decomposing the capstone into a supervisor plus sub-agents is warranted when:", options: [
+    "Always — more agents is always better",
+    "Never — single agents are always best",
+    "A single agent's system prompt would become long and conditional, or sub-tasks need different tools/models or independent verification",
+    "Only when using OpenClaw"
+  ], correct: 2, explanation: "Decompose when one prompt would be long/conditional, when sub-tasks need different tools or models, or when independent verification of sub-tasks is valuable (prized in regulated work) — not reflexively." },
+
+  { phase: 4, question: "The track's closing thesis on succeeding with agentic AI is that the winners:", options: [
+    "Deploy the most autonomous agents possible",
+    "Always use the largest model",
+    "Avoid agents entirely",
+    "Deploy the right amount of autonomy — bounded so even total failure is recoverable, and governed so it's trustworthy and auditable"
+  ], correct: 3, explanation: "Success is appropriate autonomy, not maximal autonomy: bounded for recoverable failure and governed for trust and auditability. That discipline turns a hazardous capability into a valuable tool." },
+
+  { phase: 4, question: "A defensible OpenClaw supplier-document deployment limits tools to read + post-to-internal-channel and denies write/exec/external-send so that:", options: [
+    "Even a completely misfiring model can only post a wrong summary to an internal channel a human reads — a bounded, recoverable failure",
+    "It runs faster",
+    "It needs no human owner",
+    "It can auto-send supplier correspondence"
+  ], correct: 0, explanation: "Scoping to read + internal messaging with write/exec/external-send denied means the worst case is a wrong internal summary a human reviews — the 'worst case is recoverable' standard applied to a real deployment." }
+];
+
 
 function CourseApp() {
   // Active track: "ai" (AI for Engineering Certificate) or "mba" (MBA Professional Certificate)
@@ -9389,12 +10960,12 @@ function CourseApp() {
   const [showResetConfirm, setShowResetConfirm] = useState(false);
 
   // Resolve active track's data and storage key
-  const LESSONS = currentTrack === "mba" ? MBA_LESSONS : currentTrack === "am" ? AM_LESSONS : currentTrack === "motor" ? MOTOR_LESSONS : currentTrack === "embed" ? EMBED_LESSONS : currentTrack === "copilot" ? COPILOT_LESSONS : AI_LESSONS;
-  const FINAL_EXAM = currentTrack === "mba" ? MBA_FINAL_EXAM : currentTrack === "am" ? AM_FINAL_EXAM : currentTrack === "motor" ? MOTOR_FINAL_EXAM : currentTrack === "embed" ? EMBED_FINAL_EXAM : currentTrack === "copilot" ? COPILOT_FINAL_EXAM : AI_FINAL_EXAM;
-  const storageKey = currentTrack === "mba" ? "mba-course-progress" : currentTrack === "am" ? "am-course-progress" : currentTrack === "motor" ? "motor-course-progress" : currentTrack === "embed" ? "embed-course-progress" : currentTrack === "copilot" ? "copilot-course-progress" : "ai-course-progress";
-  const courseTitle = currentTrack === "mba" ? "MBA Professional Certificate" : currentTrack === "am" ? "Additive Manufacturing Certificate" : currentTrack === "motor" ? "Electric Motors for Engineers" : currentTrack === "embed" ? "Embedded Platforms" : currentTrack === "copilot" ? "Microsoft 365 Copilot for Aerospace" : "AI Mastery for Aerospace";
-  const certificateTitle = currentTrack === "mba" ? "MBA Professional Certificate" : currentTrack === "am" ? "Additive Manufacturing Certificate" : currentTrack === "motor" ? "Electric Motors for Engineers" : currentTrack === "embed" ? "Embedded Platforms Certificate" : currentTrack === "copilot" ? "Microsoft 365 Copilot for Aerospace" : "AI for Engineering Certificate";
-  const certificateSubtitle = currentTrack === "mba" ? "Aerospace Business Track" : currentTrack === "am" ? "Aerospace Applications Track" : currentTrack === "motor" ? "Aerospace & Precision Applications Track" : currentTrack === "embed" ? "From Hobby to Industrial Reliability Track" : currentTrack === "copilot" ? "Copilot Chat, M365 Copilot, and Agentic Workflows for Engineering & Manufacturing Track" : "Aerospace Manufacturing Track";
+  const LESSONS = currentTrack === "mba" ? MBA_LESSONS : currentTrack === "am" ? AM_LESSONS : currentTrack === "motor" ? MOTOR_LESSONS : currentTrack === "embed" ? EMBED_LESSONS : currentTrack === "agentic" ? AGENTIC_LESSONS : currentTrack === "copilot" ? COPILOT_LESSONS : AI_LESSONS;
+  const FINAL_EXAM = currentTrack === "mba" ? MBA_FINAL_EXAM : currentTrack === "am" ? AM_FINAL_EXAM : currentTrack === "motor" ? MOTOR_FINAL_EXAM : currentTrack === "embed" ? EMBED_FINAL_EXAM : currentTrack === "agentic" ? AGENTIC_FINAL_EXAM : currentTrack === "copilot" ? COPILOT_FINAL_EXAM : AI_FINAL_EXAM;
+  const storageKey = currentTrack === "mba" ? "mba-course-progress" : currentTrack === "am" ? "am-course-progress" : currentTrack === "motor" ? "motor-course-progress" : currentTrack === "embed" ? "embed-course-progress" : currentTrack === "agentic" ? "agentic-course-progress" : currentTrack === "copilot" ? "copilot-course-progress" : "ai-course-progress";
+  const courseTitle = currentTrack === "mba" ? "MBA Professional Certificate" : currentTrack === "am" ? "Additive Manufacturing Certificate" : currentTrack === "motor" ? "Electric Motors for Engineers" : currentTrack === "embed" ? "Embedded Platforms" : currentTrack === "agentic" ? "Agentic AI for Aerospace" : currentTrack === "copilot" ? "Microsoft 365 Copilot for Aerospace" : "AI Mastery for Aerospace";
+  const certificateTitle = currentTrack === "mba" ? "MBA Professional Certificate" : currentTrack === "am" ? "Additive Manufacturing Certificate" : currentTrack === "motor" ? "Electric Motors for Engineers" : currentTrack === "embed" ? "Embedded Platforms Certificate" : currentTrack === "agentic" ? "Agentic AI Certificate" : currentTrack === "copilot" ? "Microsoft 365 Copilot for Aerospace" : "AI for Engineering Certificate";
+  const certificateSubtitle = currentTrack === "mba" ? "Aerospace Business Track" : currentTrack === "am" ? "Aerospace Applications Track" : currentTrack === "motor" ? "Aerospace & Precision Applications Track" : currentTrack === "embed" ? "From Hobby to Industrial Reliability Track" : currentTrack === "agentic" ? "Workflows, n8n, OpenClaw & Enterprise Agents Track" : currentTrack === "copilot" ? "Copilot Chat, M365 Copilot, and Agentic Workflows for Engineering & Manufacturing Track" : "Aerospace Manufacturing Track";
 
   // Auto-detect display mode based on viewport width and pointer type.
   // Desktop with mouse + wide screen = comfortable (larger type, more padding).
@@ -9447,7 +11018,7 @@ function CourseApp() {
       const rawPrefs = localStorage.getItem("course-prefs");
       if (rawPrefs) {
         const prefs = JSON.parse(rawPrefs);
-        if (prefs.currentTrack === "ai" || prefs.currentTrack === "mba" || prefs.currentTrack === "am" || prefs.currentTrack === "motor" || prefs.currentTrack === "embed" || prefs.currentTrack === "copilot") {
+        if (prefs.currentTrack === "ai" || prefs.currentTrack === "mba" || prefs.currentTrack === "am" || prefs.currentTrack === "motor" || prefs.currentTrack === "embed" || prefs.currentTrack === "copilot" || prefs.currentTrack === "agentic") {
           setCurrentTrack(prefs.currentTrack);
         }
         if (typeof prefs.sidebarCollapsed === "boolean") {
@@ -9690,7 +11261,7 @@ function CourseApp() {
   })();
 
   return (
-    <div style={{ display: "flex", fontFamily: "Georgia, serif", background: "#f5f0e8", color: "#1a1208", minHeight: "100dvh" }}>
+    <div style={{ display: "flex", fontFamily: "Georgia, serif", background: "#f5f0e8", color: "#1a1208", height: "100dvh", overflow: "hidden" }}>
 
       {/* SIDEBAR */}
       <nav aria-label="Course navigation"
@@ -9701,6 +11272,10 @@ function CourseApp() {
           display: "flex", flexDirection: "column",
           height: "100dvh", overflowY: "auto", flexShrink: 0,
           position: "sticky", top: 0,
+          paddingTop: "env(safe-area-inset-top, 0px)",
+          paddingLeft: "env(safe-area-inset-left, 0px)",
+          paddingBottom: "env(safe-area-inset-bottom, 0px)",
+          boxSizing: "border-box",
           transition: "width 0.2s ease, min-width 0.2s ease",
           borderRight: "1px solid rgba(255,255,255,0.08)",
         }}>
@@ -9720,11 +11295,11 @@ function CourseApp() {
 
             {/* Track indicator — tap to swap tracks */}
             <button
-              onClick={() => setCurrentTrack(currentTrack === "ai" ? "copilot" : currentTrack === "copilot" ? "mba" : currentTrack === "mba" ? "am" : currentTrack === "am" ? "motor" : currentTrack === "motor" ? "embed" : "ai")}
-              aria-label={`Current track: ${currentTrack === "copilot" ? "CPT" : currentTrack === "mba" ? "MBA" : currentTrack === "am" ? "AM" : currentTrack === "motor" ? "MTR" : currentTrack === "embed" ? "EMB" : "AI"}. Tap to cycle.`}
-              title={`Switch to ${currentTrack === "ai" ? "CPT" : currentTrack === "copilot" ? "MBA" : currentTrack === "mba" ? "AM" : currentTrack === "am" ? "MTR" : currentTrack === "motor" ? "EMB" : "AI"} track`}
+              onClick={() => setCurrentTrack(currentTrack === "ai" ? "copilot" : currentTrack === "copilot" ? "mba" : currentTrack === "mba" ? "am" : currentTrack === "am" ? "motor" : currentTrack === "motor" ? "embed" : currentTrack === "embed" ? "agentic" : "ai")}
+              aria-label={`Current track: ${currentTrack === "agentic" ? "AGT" : currentTrack === "copilot" ? "CPT" : currentTrack === "mba" ? "MBA" : currentTrack === "am" ? "AM" : currentTrack === "motor" ? "MTR" : currentTrack === "embed" ? "EMB" : "AI"}. Tap to cycle.`}
+              title={`Switch to ${currentTrack === "ai" ? "CPT" : currentTrack === "copilot" ? "MBA" : currentTrack === "mba" ? "AM" : currentTrack === "am" ? "MTR" : currentTrack === "motor" ? "EMB" : currentTrack === "embed" ? "AGT" : "AI"} track`}
               style={{ background: "rgba(232,168,124,0.18)", border: "1px solid rgba(232,168,124,0.35)", borderRadius: 6, color: "#e8a87c", cursor: "pointer", padding: "4px 6px", fontFamily: "monospace", fontSize: 10, fontWeight: 700, letterSpacing: "0.08em", lineHeight: 1.2, minWidth: 28 }}>
-              {currentTrack === "mba" ? "MBA" : currentTrack === "am" ? "AM" : currentTrack === "motor" ? "MTR" : currentTrack === "embed" ? "EMB" : currentTrack === "copilot" ? "CPT" : "AI"}
+              {currentTrack === "mba" ? "MBA" : currentTrack === "am" ? "AM" : currentTrack === "motor" ? "MTR" : currentTrack === "embed" ? "EMB" : currentTrack === "agentic" ? "AGT" : currentTrack === "copilot" ? "CPT" : "AI"}
             </button>
 
             {/* Home button */}
@@ -9813,10 +11388,10 @@ function CourseApp() {
                 <div style={{ cursor: "pointer", flex: 1, minWidth: 0 }} onClick={goHome}>
                   <div style={{ fontFamily: "monospace", fontSize: 9, letterSpacing: "0.18em", color: "rgba(255,255,255,0.32)", textTransform: "uppercase", marginBottom: 5 }}>Active Learning Course</div>
                   <div style={{ fontSize: 15, fontWeight: 700, lineHeight: 1.25, color: "#e8a87c" }}>
-                    {currentTrack === "mba" ? "MBA Professional Certificate" : currentTrack === "am" ? "Additive Manufacturing Certificate" : currentTrack === "motor" ? "Electric Motors for Engineers" : currentTrack === "embed" ? "Embedded Platforms Certificate" : currentTrack === "copilot" ? "Microsoft 365 Copilot for Aerospace" : "AI for Engineering Certificate"}
+                    {currentTrack === "mba" ? "MBA Professional Certificate" : currentTrack === "am" ? "Additive Manufacturing Certificate" : currentTrack === "motor" ? "Electric Motors for Engineers" : currentTrack === "embed" ? "Embedded Platforms Certificate" : currentTrack === "agentic" ? "Agentic AI Certificate" : currentTrack === "copilot" ? "Microsoft 365 Copilot for Aerospace" : "AI for Engineering Certificate"}
                   </div>
                   <div style={{ fontSize: 11, fontWeight: 400, fontStyle: "italic", lineHeight: 1.3, color: "rgba(255,255,255,0.55)", marginTop: 2 }}>
-                    {currentTrack === "mba" ? "Aerospace Business Track" : currentTrack === "am" ? "Aerospace Applications Track" : currentTrack === "motor" ? "Aerospace & Precision Applications Track" : currentTrack === "embed" ? "From Hobby to Industrial Reliability Track" : currentTrack === "copilot" ? "Copilot Chat, M365 Copilot & Agentic Workflows Track" : "Aerospace Manufacturing Track"}
+                    {currentTrack === "mba" ? "Aerospace Business Track" : currentTrack === "am" ? "Aerospace Applications Track" : currentTrack === "motor" ? "Aerospace & Precision Applications Track" : currentTrack === "embed" ? "From Hobby to Industrial Reliability Track" : currentTrack === "agentic" ? "Workflows, n8n, OpenClaw & Enterprise Agents Track" : currentTrack === "copilot" ? "Copilot Chat, M365 Copilot & Agentic Workflows Track" : "Aerospace Manufacturing Track"}
                   </div>
                 </div>
                 <div style={{ flexShrink: 0 }}>
@@ -9841,6 +11416,7 @@ function CourseApp() {
                   { key: "am",      label: "AM",  title: "Additive Manufacturing Certificate" },
                   { key: "motor",   label: "MTR", title: "Electric Motors for Engineers" },
                   { key: "embed",   label: "EMB", title: "Embedded Platforms Certificate" },
+                  { key: "agentic", label: "AGT", title: "Agentic AI Certificate" },
                 ].map(opt => {
                   const selected = currentTrack === opt.key;
                   return (
@@ -10091,14 +11667,14 @@ function CourseApp() {
       </nav>
 
       {/* MAIN */}
-      <main aria-label="Lesson content" style={{ flex: 1, overflowY: "auto", height: "100dvh" }}>
+      <main aria-label="Lesson content" style={{ flex: 1, overflowY: "auto", height: "100dvh", paddingTop: "env(safe-area-inset-top, 0px)", paddingBottom: "env(safe-area-inset-bottom, 0px)", paddingRight: "env(safe-area-inset-right, 0px)", boxSizing: "border-box" }}>
         {currentLesson === -1 && (
           <div style={{ maxWidth: isComfortable ? 820 : 620, margin: "0 auto", padding: isComfortable ? "80px 40px" : "60px 32px", textAlign: "center" }}>
-            <div style={{ fontSize: 58, marginBottom: 18 }}>{currentTrack === "mba" ? "📈" : currentTrack === "am" ? "🛠️" : currentTrack === "motor" ? "⚙️" : currentTrack === "embed" ? "🔌" : currentTrack === "copilot" ? "🤖" : "✈️"}</div>
+            <div style={{ fontSize: 58, marginBottom: 18 }}>{currentTrack === "mba" ? "📈" : currentTrack === "am" ? "🛠️" : currentTrack === "motor" ? "⚙️" : currentTrack === "embed" ? "🔌" : currentTrack === "agentic" ? "⚡" : currentTrack === "copilot" ? "🤖" : "✈️"}</div>
             <h1 style={{ fontSize: "clamp(28px,5vw,44px)", fontWeight: 700, letterSpacing: "-0.03em", marginBottom: 10 }}>
               Welcome to Your{" "}
               <span style={{ fontStyle: "italic", color: "#c84b11" }}>
-                {currentTrack === "mba" ? "MBA Professional" : currentTrack === "am" ? "Additive Manufacturing" : currentTrack === "motor" ? "Electric Motors" : currentTrack === "embed" ? "Embedded Platforms" : currentTrack === "copilot" ? "Microsoft 365 Copilot" : "AI Mastery"}
+                {currentTrack === "mba" ? "MBA Professional" : currentTrack === "am" ? "Additive Manufacturing" : currentTrack === "motor" ? "Electric Motors" : currentTrack === "embed" ? "Embedded Platforms" : currentTrack === "agentic" ? "Agentic AI" : currentTrack === "copilot" ? "Microsoft 365 Copilot" : "AI Mastery"}
               </span>{" "}
               Course
             </h1>
@@ -10111,6 +11687,8 @@ function CourseApp() {
                 ? "A hands-on learning experience for engineers and technicians who spec, troubleshoot, and inspect electric motors in aerospace and precision applications. Each lesson combines curated videos, written content with applied examples, and knowledge-check quizzes with immediate feedback."
                 : currentTrack === "embed"
                 ? "A practical learning experience for engineers crossing from hobby work into industrial deployment. Covers Arduino, Raspberry Pi, ESP32, and PLCs as full peers — plus the discipline of hardening hobby platforms for industrial reliability. Each lesson combines curated videos, written content, and knowledge-check quizzes."
+                : currentTrack === "agentic"
+                ? "A practical learning experience for aerospace engineers building agentic AI. Concepts first (agents vs. workflows, the anatomy of an agent), then hands-on with n8n, then OpenClaw and the wider ecosystem, and finally enterprise incorporation — with guardrails and ITAR/CUI discipline throughout."
                 : currentTrack === "copilot"
                 ? "A practical learning experience for aerospace engineers using Microsoft 365 Copilot. Built around the Copilot Chat (free) → M365 Copilot Enterprise upgrade path, with each lesson explicitly calling out what the Enterprise license unlocks. Covers in-app productivity, RAG, agents, Copilot Studio, ITAR/EAR/CUI export-control distinctions, and an end-to-end engineering workflow capstone."
                 : "An interactive learning experience built for aerospace manufacturing professionals. Each lesson combines curated videos, written content with aerospace manufacturing examples, and knowledge-check quizzes with immediate feedback."}
@@ -10133,6 +11711,8 @@ function CourseApp() {
                 ? "📹 Curated video from leading motor educators · 📖 Written content with applied aerospace and precision examples · 🧩 Multiple-choice quizzes with full explanations · 💡 Practical callouts grounded in motor specification, manufacturing, and troubleshooting"
                 : currentTrack === "embed"
                 ? "📹 Curated video from leading embedded and industrial educators · 📖 Written content covering hobby and industrial platforms · 🧩 Multiple-choice quizzes with full explanations · 💡 Practical callouts on hardening, real-time, and production-grade design"
+                : currentTrack === "agentic"
+                ? "📹 Curated video from leading agentic-AI and n8n educators · 📖 Written content grounded in current tools (n8n, OpenClaw, MCP) · 🧩 Multiple-choice quizzes with full explanations · 💡 Aerospace-framed use cases with bounded, recoverable failure modes"
                 : currentTrack === "copilot"
                 ? "📹 Curated video from Microsoft and leading Copilot educators · 📖 Written content with explicit 'Chat free vs Enterprise unlocked' callouts · 🧩 Multiple-choice quizzes with full explanations · 💡 Aerospace-specific guidance on ITAR/EAR/CUI, tenant boundaries, and agentic workflows"
                 : "📹 Curated video from a top AI educator · 📖 Written content with aerospace examples · 🧩 Multiple-choice quizzes with full explanations · 💡 Practical callouts for manufacturing applications"}
@@ -10180,6 +11760,8 @@ function CourseApp() {
                 ? `You have completed all ${LESSONS.length} lessons across 4 phases. You now have the knowledge to specify, inspect, and troubleshoot electric motors across the major motor types — and the discipline to build a defensible motor selection from blank page to validated recommendation.`
                 : currentTrack === "embed"
                 ? `You have completed all ${LESSONS.length} lessons across 4 phases. You now understand Arduino, Raspberry Pi, ESP32, and PLCs as full peers — and the discipline of hardening hobby platforms for industrial reliability, complete with a worked architecture for both hobby and production-grade versions of the same system.`
+                : currentTrack === "agentic"
+                ? `You have completed all ${LESSONS.length} lessons across 4 phases. You can now reason about when a task warrants an agent versus a workflow, build agents in n8n, deploy local-first agents with OpenClaw responsibly, and architect an end-to-end agentic workflow with guardrails and governance fit for a regulated aerospace environment.`
                 : currentTrack === "copilot"
                 ? `You have completed all ${LESSONS.length} lessons across 4 phases. You now understand the practical differences between Copilot Chat (free) and M365 Copilot Enterprise, where each adds value in engineering work, the export-control realities of ITAR/EAR/CUI, and how to architect end-to-end Copilot-enabled workflows — plus a ready-to-pitch business case for the Enterprise upgrade.`
                 : `You have completed all ${LESSONS.length} lessons across 4 phases. You now have the knowledge to build real AI applications for aerospace manufacturing and the business acumen to deploy them responsibly.`}
@@ -10218,6 +11800,14 @@ function CourseApp() {
                     → Build the hobby version on Arduino/ESP32/Pi to validate requirements<br/>
                     → Read your facility's PLC code (ladder or ST) for one real installed system to gain fluency<br/>
                     → Schedule 30 minutes with controls engineering to discuss platform decisions
+                  </>
+                ) : currentTrack === "agentic" ? (
+                  <>
+                    → Pick one recurring aerospace task that genuinely fits an agent (multi-step, variable, judgment-laden)<br/>
+                    → Apply the Lesson 14 capstone template — decompose it, specify each agent's model/tools/memory, place the human gates<br/>
+                    → State the worst-case failure if the model misbehaved completely, and redesign until it is recoverable<br/>
+                    → Choose self-hosted n8n or isolated OpenClaw, and map every data flow against your authorization boundary<br/>
+                    → Review the incorporation checklist with IT, security, and your Empowered Official before any controlled data is involved
                   </>
                 ) : currentTrack === "copilot" ? (
                   <>
@@ -10345,8 +11935,9 @@ class ErrorBoundary extends Component {
   handleReset = () => {
     // ErrorBoundary doesn't know active track, so wipe all course data to recover cleanly
     try {
-      localStorage.removeItem("ai-course-progress");
-      localStorage.removeItem("mba-course-progress");
+      ["ai", "mba", "am", "motor", "embed", "copilot", "agentic"].forEach((t) => {
+        localStorage.removeItem(`${t}-course-progress`);
+      });
       localStorage.removeItem("course-prefs");
     } catch (e) {}
     window.location.reload();

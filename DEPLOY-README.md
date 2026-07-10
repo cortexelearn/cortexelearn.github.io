@@ -1,6 +1,6 @@
 # CortexEdge — Landing Page
 
-The root landing page for cortexelearn.github.io. Links out to the seven
+The root landing page for cortexelearn.github.io. Links out to the nine
 standalone track sites.
 
 ## IMPORTANT — this goes in the SPECIAL repo
@@ -31,5 +31,5 @@ That repo serves at the ROOT (https://cortexelearn.github.io/) with no subpath.
 If you rename any track repo, update the matching href in index.html.
 
 ## Note on stats
-Hero shows 7 tracks / 98 lessons / 371 exam questions (53 per track x 7).
+Hero shows 9 tracks / 127 lessons / 477 exam questions (53 per track x 9).
 Update these numbers in index.html if track content changes.
